@@ -1,28 +1,29 @@
+# Syncify
+Syncify is a synchronized listening room experience for Spotify. Think community radio.
+
+## Table of Contents
+- [REST-API Dokumentation](api/README.md)
+- [Frontend Dokumentation](frontend/README.md)
+- [Prerequisites](#prerequisites)
+- [Up and running](#up-and-running)
+
+
 ## Prerequisites
-- [Node.js](https://nodejs.org/en/) >= 8
+- [Node.js](https://nodejs.org/en/) >= 8 (with npm >= 5)
 - [Docker](https://www.docker.com/get-docker)
 
 ## Up and running
-
-### Docker
-- Download and start all containers: `$ docker-compose up --detach`
-- Stop all containers: `$ docker-compose stop`
-- Stop and remove all containers: `$ docker-compose down` (database is still persisted in volume)
-
-### app
 ```bash
-# install dependencies
-$ npm install
+# start docker containers
+$ npm run docker:up
 
-# run app in dev mode
-$ npm start
+# stop docker containers
+$ npm run docker:down
 
-# run app in production
-$ npm run build && npm run serve
+# install all dependencies
+$ npm run install:all
 
-# run and optionally watch tests
-$ npm t -- --watch
+# run all apps in dev mode
+$ npm run start:all
 
-# run linter
-$ npm run lint
 ```
