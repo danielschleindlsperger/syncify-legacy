@@ -14,4 +14,8 @@ app.use(
 
 app.use(bundler.middleware())
 
-app.listen(Number(process.env.PORT || 1234))
+const PORT = Number(process.env.PORT || 1234)
+
+app.listen(PORT, () => {
+  console.log(`Started dev-server on http://localhost:${PORT}`)
+})
