@@ -18,6 +18,6 @@ connectDb().then(() => {
   // start app
   app.listen(APP_PORT, () => {
     // eslint-disable-next-line
-    console.log(`listening to ${process.env.NODE_ENV} server on http://${APP_HOST}:${APP_PORT}`)
+    console.log(`listening to ${process.env.NODE_ENV} server on ${APP_HOST}:${APP_PORT}`)
   })
 })
