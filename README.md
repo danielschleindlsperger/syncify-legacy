@@ -14,16 +14,9 @@ Syncify is a synchronized listening room experience for Spotify. Think community
 
 ## Up and running
 ```bash
-# start docker containers
-$ npm run docker:up
-
-# stop docker containers
-$ npm run docker:down
-
 # install all dependencies
 $ npm run install:all
 
-# run all apps in dev mode
+# start containers and apps
 $ npm run start:all
-
 ```

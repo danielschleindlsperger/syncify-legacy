@@ -6,8 +6,12 @@
   "scripts": {
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",
-    "install:all": "cd ./api && npm i",
-    "start:all": "cd ./api && npm start"
+    "install:api": "cd ./api && npm i",
+    "install:frontend": "cd ./frontend && npm i",
+    "install:all": "concurrently \"npm run install:api\" \"npm run install:frontend\" ",
+    "start:api": "cd ./api && npm start",
+    "start:frontend": "cd ./frontend && npm start",
+    "start:all": "npm run docker:up && concurrently \"npm run start:api\" \"npm run start:frontend\" "
   },
   "author": "Daniel Schleindlsperger <daniel@schleindlsperger.de>",
   "engines": {
@@ -15,5 +19,7 @@
   },
   "license": "ISC",
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "concurrently": "^3.6.0"
+  }
 }
