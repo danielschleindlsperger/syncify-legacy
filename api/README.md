@@ -1,5 +1,38 @@
-# Syncify REST-API
+# api-test
 
-## Technologies
-- Koa.js v2 [[Website](https://koajs.com/), [Github](https://github.com/koajs/koa)]
-  - [Exhaustive list of koa middelwares](https://github.com/koajs/koa/wiki)
+## Description
+
+description
+
+## Installation
+
+```bash
+$ npm install
+```
+
+## Running the app
+
+```bash
+# development
+$ npm run start
+
+# watch mode
+$ npm run start:dev
+
+# production mode
+npm run start:prod
+```
+
+## Test
+
+```bash
+# unit tests
+$ npm run test
+
+# e2e tests
+$ npm run test:e2e
+
+# test coverage
+$ npm run test:cov
+```
+

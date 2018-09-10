@@ -1,10 +1,26 @@
 # Syncify Frontend
 
-## Up and running
-```bash
-# start dev server
-$ npm run start
+## Project setup
+```
+npm install
+```
 
-# build for production
-$ npm run build
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Run your unit tests
+```
+npm run test:unit
 ```
