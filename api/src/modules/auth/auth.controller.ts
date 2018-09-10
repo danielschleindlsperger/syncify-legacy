@@ -1,4 +1,10 @@
-import { Controller, Get, Res, Query, BadRequestException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Res,
+  Query,
+  BadRequestException,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UserService } from '../user/user.service';
 
@@ -24,7 +30,9 @@ export class AuthController {
     const tokens: Tokens = await this.authService
       .tradeCodeForTokens(code)
       .catch(() => {
-        throw new BadRequestException('No code retrieved from Spotify callback.');
+        throw new BadRequestException(
+          'No code retrieved from Spotify callback.',
+        );
       });
 
     const spotifyUser = await this.authService.getUser(tokens.access_token);
@@ -32,7 +40,7 @@ export class AuthController {
     const userDto = {
       accessToken: tokens.access_token,
       refreshToken: tokens.refresh_token,
-      expiresAt: (Date.now() / 1000) + tokens.expires_in,
+      expiresAt: Date.now() / 1000 + tokens.expires_in,
       name: spotifyUser.display_name,
       id: spotifyUser.id,
       avatarUrl: spotifyUser.images[0].url,

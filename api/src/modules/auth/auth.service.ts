@@ -7,7 +7,6 @@ import { spotifyScopes } from './spotify-scopes';
 
 @Injectable()
 export class AuthService {
-
   spotifyApi = new SpotifyWebApi({
     clientId: 'b7fbf01f209d452b89428414609933f3',
     clientSecret: '2aa8a61ce8bb4c3eb3d8a5b121b19915',
@@ -17,7 +16,7 @@ export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
     private readonly userService: UserService,
-  ){}
+  ) {}
 
   authorizationUrl(): string {
     return this.spotifyApi.createAuthorizeURL(spotifyScopes);

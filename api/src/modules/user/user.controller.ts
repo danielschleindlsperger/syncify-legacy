@@ -3,9 +3,7 @@ import { UserService } from './user.service';
 
 @Controller('/users')
 export class UserController {
-  constructor(
-    private readonly userService: UserService,
-  ) {}
+  constructor(private readonly userService: UserService) {}
 
   @Get()
   all() {
@@ -14,9 +12,8 @@ export class UserController {
 
   @Get(':id')
   show(@Param('id') id: string) {
-    return this.userService.find(id)
-      .catch(() => {
-        throw new NotFoundException('No user found.');
-      });
+    return this.userService.find(id).catch(() => {
+      throw new NotFoundException('No user found.');
+    });
   }
 }

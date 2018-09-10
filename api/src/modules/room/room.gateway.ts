@@ -9,7 +9,8 @@ import { map } from 'rxjs/operators';
 
 @WebSocketGateway()
 export class RoomGateway {
-  @WebSocketServer() server;
+  @WebSocketServer()
+  server;
 
   @SubscribeMessage('events')
   findAll(client, data): Observable<WsResponse<number>> {

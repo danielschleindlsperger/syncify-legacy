@@ -11,11 +11,11 @@ declare type TokenType = 'Bearer';
 declare type Seconds = number;
 
 declare interface SpotifyCredentials {
-  redirectUri?: SpotifyRedirectUrl,
-  clientId?: SpotifyID,
-  clientSecret?: SpotifySecret,
-  accessToken?: AccessToken,
-  refreshToken?: RefreshToken,
+  redirectUri?: SpotifyRedirectUrl;
+  clientId?: SpotifyID;
+  clientSecret?: SpotifySecret;
+  accessToken?: AccessToken;
+  refreshToken?: RefreshToken;
 }
 
 declare interface Tokens {
@@ -26,23 +26,23 @@ declare interface Tokens {
 }
 
 declare interface SpotifyUser {
-  display_name: string,
+  display_name: string;
   external_urls: {
-    spotify: string
-  },
+    spotify: string;
+  };
   followers: {
-    total: number
-  },
-  email: string,
-  href: string,
-  id: string,
+    total: number;
+  };
+  email: string;
+  href: string;
+  id: string;
   images: [
     {
-    height?: number,
-    url: string,
-    width?: null
+      height?: number;
+      url: string;
+      width?: null;
     }
-  ],
-  type: string,
-  uri: string,
+  ];
+  type: string;
+  uri: string;
 }
