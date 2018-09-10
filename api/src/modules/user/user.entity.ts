@@ -13,7 +13,7 @@ export class User {
   }
 
   @PrimaryColumn('varchar')
-  id: string;
+  id?: string;
 
   @Column('varchar')
   name: string;
@@ -31,8 +31,8 @@ export class User {
   avatarUrl: string;
 
   @CreateDateColumn()
-  createdAt: string;
+  createdAt?: string;
 
   @UpdateDateColumn()
-  updatedAt: string;
+  updatedAt?: string;
 }

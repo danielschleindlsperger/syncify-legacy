@@ -6,7 +6,8 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { UserService } from '../user/user.service';
+import { UserService } from 'modules/user/user.service';
+import { User } from 'modules/user/user.entity';
 
 @Controller('/auth')
 export class AuthController {
@@ -37,7 +38,7 @@ export class AuthController {
 
     const spotifyUser = await this.authService.getUser(tokens.access_token);
 
-    const userDto = {
+    const userDto: User = {
       accessToken: tokens.access_token,
       refreshToken: tokens.refresh_token,
       expiresAt: Date.now() / 1000 + tokens.expires_in,

@@ -6,15 +6,12 @@
   "license": "MIT",
   "scripts": {
     "format": "prettier --write \"**/*.ts\"",
-    "start": "ts-node -r tsconfig-paths/register src/main.ts",
-    "start:dev": "nodemon",
+    "start": "nodemon",
     "prestart:prod": "rm -rf dist && tsc",
-    "start:prod": "node dist/main.js",
-    "start:hmr": "node dist/server",
+    "start:prod": "node dist/src/main.js",
     "test": "jest",
     "test:cov": "jest --coverage",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
-    "webpack": "webpack --config webpack.config.js"
+    "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
     "@nestjs/common": "^5.3.6",
@@ -35,6 +32,7 @@
     "typescript": "^2.6.2"
   },
   "devDependencies": {
+    "@ef-carbon/tspm": "^2.2.5",
     "@nestjs/testing": "^5.0.0",
     "@types/express": "^4.0.39",
     "@types/jest": "^21.1.8",
