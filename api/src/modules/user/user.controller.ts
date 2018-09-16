@@ -1,4 +1,5 @@
-import { Controller, Get, Param, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Param, NotFoundException, UseGuards, Req } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { UserService } from './user.service';
 
 @Controller('/users')
@@ -8,6 +9,12 @@ export class UserController {
   @Get()
   all() {
     return this.userService.findAll();
+  }
+
+  @Get('/me')
+  @UseGuards(AuthGuard('jwt'))
+  me(@Req() req) {
+    return req.user;
   }
 
   @Get(':id')

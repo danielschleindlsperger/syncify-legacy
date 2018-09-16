@@ -36,6 +36,8 @@ export class AuthService {
   }
 
   async validateUser(payload: any): Promise<any> {
+    console.log(payload)
+    throw new Error(payload)
     return await this.userService.find(payload.id);
   }
 }

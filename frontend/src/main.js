@@ -3,10 +3,11 @@ import axios from 'axios';
 import App from './App.vue';
 import router from './router';
 import store from './store';
+import { initAuth } from './modules/auth';
 
 Vue.config.productionTip = false;
 
-console.log(window.location.search);
+initAuth();
 
 const token = localStorage.getItem('user-token');
 if (token) {
