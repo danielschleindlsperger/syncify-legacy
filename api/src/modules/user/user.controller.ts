@@ -1,4 +1,4 @@
-import { Controller, Get, Param, NotFoundException, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, Param, NotFoundException, UseGuards, Req, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from './user.service';
 
@@ -6,6 +6,7 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get()
   all() {
     return this.userService.findAll();
@@ -17,6 +18,7 @@ export class UserController {
     return req.user;
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get(':id')
   @UseGuards(AuthGuard('jwt'))
   show(@Param('id') id: string) {
