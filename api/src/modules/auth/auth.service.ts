@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from 'modules/config/config.service';
 import * as SpotifyWebApi from 'spotify-web-api-node';
 import { prop } from 'ramda';
 import { UserService } from '../user/user.service';
@@ -7,16 +8,20 @@ import { spotifyScopes } from './spotify-scopes';
 
 @Injectable()
 export class AuthService {
-  spotifyApi = new SpotifyWebApi({
-    clientId: 'b7fbf01f209d452b89428414609933f3',
-    clientSecret: '2aa8a61ce8bb4c3eb3d8a5b121b19915',
-    redirectUri: 'http://localhost:3000/auth/callback',
-  });
+  // TODO fix type
+  spotifyApi: any
 
   constructor(
     private readonly jwtService: JwtService,
     private readonly userService: UserService,
-  ) {}
+    private readonly config: ConfigService,
+  ) {
+    this.spotifyApi = new SpotifyWebApi({
+      clientId: this.config.spotifyClientId,
+      clientSecret: this.config.spotifyClientSecret,
+      redirectUri: `${this.config.appUrl}:${this.config.appPort}${this.config.spotifyRedirectUrl}`,
+    });
+  }
 
   authorizationUrl(): string {
     return this.spotifyApi.createAuthorizeURL(spotifyScopes);

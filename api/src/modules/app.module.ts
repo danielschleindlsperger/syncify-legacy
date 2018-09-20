@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AuthModule } from 'modules/auth/auth.module';
+import { ConfigModule } from 'modules/config/config.module';
 import { RoomModule } from 'modules/room/room.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from 'modules/user/user.module';
@@ -7,6 +8,7 @@ import { UserModule } from 'modules/user/user.module';
 @Module({
   imports: [
     AuthModule,
+    ConfigModule,
     RoomModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
