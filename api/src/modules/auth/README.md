@@ -10,7 +10,7 @@
 - Use JWT as `Bearer` token for api requests
 
 ## Refresh
-The token expires after one hour. The backend does not auto refresh tokens. Therefore the frontend has to intelligently refresh the token.
+The token expires after one hour. The backend does not automatically refresh tokens on every request. Therefore the frontend has to intelligently refresh the token.
 
 ## Authenticate a route
 
