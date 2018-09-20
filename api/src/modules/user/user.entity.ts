@@ -5,15 +5,12 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { User } from './user.interface';
 
 @Entity()
-export class User {
-  constructor(props: User) {
-    Object.assign(this, props);
-  }
-
+export class UserEntity implements User {
   @PrimaryColumn('varchar')
-  id?: string;
+  id: string;
 
   @Column('varchar')
   name: string;
@@ -31,8 +28,8 @@ export class User {
   avatarUrl: string;
 
   @CreateDateColumn()
-  createdAt?: string;
+  createdAt: string;
 
   @UpdateDateColumn()
-  updatedAt?: string;
+  updatedAt: string;
 }

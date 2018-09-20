@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UserService } from 'modules/user/user.service';
-import { User } from 'modules/user/user.entity';
+import { User } from 'modules/user/user.interface';
 
 @Controller('/auth')
 export class AuthController {
@@ -19,11 +19,6 @@ export class AuthController {
   @Get('/login')
   login(@Res() res: any) {
     res.redirect(this.authService.authorizationUrl());
-  }
-
-  @Get('/test')
-  test() {
-    return 'authenticated.';
   }
 
   @Get('/callback')

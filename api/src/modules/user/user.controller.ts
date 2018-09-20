@@ -18,6 +18,7 @@ export class UserController {
   }
 
   @Get(':id')
+  @UseGuards(AuthGuard('jwt'))
   show(@Param('id') id: string) {
     return this.userService.find(id).catch(() => {
       throw new NotFoundException('No user found.');
