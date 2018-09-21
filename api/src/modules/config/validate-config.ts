@@ -3,8 +3,8 @@ import { EnvConfig } from './env-config.interface';
 
 const envVarsSchema: Joi.ObjectSchema = Joi.object({
   NODE_ENV: Joi.string().valid(['development', 'production']),
-  APP_URL: Joi.string().uri().required(),
-  APP_PORT: Joi.number().required(),
+  API_URL: Joi.string().required(),
+  FRONTEND_URL: Joi.string().required(),
   DB_HOST: Joi.string().required(),
   DB_USER: Joi.string().required(),
   DB_SECRET: Joi.string().required(),

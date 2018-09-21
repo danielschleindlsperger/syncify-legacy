@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UserService } from 'modules/user/user.service';
+import { ConfigService } from 'modules/config/config.service';
 import { User } from 'modules/user/user.interface';
 
 @Controller('/auth')
@@ -14,6 +15,7 @@ export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly userService: UserService,
+    private readonly configService: ConfigService,
   ) {}
 
   @Get('/login')
@@ -44,6 +46,6 @@ export class AuthController {
 
     const user = await this.userService.save(userDto);
     const token = this.authService.signIn(user);
-    res.redirect(`http://localhost:8080/app?token=${token}`);
+    res.redirect(`${this.configService.frontendUrl}?token=${token}`);
   }
 }

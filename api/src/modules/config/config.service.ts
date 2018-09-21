@@ -21,9 +21,9 @@ export class ConfigService {
 
   get environment() { return this.envConfig.NODE_ENV };
 
-  get appUrl() { return this.envConfig.APP_URL; }
+  get apiUrl() { return this.envConfig.API_URL; }
 
-  get appPort() { return this.envConfig.APP_PORT; }
+  get frontendUrl() { return this.envConfig.FRONTEND_URL; }
 
   get databaseHostName() { return this.envConfig.DB_HOST; }
 

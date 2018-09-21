@@ -19,7 +19,7 @@ export class AuthService {
     this.spotifyApi = new SpotifyWebApi({
       clientId: this.config.spotifyClientId,
       clientSecret: this.config.spotifyClientSecret,
-      redirectUri: `${this.config.appUrl}:${this.config.appPort}${this.config.spotifyRedirectUrl}`,
+      redirectUri: `${this.config.apiUrl}${this.config.spotifyRedirectUrl}`,
     });
   }
 
