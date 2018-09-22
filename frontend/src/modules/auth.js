@@ -1,10 +1,8 @@
-import { interval } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import R from 'ramda';
+import * as R from 'ramda';
 import axios from 'axios';
-import store from '../store';
-import { nowMs } from '../utils';
+import { query } from '../utils/query'
 import { localStorage } from './local-storage';
+import { setAuthToken, setAuthTokenValidity } from '../store'
 
 const JWT_STORAGE_KEY = 'JWT';
 const VALID_UNTIL_STORAGE_KEY = 'JWT_VALID_UNTIL';
@@ -13,22 +11,10 @@ const JWT_QUERY_KEY = 'token';
 const whenNil = f => R.when(R.isNil, f);
 const whenNotNil = f => R.unless(R.isNil, f);
 
-export const startRefreshAuthInterval = () =>
-  interval(5000)
-    .pipe(tap(() => {
-      store.dispatch('refreshToken');
-    }))
-    .subscribe();
-
 const locationHref = R.path(['location', 'href']);
 
 const maybeTokenFromQuery = () => R.pipe(
-  locationHref,
-  R.split('?'),
-  R.last,
-  R.split('&'),
-  R.map(R.split('=')),
-  R.fromPairs,
+  query,
   R.prop(JWT_QUERY_KEY),
 )(window);
 
@@ -56,16 +42,26 @@ const persistToken = R.pipe(
   R.tap(() => localStorage.set(VALID_UNTIL_STORAGE_KEY, nowMs())),
 );
 
-export const initAuth = () => R.pipe(
+export const initialAuthorization = store => R.pipe(
   maybeTokenFromQuery,
-  whenNotNil(R.tap(persistToken)),
-  whenNil(() => localStorage.get(JWT_STORAGE_KEY)),
-  // TODO: case when token is in localstorage but stale -> refresh token, but don't login
-  whenNotNil(R.pipe(
-    R.tap((token) => { store.dispatch('setToken', { token, validUntil: localStorage.getNumber(VALID_UNTIL_STORAGE_KEY) }); }),
-    R.tap(() => { store.dispatch('setUser'); }),
-    R.tap(setAuthTokenHeader),
-    R.tap(resetUrl),
-    R.tap(startRefreshAuthInterval),
-  )),
+  // some other stuff, like reading from local storage, updating the redux store
+  R.unless(
+    R.isNil,
+    R.pipe(
+      R.tap(token => store.dispatch(setAuthToken(token))),
+      R.tap(() => store.dispatch(setAuthTokenValidity())),
+    )
+  )
+
+
+  // whenNotNil(R.tap(persistToken)),
+  // whenNil(() => localStorage.get(JWT_STORAGE_KEY)),
+  // // TODO: case when token is in localstorage but stale -> refresh token, but don't login
+  // whenNotNil(R.pipe(
+  //   R.tap(console.log),
+  //   // R.tap((token) => { store.dispatch('setToken', { token, validUntil: localStorage.getNumber(VALID_UNTIL_STORAGE_KEY) }); }),
+  //   // R.tap(() => { store.dispatch('setUser'); }),
+  //   R.tap(setAuthTokenHeader),
+  //   R.tap(resetUrl),
+  // )),
 )();
