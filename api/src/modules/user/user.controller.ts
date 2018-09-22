@@ -12,6 +12,7 @@ export class UserController {
     return this.userService.findAll();
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get('/me')
   @UseGuards(AuthGuard('jwt'))
   me(@Req() req) {
