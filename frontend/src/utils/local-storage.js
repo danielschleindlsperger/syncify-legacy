@@ -17,9 +17,6 @@ export const localStorage = {
   set,
   getNumber: R.pipe(
     get,
-    R.unless(
-      R.isNil,
-      Number,
-    ),
+    Number,
   ),
 }

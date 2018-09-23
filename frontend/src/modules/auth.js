@@ -1,7 +1,6 @@
 import * as R from 'ramda';
-import axios from 'axios';
 import { query } from '../utils/query'
-import { localStorage } from './local-storage';
+import { localStorage } from '../utils/local-storage';
 import { setFreshAuth, setExistingAuth } from '../store/auth'
 
 const JWT_STORAGE_KEY = 'JWT';
