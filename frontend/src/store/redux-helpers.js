@@ -1,4 +1,6 @@
 import * as R from 'ramda'
+import { createStore, applyMiddleware } from 'redux'
+import thunkMiddleware from 'redux-thunk'
 
 // To create a `typed reduce` simply pass an action type and a corresponding reducer which
 // will be passed the current state and the action.
@@ -23,3 +25,6 @@ export const niceReducer = (defaultState, typedReducers) => (state = defaultStat
     reducer => reducer(state, action),
   ),
 )(typedReducers)
+
+export const createStoreWithGlobalMiddleware = reducer =>
+  createStore(reducer, applyMiddleware(thunkMiddleware))
