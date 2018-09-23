@@ -12,7 +12,7 @@ initialAuthorization(store)
 initSpotifySdk(store)
   .then(() => {
     render(
-      <App />,
+      <App store={store} />,
       document.querySelector('#app'),
     )
   })

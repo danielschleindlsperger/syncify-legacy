@@ -1,4 +1,5 @@
 import React from 'react'
+import { withAuth } from '../components/withAuth'
 
 const Rooms = () => (
   <div>
@@ -6,4 +7,4 @@ const Rooms = () => (
   </div>
 )
 
-export default Rooms
+export default withAuth(Rooms)

@@ -2,7 +2,7 @@ import * as R from 'ramda';
 import axios from 'axios';
 import { query } from '../utils/query'
 import { localStorage } from './local-storage';
-import { setAuthToken, setAuthTokenValidity } from '../store'
+import { setAuthToken } from '../store/auth'
 
 const JWT_STORAGE_KEY = 'JWT';
 const VALID_UNTIL_STORAGE_KEY = 'JWT_VALID_UNTIL';
@@ -49,7 +49,6 @@ export const initialAuthorization = store => R.pipe(
     R.isNil,
     R.pipe(
       R.tap(token => store.dispatch(setAuthToken(token))),
-      R.tap(() => store.dispatch(setAuthTokenValidity())),
     )
   )
 

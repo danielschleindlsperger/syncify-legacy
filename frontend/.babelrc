@@ -1,6 +1,7 @@
 {
   "presets": [
-    "jest"
+    "jest",
+    "react"
   ],
   "plugins": [],
   "env": {
