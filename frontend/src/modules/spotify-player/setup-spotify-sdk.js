@@ -1,6 +1,6 @@
 import * as R from 'ramda'
-import { promise } from '../utils/promise'
-import { authUser } from './auth/lenses'
+import { promise } from 'root/utils/promise'
+import { authUser } from 'root/modules/auth/lenses'
 
 // required by spotify sdk
 // :: String -> Promise SpotifyPlayer

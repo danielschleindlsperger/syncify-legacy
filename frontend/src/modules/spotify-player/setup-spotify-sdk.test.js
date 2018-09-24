@@ -1,4 +1,4 @@
-import { registerSpotifyListener } from './spotify-sdk'
+import { registerSpotifyListener } from './setup-spotify-sdk'
 
 describe('registerSpotifyListener', () => {
   it('registeres a global entry point', () => {

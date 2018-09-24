@@ -1,0 +1,1 @@
+export { initSpotifySdk as initializeSpotifyPlayer } from './setup-spotify-sdk'
