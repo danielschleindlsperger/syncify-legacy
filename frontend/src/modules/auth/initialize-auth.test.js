@@ -23,7 +23,7 @@ describe('initialAuthorization', () => {
     });
     jest.spyOn(Date, 'now').mockImplementation(() => 10000000)
     initialAuthorization(store)
-    expect(store.getState().authToken).toBe('tokenFromQuery')
+    expect(store.getState().token).toBe('tokenFromQuery')
     expect(store.getState().validUntil).toBe(13600)
   })
 
@@ -32,13 +32,13 @@ describe('initialAuthorization', () => {
     window.localStorage.setItem('JWT_VALID_UNTIL', 123456)
 
     initialAuthorization(store)
-    expect(store.getState().authToken).toBe('tokenFromLocalStorage')
+    expect(store.getState().token).toBe('tokenFromLocalStorage')
     expect(store.getState().validUntil).toBe(123456)
   })
 
   test('no token at all', () => {
     initialAuthorization(store)
-    expect(store.getState().authToken).toBe(null)
+    expect(store.getState().token).toBe(null)
     expect(store.getState().validUntil).toBe(0)
   })
 })

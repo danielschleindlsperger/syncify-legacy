@@ -17,15 +17,15 @@ const maybeTokenFromQuery = () => R.pipe(
   R.prop(JWT_QUERY_KEY),
 )(window);
 
-const persistToken = ({ authToken, validUntil }) => {
-  localStorage.set(JWT_STORAGE_KEY, authToken)
+const persistToken = ({ token, validUntil }) => {
+  localStorage.set(JWT_STORAGE_KEY, token)
   localStorage.set(VALID_UNTIL_STORAGE_KEY, validUntil)
 }
 
 const readTokenFromStorage = () => {
-  const authToken = localStorage.get(JWT_STORAGE_KEY)
+  const token = localStorage.get(JWT_STORAGE_KEY)
   const validUntil = localStorage.getNumber(VALID_UNTIL_STORAGE_KEY)
-  return (authToken && validUntil) ? { authToken, validUntil } : null
+  return (token && validUntil) ? { token, validUntil } : null
 }
 
 const fetchUser = store => () =>

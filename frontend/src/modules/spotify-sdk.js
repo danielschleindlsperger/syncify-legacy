@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 import { promise } from '../utils/promise'
-import { user } from './auth/lenses'
+import { authUser } from './auth/lenses'
 
 // required by spotify sdk
 // :: String -> Promise SpotifyPlayer
@@ -20,6 +20,6 @@ export const registerSpotifyListener = ({ accessToken }) => promise(resolve => {
 // :: ReduxStore -> Promise SpotifyPlayer
 export const initSpotifySdk = store => R.pipe(
   store => store.getState(),
-  R.view(user),
+  R.view(authUser),
   registerSpotifyListener,
 )(store)

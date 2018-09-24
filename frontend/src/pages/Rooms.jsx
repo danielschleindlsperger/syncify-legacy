@@ -1,10 +1,12 @@
 import React from 'react'
-import { withAuth } from '../components/withAuth'
+import WithAuth from '../components/withAuth'
 
 const Rooms = () => (
-  <div>
-    <h1>Hello Rooms</h1>
-  </div>
+  <WithAuth>
+    <div>
+      <h1>Hello Rooms</h1>
+    </div>
+  </WithAuth>
 )
 
-export default withAuth(Rooms)
+export default Rooms

@@ -10,15 +10,15 @@ beforeEach(() => {
 
 describe('setExistingAuth', () => {
   it('sets token and validity at the same time', () => {
-    store.dispatch(setExistingAuth({ authToken: 'token', validUntil: 12345 }))
+    store.dispatch(setExistingAuth({ token: 'token', validUntil: 12345 }))
     const state = store.getState()
-    expect(state.authToken).toBe('token')
+    expect(state.token).toBe('token')
     expect(state.validUntil).toBe(12345)
   })
 
   it('returns token and validity values', () => {
-    const { authToken, validUntil } = store.dispatch(setExistingAuth({ authToken: 'token', validUntil: 12345 }))
-    expect(authToken).toBe('token')
+    const { token, validUntil } = store.dispatch(setExistingAuth({ token: 'token', validUntil: 12345 }))
+    expect(token).toBe('token')
     expect(validUntil).toBe(12345)
   })
 })
@@ -28,14 +28,14 @@ describe('setFreshAuth', () => {
     jest.spyOn(Date, 'now').mockImplementation(() => 10000000)
     store.dispatch(setFreshAuth('token'))
     const state = store.getState()
-    expect(state.authToken).toBe('token')
+    expect(state.token).toBe('token')
     expect(state.validUntil).toBe(13600)
   })
 
   it('returns token and validity values', () => {
     jest.spyOn(Date, 'now').mockImplementation(() => 10000000)
-    const { authToken, validUntil } = store.dispatch(setFreshAuth('token'))
-    expect(authToken).toBe('token')
+    const { token, validUntil } = store.dispatch(setFreshAuth('token'))
+    expect(token).toBe('token')
     expect(validUntil).toBe(13600)
   })
 

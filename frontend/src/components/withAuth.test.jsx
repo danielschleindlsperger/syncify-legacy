@@ -1,9 +1,9 @@
-import { isAuthorized } from './withAuth'
+import { isAuthorized } from './WithAuth'
 
 describe('isAuthorized', () => {
   test('happy path', () => {
     const authStateSlice = {
-      authToken: 'totally secure crypto token',
+      token: 'totally secure crypto token',
       validUntil: Date.now() + 1000, // very much in the future (because millis > seconds)
     }
     expect(isAuthorized(authStateSlice)).toBe(true)
