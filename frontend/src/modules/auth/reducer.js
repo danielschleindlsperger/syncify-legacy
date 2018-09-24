@@ -1,5 +1,5 @@
 import { niceReducer, typedReduce } from 'root/utils/redux-helpers'
-import * as types from './auth-types'
+import * as types from './action-types'
 
 const initialState = {
   token: null,

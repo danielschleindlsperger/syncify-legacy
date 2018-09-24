@@ -1,4 +1,4 @@
-import * as types from './auth-types'
+import * as types from './action-types'
 import { inOneHourAsSeconds } from 'root/utils/time'
 
 // ACTIONS CREATORS

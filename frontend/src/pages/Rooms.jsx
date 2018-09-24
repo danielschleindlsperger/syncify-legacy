@@ -1,5 +1,5 @@
 import React from 'react'
-import WithAuth from '../components/withAuth'
+import WithAuth from '../components/WithAuth'
 
 const Rooms = () => (
   <WithAuth>
