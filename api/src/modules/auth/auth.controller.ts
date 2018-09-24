@@ -4,7 +4,11 @@ import {
   Res,
   Query,
   BadRequestException,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import * as R from 'ramda';
 import { AuthService } from './auth.service';
 import { UserService } from 'modules/user/user.service';
 import { ConfigService } from 'modules/config/config.service';
@@ -47,5 +51,11 @@ export class AuthController {
     const user = await this.userService.save(userDto);
     const token = this.authService.signIn(user);
     res.redirect(`${this.configService.frontendUrl}?token=${token}`);
+  }
+
+  @Get('/me')
+  @UseGuards(AuthGuard('jwt'))
+  me(@Req() req) {
+    return R.omit(['refreshToken'], req.user);
   }
 }

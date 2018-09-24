@@ -1,5 +1,4 @@
 import React from 'react'
-import * as R from 'ramda'
 import { render } from 'react-dom'
 import App from './components/App'
 import { initialAuthorization } from './modules/auth'

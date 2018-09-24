@@ -1,4 +1,4 @@
-import { Controller, Get, Param, NotFoundException, UseGuards, Req, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
+import { Controller, Get, Param, NotFoundException, UseGuards, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from './user.service';
 
@@ -10,13 +10,6 @@ export class UserController {
   @Get()
   all() {
     return this.userService.findAll();
-  }
-
-  @UseInterceptors(ClassSerializerInterceptor)
-  @Get('/me')
-  @UseGuards(AuthGuard('jwt'))
-  me(@Req() req) {
-    return req.user;
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
