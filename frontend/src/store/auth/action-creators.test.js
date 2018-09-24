@@ -1,5 +1,6 @@
-import { createStoreWithGlobalMiddleware } from './redux-helpers'
-import authReducer, { setExistingAuth, setFreshAuth } from './auth'
+import { createStoreWithGlobalMiddleware } from '../redux-helpers'
+import { setExistingAuth, setFreshAuth, setUser } from './action-creators'
+import authReducer from './index'
 
 let store
 
@@ -36,5 +37,20 @@ describe('setFreshAuth', () => {
     const { authToken, validUntil } = store.dispatch(setFreshAuth('token'))
     expect(authToken).toBe('token')
     expect(validUntil).toBe(13600)
+  })
+
+  describe('setUser', () => {
+    it('sets user', () => {
+      const user = {
+        id: '123456789',
+        name: 'John Doe',
+        avatarUrl: 'fb.me/pic.jpg',
+        accessToken: 'access_token',
+        createdAt: '2018-09-20T18:47:06.972Z',
+        updatedAt: '2018-09-24T15:04:38.000Z',
+      }
+      store.dispatch(setUser(user))
+      expect(store.getState().user).toStrictEqual(user)
+    })
   })
 })

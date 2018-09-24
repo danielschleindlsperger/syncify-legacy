@@ -1,4 +1,5 @@
 import React from 'react'
+import * as R from 'ramda'
 import { render } from 'react-dom'
 import App from './components/App'
 import { initialAuthorization } from './modules/auth'
@@ -9,8 +10,9 @@ const store = initStore()
 
 // handles tokens among other stuff
 initialAuthorization(store)
-initSpotifySdk(store)
-  .then(() => {
+  .then(() => initSpotifySdk(store))
+  .catch(() => console.error('Login failed!'))
+  .then((player) => {
     render(
       <App store={store} />,
       document.querySelector('#app'),

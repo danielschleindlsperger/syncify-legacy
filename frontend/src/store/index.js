@@ -1,5 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
-import thunkMiddleware from 'redux-thunk'
+import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import auth from './auth'
 
@@ -11,6 +11,6 @@ export const initStore = () =>
   createStore(
     rootReducer,
     composeWithDevTools(
-      applyMiddleware(thunkMiddleware),
+      applyMiddleware(thunk),
     ),
   )

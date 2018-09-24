@@ -1,15 +1,18 @@
 import * as R from 'ramda'
+import { promise } from '../utils/promise'
+import { user } from '../store/auth/lenses'
 
 // required by spotify sdk
 // :: String -> Promise SpotifyPlayer
-export const registerSpotifyListener = accessToken => new Promise(resolve => {
+export const registerSpotifyListener = ({ accessToken }) => promise(resolve => {
   window.onSpotifyWebPlaybackSDKReady = () => {
     const player = new Spotify.Player({
       name: 'Syncify Web Player',
       getOAuthToken: cb => { cb(accessToken) }
     })
+
+    player.connect()
     resolve(player)
-    
     // todo: hook player errors up with app event handling
   }
 })
@@ -17,6 +20,6 @@ export const registerSpotifyListener = accessToken => new Promise(resolve => {
 // :: ReduxStore -> Promise SpotifyPlayer
 export const initSpotifySdk = store => R.pipe(
   store => store.getState(),
-  R.prop('authToken'),
+  R.view(user),
   registerSpotifyListener,
 )(store)

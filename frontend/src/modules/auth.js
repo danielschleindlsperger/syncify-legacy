@@ -1,7 +1,9 @@
 import * as R from 'ramda';
 import { query } from '../utils/query'
-import { localStorage } from '../utils/local-storage';
-import { setFreshAuth, setExistingAuth } from '../store/auth'
+import { failure } from '../utils/promise'
+import { localStorage } from '../utils/local-storage'
+import { setFreshAuth, setExistingAuth, setUser } from '../store/auth/action-creators'
+import request from '../utils/request'
 
 const JWT_STORAGE_KEY = 'JWT';
 const VALID_UNTIL_STORAGE_KEY = 'JWT_VALID_UNTIL';
@@ -26,6 +28,12 @@ const readTokenFromStorage = () => {
   return (authToken && validUntil) ? { authToken, validUntil } : null
 }
 
+const fetchUser = store => () =>
+  request(store)
+    .get('/api/auth/me')
+    .then(R.prop('data'))
+    .then(user => store.dispatch(setUser(user)))
+
 export const initialAuthorization = store => R.pipe(
   maybeTokenFromQuery,
   // got token from query, update redux store
@@ -36,5 +44,11 @@ export const initialAuthorization = store => R.pipe(
     whenNotNil((authInfo) => store.dispatch(setExistingAuth(authInfo))),
   )),
   // persist in localstorage
-  whenNotNil(R.tap(persistToken))
+  whenNotNil(R.tap(persistToken)),
+  // fetch user
+  R.ifElse(
+    R.isNil,
+    () => failure('Authorization failed. Log in.'),
+    fetchUser(store),
+  ),
 )();

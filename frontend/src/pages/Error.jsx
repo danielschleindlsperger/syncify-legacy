@@ -9,7 +9,7 @@ const Error = ({ code, message = 'Whoopsie! Something went wrong :(' }) => (
 )
 
 Error.propTypes = {
-  code: PropTypes.number,
+  code: PropTypes.string,
   message: PropTypes.string,
 }
 
