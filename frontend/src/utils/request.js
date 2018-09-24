@@ -1,6 +1,6 @@
 import axios from 'axios'
 import * as R from 'ramda'
-import { token } from '../store/auth/lenses'
+import { token } from '../modules/auth/lenses'
 
 const viewToken = store => R.pipe(
   store => store.getState(),

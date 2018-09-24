@@ -2,13 +2,16 @@
   "name": "syncify-frontend",
   "version": "0.0.0",
   "description": "Syncify Webapp",
+  "author": "Daniel Schleindlsperger <daniel@schleindlsperger.de>",
   "main": "src/index.js",
   "scripts": {
     "start": "node dev-server",
     "build": "parcel build index.html",
     "test": "jest"
   },
-  "author": "Daniel Schleindlsperger <daniel@schleindlsperger.de>",
+  "alias": {
+    "root": "./src"
+  },
   "license": "ISC",
   "devDependencies": {
     "@types/ramda": "^0.25.38",

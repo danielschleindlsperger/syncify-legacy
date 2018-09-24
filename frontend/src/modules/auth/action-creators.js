@@ -1,5 +1,5 @@
 import * as types from './auth-types'
-import { inOneHourAsSeconds } from '../../utils/time'
+import { inOneHourAsSeconds } from 'root/utils/time'
 
 // ACTIONS CREATORS
 export const setExistingAuth = ({ authToken, validUntil }) => dispatch => {

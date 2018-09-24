@@ -4,5 +4,8 @@ module.exports = {
   testEnvironment: 'jest-environment-jsdom-global',
   transform: {
     '^.+\\.jsx?$': 'babel-jest'
-  }
+  },
+  moduleNameMapper: {
+    '^root(.*)$': '<rootDir>/src/$1',
+  },
 }

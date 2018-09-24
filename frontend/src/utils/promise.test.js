@@ -1,8 +1,10 @@
-import { success, failure, promise } from './promise'
+import { success, failure } from './promise'
+
+const isPromise = x => x && typeof x.then === 'function'
 
 describe('success', () => {
   it('is a promise', () => {
-    expect(typeof success().then).toBe('function')
+    expect(isPromise(success())).toBe(true)
   })
   it('returns the provided value', async () => {
     expect(await success('a value')).toBe('a value')
@@ -11,7 +13,7 @@ describe('success', () => {
 
 describe('failure', () => {
   it('is a promise', () => {
-    expect(typeof failure().then).toBe('function')
+    expect(isPromise(failure())).toBe(true)
   })
   it('can be catched', async () => {
     try {

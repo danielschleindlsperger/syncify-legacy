@@ -1,6 +1,6 @@
-import { createStoreWithGlobalMiddleware } from '../redux-helpers'
+import { createStoreWithGlobalMiddleware } from 'root/utils/redux-helpers'
 import { setExistingAuth, setFreshAuth, setUser } from './action-creators'
-import authReducer from './index'
+import { authReducer } from './reducer'
 
 let store
 

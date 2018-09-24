@@ -1,9 +1,9 @@
-import * as R from 'ramda';
-import { query } from '../utils/query'
-import { failure } from '../utils/promise'
-import { localStorage } from '../utils/local-storage'
-import { setFreshAuth, setExistingAuth, setUser } from '../store/auth/action-creators'
-import request from '../utils/request'
+import * as R from 'ramda'
+import { query } from 'root/utils/query'
+import { failure } from 'root/utils/promise'
+import { localStorage } from 'root/utils/local-storage'
+import { setFreshAuth, setExistingAuth, setUser } from './action-creators'
+import request from 'root/utils/request'
 
 const JWT_STORAGE_KEY = 'JWT';
 const VALID_UNTIL_STORAGE_KEY = 'JWT_VALID_UNTIL';

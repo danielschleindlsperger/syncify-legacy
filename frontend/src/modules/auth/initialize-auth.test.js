@@ -1,6 +1,6 @@
-import { initialAuthorization } from './auth'
-import authReducer from '../store/auth'
-import { createStoreWithGlobalMiddleware } from '../store/redux-helpers'
+import { initialAuthorization } from './initialize-auth'
+import { authReducer } from './reducer'
+import { createStoreWithGlobalMiddleware } from 'root/utils/redux-helpers'
 
 let store
 

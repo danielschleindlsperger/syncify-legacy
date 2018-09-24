@@ -26,5 +26,6 @@ export const niceReducer = (defaultState, typedReducers) => (state = defaultStat
   ),
 )(typedReducers)
 
+// test helper
 export const createStoreWithGlobalMiddleware = reducer =>
   createStore(reducer, applyMiddleware(thunkMiddleware))
