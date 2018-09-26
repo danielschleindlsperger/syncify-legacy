@@ -1,10 +1,11 @@
 import React from 'react'
 import WithAuth from '../components/WithAuth'
+import { PlayerContainer } from '../components/player/PlayerContainer'
 
-const Rooms = () => (
+const Rooms = props => (
   <WithAuth>
     <div>
-      <h1>Hello Rooms</h1>
+      <PlayerContainer {...props}/>
     </div>
   </WithAuth>
 )
