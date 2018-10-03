@@ -41,7 +41,7 @@ export const initialAuthorization = store => R.pipe(
   // try to get token from localStorage and update redux store with old token
   whenNil(R.pipe(
     readTokenFromStorage,
-    whenNotNil((authInfo) => store.dispatch(setExistingAuth(authInfo))),
+    whenNotNil(authInfo => store.dispatch(setExistingAuth(authInfo))),
   )),
   // persist in localstorage
   whenNotNil(R.tap(persistToken)),

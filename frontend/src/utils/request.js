@@ -8,10 +8,9 @@ const viewToken = store => R.pipe(
 )(store)
 
 const request = store => {
-  const instance = axios.create({
+  return axios.create({
     headers: { Authorization: `Bearer ${viewToken(store)}`}
-  });
-  return instance
+  })
 }
 
 export default request
