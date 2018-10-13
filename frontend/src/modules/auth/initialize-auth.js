@@ -1,8 +1,18 @@
 import * as R from 'ramda'
-import { query } from 'root/utils/query'
-import { failure } from 'root/utils/promise'
-import { localStorage } from 'root/utils/local-storage'
-import { setFreshAuth, setExistingAuth, setUser } from './action-creators'
+import {
+  query
+} from 'root/utils/query'
+import {
+  failure
+} from 'root/utils/promise'
+import {
+  localStorage
+} from 'root/utils/local-storage'
+import {
+  setFreshAuth,
+  setExistingAuth,
+  setUser
+} from './action-creators'
 import request from 'root/utils/request'
 
 const JWT_STORAGE_KEY = 'JWT';
@@ -17,7 +27,10 @@ const maybeTokenFromQuery = () => R.pipe(
   R.prop(JWT_QUERY_KEY),
 )(window);
 
-const persistToken = ({ token, validUntil }) => {
+const persistToken = ({
+  token,
+  validUntil
+}) => {
   localStorage.set(JWT_STORAGE_KEY, token)
   localStorage.set(VALID_UNTIL_STORAGE_KEY, validUntil)
 }
@@ -25,14 +38,17 @@ const persistToken = ({ token, validUntil }) => {
 const readTokenFromStorage = () => {
   const token = localStorage.get(JWT_STORAGE_KEY)
   const validUntil = localStorage.getNumber(VALID_UNTIL_STORAGE_KEY)
-  return (token && validUntil) ? { token, validUntil } : null
+  return (token && validUntil) ? {
+    token,
+    validUntil
+  } : null
 }
 
 const fetchUser = store => () =>
   request(store)
-    .get('/api/auth/me')
-    .then(R.prop('data'))
-    .then(user => store.dispatch(setUser(user)))
+  .get('/api/user/me')
+  .then(R.prop('data'))
+  .then(user => store.dispatch(setUser(user)))
 
 export const initialAuthorization = store => R.pipe(
   maybeTokenFromQuery,
