@@ -5,7 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "jest --expand",
-    "start:dev": "NODE_ENV=development nodemon"
+    "start:dev": "NODE_ENV=development nodemon",
+    "db:seed": "NODE_ENV=development ts-node src/seed/index.ts",
+    "db:drop": "NODE_ENV=development ts-node src/seed/drop.ts"
   },
   "author": "",
   "license": "ISC",

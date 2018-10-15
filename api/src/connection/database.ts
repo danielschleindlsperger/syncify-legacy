@@ -1,8 +1,8 @@
 import { Configuration } from '../config'
-import { createConnection } from 'typeorm'
+import { createConnection, Connection } from 'typeorm'
 
 export const Database = {
-  connect: () =>
+  connect: (): Promise<void | Connection> =>
     createConnection({
       type: 'mysql',
       host: Configuration.dbHost,
@@ -14,4 +14,6 @@ export const Database = {
       synchronize: true,
       logging: ['error'],
     }).catch(error => console.error(error)),
+  drop: (connection: Connection) =>
+    connection.dropDatabase().then(() => connection),
 }
