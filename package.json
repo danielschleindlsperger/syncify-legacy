@@ -4,22 +4,22 @@
   "description": "Synchronized Spotify listening rooms",
   "main": "",
   "scripts": {
-    "docker:up": "docker-compose up -d",
-    "docker:down": "docker-compose down",
+    "proxy": "node proxy.js",
     "install:api": "cd ./api && npm i",
     "install:frontend": "cd ./frontend && npm i",
     "install:all": "concurrently \"npm run install:api\" \"npm run install:frontend\" ",
     "start:api": "cd ./api && npm start",
     "start:frontend": "cd ./frontend && npm run serve",
-    "start:all": "npm run docker:up && concurrently \"npm run start:api\" \"npm run start:frontend\" "
+    "start:all": "concurrently \"npm run start:api\" \"npm run start:frontend\" "
   },
   "author": "Daniel Schleindlsperger <daniel@schleindlsperger.de>",
   "engines": {
     "node": ">= 8"
   },
   "license": "ISC",
-  "dependencies": {},
   "devDependencies": {
-    "concurrently": "^3.6.0"
+    "concurrently": "^3.6.0",
+    "http-proxy": "^1.17.0",
+    "http-proxy-rules": "^1.1.3"
   }
 }

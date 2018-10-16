@@ -1,6 +1,6 @@
 import { Connection } from 'typeorm'
-import { Room } from '../api/room'
-import { Seeder } from './seeder'
+import { Room } from '../../api/room'
+import { Seeder } from '../seeder'
 
 const roomSeed: Room[] = [
   { name: 'MILLERMACMACMILLERMAC' },

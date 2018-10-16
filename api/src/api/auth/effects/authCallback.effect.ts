@@ -35,5 +35,5 @@ export const authCallbackEffect$: Effect = req$ =>
     map(generateTokenPayload),
     map(generateToken({ secret: Configuration.jwtSecret })),
     // TODO: use cookie instead of query param
-    map(token => redirect(`${Configuration.frontendUrl}?token=${token}`))
+    map(token => redirect(`${Configuration.appUrl}?token=${token}`))
   )

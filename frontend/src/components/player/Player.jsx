@@ -4,9 +4,7 @@ import styled from 'styled-components'
 
 const PLAYER_MAX_HEIGHT = 300
 
-const PlayerPlaceholder = () => (
-  <div>...Connecting</div>
-)
+const PlayerPlaceholder = () => <div>...Connecting</div>
 PlayerPlaceholder.displayName = 'PlayerPlaceholder'
 
 const FlexWrap = styled.div`
@@ -32,7 +30,9 @@ const PlayerImage = styled.img`
 const PlayerText = styled.span`
   display: block;
   font-size: 16px;
+  line-height: 1.3;
   font-weight: bold;
+  text-align: center;
   & + & {
     margin-top: 1rem;
   }

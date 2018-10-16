@@ -2,7 +2,7 @@ import { Config, EnvValue } from 'type-env'
 import { resolve } from 'path'
 import { load } from 'dotenv'
 
-const environment = process.env.NODE_ENV
+const environment = process.env.NODE_ENV || 'development'
 
 load({
   path: resolve(`../.env.${environment}`),
@@ -30,12 +30,12 @@ class ConfigurationLoader {
 
   // secrets
   @EnvValue('JWT_SECRET')
-  jwtSecret: string = ''
+  jwtSecret: string = 'changeme'
 
+  @EnvValue('APP_URL')
+  appUrl: string = 'http://localhost:8080'
   @EnvValue('API_URL')
-  apiUrl: string = ''
-  @EnvValue('FRONTEND_URL')
-  frontendUrl: string = ''
+  apiUrl: string = 'http://localhost:8080/api'
 
   @EnvValue('SPOTIFY_CLIENT_ID')
   spotifyClientId: string = ''

@@ -10,10 +10,7 @@ const store = initStore()
 // handles tokens among other stuff
 initialAuthorization(store)
   .then(() => initializeSpotifyPlayer(store))
-  .catch(() => console.info('Login failed!'))
-  .then((player) => {
-    render(
-      <App store={store} />,
-      document.querySelector('#app'),
-    )
+  .catch(error => console.error('Login failed!', error))
+  .then(player => {
+    render(<App store={store} />, document.querySelector('#app'))
   })
