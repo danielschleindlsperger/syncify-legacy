@@ -6,5 +6,12 @@ export const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     font-size: 14px;
+    box-sizing: border-box;
+    * {
+      box-sizing: border-box;
+      &:before, &:after {
+        box-sizing: border-box;
+      }
+    }
   }
 `

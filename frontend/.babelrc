@@ -3,17 +3,17 @@
     "jest",
     "react"
   ],
-  "plugins": [],
+  "plugins": ["transform-object-rest-spread"],
   "env": {
     "test": {
-        "presets": [
-          ["env", {
-              "modules": "commonjs",
-              "useBuiltIns": "usage",
-              "debug": false
-          }],
-          "jest"
-        ]
+      "presets": [
+        ["env", {
+          "modules": "commonjs",
+          "useBuiltIns": "usage",
+          "debug": false
+        }],
+        "jest"
+      ]
     }
   }
 }
