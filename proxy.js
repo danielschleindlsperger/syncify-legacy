@@ -4,7 +4,7 @@ const HttpProxyRules = require('http-proxy-rules')
 
 const proxyRules = new HttpProxyRules({
   rules: {
-    '.*/api': 'http://localhost:3000'
+    '.*/api': 'http://localhost:3000/api'
   },
   default: 'http://localhost:1234' // frontend
 })
