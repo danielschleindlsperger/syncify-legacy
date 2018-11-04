@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from '@reach/router'
 import PropTypes from 'prop-types'
 import { MQ_TABLET, MQ_DESKTOP } from '../style-constants'
 
@@ -73,17 +74,20 @@ const RoomBlock = styled('div')`
   }
 `
 
-export const StyledRoomBlock = ({ coverArt, name, listenersCount }) => (
+export const StyledRoomBlock = ({ id, coverArt, name, listenersCount }) => (
   <RoomBlock>
-    <ImageOverlay url={coverArt} />
-    <OverlayText>
-      <RoomTitle>{name}</RoomTitle>
-      <ListenersText>{listenersCount} listening</ListenersText>
-    </OverlayText>
+    <Link to={`/room/${id}`}>
+      <ImageOverlay url={coverArt} />
+      <OverlayText>
+        <RoomTitle>{name}</RoomTitle>
+        <ListenersText>{listenersCount} listening</ListenersText>
+      </OverlayText>
+    </Link>
   </RoomBlock>
 )
 
 StyledRoomBlock.propTypes = {
+  id: PropTypes.string,
   coverArt: PropTypes.string,
   name: PropTypes.string,
   listenersCount: PropTypes.number,
