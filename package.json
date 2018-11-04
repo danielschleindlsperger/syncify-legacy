@@ -8,9 +8,9 @@
     "install:api": "cd ./api && npm i",
     "install:frontend": "cd ./frontend && npm i",
     "install:all": "concurrently \"npm run install:api\" \"npm run install:frontend\" ",
-    "start:api": "cd ./api && npm start",
-    "start:frontend": "cd ./frontend && npm run serve",
-    "start:all": "concurrently \"npm run start:api\" \"npm run start:frontend\" "
+    "start:api": "cd ./api && npm run start:dev",
+    "start:frontend": "cd ./frontend && npm run start",
+    "start:all": "concurrently \"npm run start:api\" \"npm run start:frontend\" \"npm run proxy\" "
   },
   "author": "Daniel Schleindlsperger <daniel@schleindlsperger.de>",
   "engines": {

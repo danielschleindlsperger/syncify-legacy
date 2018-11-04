@@ -11,12 +11,16 @@ const proxyRules = new HttpProxyRules({
 
 const proxy = httpProxy.createProxy()
 
+const handleProxyError = (err) => {
+  console.error('Could not proxy request \n', err)
+}
+
 http.createServer((req, res) => {
   const target = proxyRules.match(req)
   if (target) {
     return proxy.web(req, res, {
-      target: target
-    })
+      target
+    }, handleProxyError)
   }
 
   res.writeHead(500, {
