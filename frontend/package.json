@@ -29,7 +29,6 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
     "http-proxy-middleware": "^0.19.0",
-    "install": "^0.12.2",
     "jest": "^23.6.0",
     "jest-dom": "^2.1.0",
     "jest-environment-jsdom": "^23.4.0",
