@@ -1,28 +1,55 @@
-import { query } from './query'
+import {
+  query
+} from './query'
 
 describe('query', () => {
+
+  afterEach(() => {
+    window.localStorage.clear()
+    jsdom.reconfigure({
+      url: "http://localhost"
+    });
+  })
+
   it('extracts non duplicated query parameters to object', () => {
-    const mockWindow = { location: { href: 'http://test.com?foo=bar&fu=gazi' }}
-    expect(query(mockWindow)).toStrictEqual({ foo: 'bar', fu: 'gazi' })
+    jsdom.reconfigure({
+      url: "http://localhost?foo=bar&fu=gazi"
+    })
+    expect(query()).toStrictEqual({
+      foo: 'bar',
+      fu: 'gazi'
+    })
   })
 
   it('sets missing values to undefined', () => {
-    const mockWindow = { location: { href: 'http://test.com?keyWithMissingValue' }}
-    expect(query(mockWindow)).toStrictEqual({ keyWithMissingValue: undefined })
+    jsdom.reconfigure({
+      url: "http://localhost?keyWithMissingValue"
+    })
+    expect(query()).toStrictEqual({
+      keyWithMissingValue: undefined
+    })
   })
 
   it('returns empty object if no query string is present', () => {
-    const mockWindow = { location: { href: 'http://test.com' }}
-    expect(query(mockWindow)).toStrictEqual({})
+    jsdom.reconfigure({
+      url: "http://localhost"
+    })
+    expect(query()).toStrictEqual({})
   })
 
   it('returns empty object if nothing comes after query string delimiter', () => {
-    const mockWindow = { location: { href: 'http://test.com?' }}
-    expect(query(mockWindow)).toStrictEqual({})
+    jsdom.reconfigure({
+      url: "http://localhost?"
+    })
+    expect(query()).toStrictEqual({})
   })
 
   it('handles ampersand at last position', () => {
-    const mockWindow = { location: { href: 'http://test.com?foo=bar&' }}
-    expect(query(mockWindow)).toStrictEqual({ foo: 'bar' })
+    jsdom.reconfigure({
+      url: "http://localhost?foo=bar&"
+    })
+    expect(query()).toStrictEqual({
+      foo: 'bar'
+    })
   })
 })

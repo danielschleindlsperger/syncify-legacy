@@ -34,6 +34,7 @@ export const registerSpotifyListener = store => ({
 // :: ReduxStore -> Promise SpotifyPlayer
 export const initSpotifySdk = store => R.pipe(
   store => store.getState(),
+  R.tap(console.log),
   R.view(authUser),
   registerSpotifyListener(store),
   () => loadSpotifyScript()

@@ -1,5 +1,15 @@
-import { authReducer } from './reducer'
-export { setExistingAuth, setFreshAuth, setUser } from './action-creators'
-export { initialAuthorization } from './initialize-auth'
+import {
+  authReducer
+} from './store'
+export {
+  setExistingAuth,
+  setFreshAuth,
+  setUser
+}
+from './store'
+export {
+  initialAuthorization
+}
+from './initialize-auth'
 
 export default authReducer

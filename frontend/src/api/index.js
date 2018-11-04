@@ -4,3 +4,4 @@ export {
 }
 from './authenticated-request'
 export * from './rooms'
+export * from './user'

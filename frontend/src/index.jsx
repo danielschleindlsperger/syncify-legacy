@@ -13,6 +13,7 @@ initApi(store)
 // handles tokens among other stuff
 initialAuthorization(store)
   .then(() => initializeSpotifyPlayer(store))
+  // TODO: redirect to login page
   .catch(error => console.error('Login failed!', error))
   .then(player => {
     render(<App store={store} />, document.querySelector('#app'))
