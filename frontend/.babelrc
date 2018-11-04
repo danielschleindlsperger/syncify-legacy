@@ -1,18 +1,16 @@
 {
   "presets": [
-    "jest",
-    "react"
+    "@babel/preset-env",
+    "@babel/preset-react"
   ],
-  "plugins": ["transform-object-rest-spread"],
   "env": {
     "test": {
       "presets": [
-        ["env", {
+        ["@babel/preset-env", {
           "modules": "commonjs",
           "useBuiltIns": "usage",
           "debug": false
-        }],
-        "jest"
+        }]
       ]
     }
   }
