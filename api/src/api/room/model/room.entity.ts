@@ -12,5 +12,9 @@ export const RoomEntity = new EntitySchema<Room>({
     name: {
       type: 'varchar',
     },
+    coverArt: {
+      type: 'varchar',
+      nullable: true,
+    },
   },
 })

@@ -40,8 +40,7 @@ const OverlayText = styled('div')`
   bottom: 0;
   color: white;
   padding: 10px;
-  text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000,
-    -1px 1px 0 #000, 1px 1px 0 #000;
+  text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 `
 
 const RoomBlock = styled('div')`
@@ -74,7 +73,7 @@ const RoomBlock = styled('div')`
   }
 `
 
-export const Room = ({ coverArt, name, listenersCount }) => (
+export const StyledRoomBlock = ({ coverArt, name, listenersCount }) => (
   <RoomBlock>
     <ImageOverlay url={coverArt} />
     <OverlayText>
@@ -84,30 +83,8 @@ export const Room = ({ coverArt, name, listenersCount }) => (
   </RoomBlock>
 )
 
-Room.propTypes = {
+StyledRoomBlock.propTypes = {
   coverArt: PropTypes.string,
   name: PropTypes.string,
   listenersCount: PropTypes.number,
-}
-
-const StyledRoomList = styled('div')`
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-`
-
-export const RoomList = ({ rooms }) => (
-  <StyledRoomList>
-    {rooms.map(({ id, ...room }) => (
-      <Room key={id} {...room} />
-    ))}
-  </StyledRoomList>
-)
-
-RoomList.propTypes = {
-  rooms: PropTypes.arrayOf(PropTypes.shape(Room.propTypes)),
-}
-
-RoomList.defaultProps = {
-  rooms: [],
 }

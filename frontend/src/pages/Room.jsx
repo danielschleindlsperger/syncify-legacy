@@ -1,12 +1,14 @@
 import React from 'react'
-import { RoomListContainer } from '../components/room-list'
 import WithAuth from '../components/WithAuth'
 import { ConnectedContainer } from '../components/connection-status/ConnectedContainer'
+import { PlayerContainer } from '../components/player/PlayerContainer'
 
 const Rooms = props => (
   <WithAuth>
-    <ConnectedContainer />
-    <RoomListContainer />
+    <div>
+      <ConnectedContainer {...props} />
+      <PlayerContainer {...props} />
+    </div>
   </WithAuth>
 )
 
