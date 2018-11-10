@@ -1,12 +1,11 @@
 import { EntitySchema } from 'typeorm'
-import { omit, pipe } from 'ramda'
 import { User } from './user'
 import { entityFields } from '../../../util'
 
 export const UserEntity = new EntitySchema<User>({
-  name: 'User',
+  name: 'user',
   columns: {
-    // spotify as primary key
+    // spotify id as primary key
     id: {
       type: 'varchar',
       primary: true,
@@ -32,12 +31,14 @@ export const UserEntity = new EntitySchema<User>({
       createDate: true,
     },
   },
+  relations: {
+    room: {
+      type: 'many-to-one',
+      target: 'room',
+    },
+  },
 })
 
 export const SECURED_FIELDS = entityFields(['refreshToken'])(UserEntity)
 
-export const PUBLIC_FIELDS = entityFields([
-  'refreshToken',
-  'accessToken',
-  'updatedAt',
-])(UserEntity)
+export const PUBLIC_FIELDS = entityFields(['refreshToken', 'accessToken', 'updatedAt'])(UserEntity)
