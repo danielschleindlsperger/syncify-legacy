@@ -1,13 +1,13 @@
 import React from 'react'
 import WithAuth from '../components/WithAuth'
 import { ConnectedContainer } from '../components/connection-status/ConnectedContainer'
-import { PlayerContainer } from '../components/player/PlayerContainer'
+import { Player } from '../components/player'
 
 const Rooms = props => (
   <WithAuth>
     <div>
       <ConnectedContainer {...props} />
-      <PlayerContainer {...props} />
+      <Player {...props} />
     </div>
   </WithAuth>
 )

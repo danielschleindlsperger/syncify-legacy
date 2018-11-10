@@ -5,6 +5,6 @@ import { setPlayerState } from '../action-creators'
 const playbackChanged$ = player => fromEvent(player, 'player_state_changed')
 
 export const handlePlaybackChange = store => player =>
-  playbackChanged$(player).pipe(
-    tap(track => store.dispatch(setPlayerState(track))),
-  ).subscribe()
+  playbackChanged$(player)
+    .pipe(tap(track => store.dispatch(setPlayerState(track))))
+    .subscribe()
