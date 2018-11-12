@@ -76,7 +76,7 @@ const RoomBlock = styled('div')`
 
 export const StyledRoomBlock = ({ id, coverArt, name, listenersCount }) => (
   <RoomBlock>
-    <Link to={`/room/${id}`}>
+    <Link to={`/rooms/${id}`}>
       <ImageOverlay url={coverArt} />
       <OverlayText>
         <RoomTitle>{name}</RoomTitle>
