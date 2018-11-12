@@ -3,7 +3,6 @@ import { prop } from 'ramda'
 import { from, Observable } from 'rxjs'
 import { spotifyScopes } from './spotify-scopes'
 import { Configuration } from '../../../config'
-import { url } from 'inspector'
 
 export type SpotifyOAuthResponse = {
   access_token: string
@@ -58,9 +57,7 @@ const spotifyFactory = (credentials: Partial<SpotifyCredentials> = {}) =>
 export const createAuthorizationUrl = (): string =>
   spotifyFactory().createAuthorizeURL(spotifyScopes)
 
-export const tokensFromOauthCode = (
-  code: string
-): Observable<SpotifyOAuthResponse> =>
+export const tokensFromOauthCode = (code: string): Observable<SpotifyOAuthResponse> =>
   from(
     spotifyFactory()
       .authorizationCodeGrant(code)
