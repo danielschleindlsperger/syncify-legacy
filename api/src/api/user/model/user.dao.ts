@@ -2,7 +2,6 @@ import { getRepository } from 'typeorm'
 import { from } from 'rxjs'
 import { User } from './user'
 import { SECURED_FIELDS, PUBLIC_FIELDS } from './user.entity'
-import { Room, RoomEntity } from '../../room'
 
 const userRepository = () => getRepository('user')
 
