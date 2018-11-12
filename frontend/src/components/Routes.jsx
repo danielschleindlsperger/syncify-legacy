@@ -10,8 +10,8 @@ import Login from '../pages/Login'
 export const Routes = () => (
   <Router>
     <Redirect from="/" to="/rooms" noThrow />
-    <Room path="/room/:id" />
-    <Rooms path="/rooms" />
+    <Room path="/room/:roomId" />
+    <Rooms path="/room" />
     <Login path="/login" />
     <Error path="*" code="404" message="Oh noes :(" />
   </Router>

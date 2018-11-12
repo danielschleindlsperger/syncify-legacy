@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-// import { Activity, AlertTriangle } from 'styled-icons/feather'
 import { Zap, ZapOff } from 'styled-icons/feather'
 
 const SIZE = 50
@@ -17,7 +16,7 @@ const SuccessWrapper = styled(FlexCenter)`
 `
 const Success = () => (
   <SuccessWrapper>
-    <Zap size={SIZE}/>
+    <Zap size={SIZE} />
     <div>Connected</div>
   </SuccessWrapper>
 )
@@ -41,7 +40,5 @@ const TopRight = styled.div`
 `
 
 export const Connected = ({ connected }) => (
-  <TopRight>
-    { connected ? <Success />: <Error />}
-  </TopRight>
+  <TopRight>{connected ? <Success /> : <Error />}</TopRight>
 )

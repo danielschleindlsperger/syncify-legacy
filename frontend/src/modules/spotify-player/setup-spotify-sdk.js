@@ -1,10 +1,6 @@
 import * as R from 'ramda'
-import {
-  authUser
-} from 'root/modules/auth/lenses'
-import {
-  bootstrapEvents
-} from './events/bootstrap-events'
+import { authUser } from 'root/modules/auth/lenses'
+import { bootstrapEvents } from './events/bootstrap-events'
 
 const loadSpotifyScript = () => {
   const script = document.createElement('script')
@@ -14,15 +10,13 @@ const loadSpotifyScript = () => {
 
 // required by spotify sdk
 // :: String -> Promise SpotifyPlayer
-export const registerSpotifyListener = store => ({
-  accessToken
-}) => {
+export const registerSpotifyListener = store => ({ accessToken }) => {
   window.onSpotifyWebPlaybackSDKReady = () => {
     const player = new Spotify.Player({
       name: 'Syncify Web Player',
       getOAuthToken: cb => {
         cb(accessToken)
-      }
+      },
     })
     bootstrapEvents(store)(player)
     player.connect()
@@ -32,10 +26,10 @@ export const registerSpotifyListener = store => ({
 }
 
 // :: ReduxStore -> Promise SpotifyPlayer
-export const initSpotifySdk = store => R.pipe(
-  store => store.getState(),
-  R.tap(console.log),
-  R.view(authUser),
-  registerSpotifyListener(store),
-  () => loadSpotifyScript()
-)(store)
+export const initSpotifySdk = store =>
+  R.pipe(
+    store => store.getState(),
+    R.view(authUser),
+    registerSpotifyListener(store),
+    () => loadSpotifyScript()
+  )(store)
