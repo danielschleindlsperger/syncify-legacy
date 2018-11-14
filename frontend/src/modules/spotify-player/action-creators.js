@@ -10,3 +10,8 @@ export const setConnected = connected => dispatch => {
   dispatch({ type: types.SET_PLAYER_CONNECTED, connected })
   return connected
 }
+
+export const setDeviceId = deviceId => dispatch => {
+  dispatch({ type: types.SET_PLAYER_DEVICE_ID, deviceId })
+  return deviceId
+}

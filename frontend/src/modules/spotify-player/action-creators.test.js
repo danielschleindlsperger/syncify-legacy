@@ -1,4 +1,4 @@
-import { setPlayerState, setConnected } from './action-creators'
+import { setPlayerState, setConnected, setDeviceId } from './action-creators'
 import { playerReducer } from './reducer'
 import { createStoreWithGlobalMiddleware } from 'root/utils/redux-helpers'
 
@@ -13,13 +13,17 @@ describe('setPlayerState', () => {
 })
 
 describe('setConnected', () => {
-  it('sets connected to true', () => {
+  it('sets connected state', () => {
+    expect(store.getState().connected).toBe(false)
     store.dispatch(setConnected(true))
     expect(store.getState().connected).toBe(true)
   })
+})
 
-  it('sets connected to false', () => {
-    store.dispatch(setConnected(false))
-    expect(store.getState().connected).toBe(false)
+describe('setDeviceId', () => {
+  it('sets deviceId', () => {
+    expect(store.getState().deviceId).toBe(null)
+    store.dispatch(setDeviceId('a_device_id'))
+    expect(store.getState().deviceId).toBe('a_device_id')
   })
 })
