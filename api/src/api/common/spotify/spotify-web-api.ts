@@ -1,7 +1,6 @@
 import * as SpotifyWebApi from 'spotify-web-api-node'
 import { prop } from 'ramda'
 import { from, Observable } from 'rxjs'
-import { spotifyScopes } from './spotify-scopes'
 import { Configuration } from '../../../config'
 
 export type SpotifyOAuthResponse = {
@@ -46,27 +45,10 @@ export type SpotifyUserDto = {
   uri: string
 }
 
-const spotifyFactory = (credentials: Partial<SpotifyCredentials> = {}) =>
+export const spotifyFactory = (credentials: Partial<SpotifyCredentials> = {}) =>
   new SpotifyWebApi({
     clientId: Configuration.spotifyClientId,
     clientSecret: Configuration.spotifyClientSecret,
     redirectUri: Configuration.spotifyRedirectUrl,
     ...credentials,
   })
-
-export const createAuthorizationUrl = (): string =>
-  spotifyFactory().createAuthorizeURL(spotifyScopes)
-
-export const tokensFromOauthCode = (code: string): Observable<SpotifyOAuthResponse> =>
-  from(
-    spotifyFactory()
-      .authorizationCodeGrant(code)
-      .then(prop('body'))
-  )
-
-export const getMe = (accessToken: string): Observable<SpotifyUserDto> =>
-  from(
-    spotifyFactory({ accessToken })
-      .getMe()
-      .then(prop('body'))
-  )

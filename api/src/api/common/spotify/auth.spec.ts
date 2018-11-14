@@ -1,11 +1,9 @@
-import { createAuthorizationUrl } from './spotify-web-api'
+import { createAuthorizationUrl } from './auth'
 import { spotifyScopes } from './spotify-scopes'
 
 describe('createAuthorizationUrl', () => {
   it('create spotify url', () => {
-    expect(
-      createAuthorizationUrl().startsWith('https://accounts.spotify')
-    ).toBe(true)
+    expect(createAuthorizationUrl().startsWith('https://accounts.spotify')).toBe(true)
   })
 
   it('includes oauth scopes', () => {

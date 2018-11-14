@@ -14,16 +14,8 @@
     "strict": true,
     "target": "es2017",
     "resolveJsonModule": true,
-    "lib": [
-      "dom",
-      "es2017"
-    ],
-    "typeRoots": [
-      "./node_modules/@types",
-    ]
+    "lib": ["dom", "es2017"],
+    "typeRoots": ["./node_modules/@types"]
   },
-  "include": [
-    "./node_modules/@types",
-    "./src/**/*.ts"
-  ]
+  "include": ["./node_modules/@types", "./src/**/*.ts"]
 }

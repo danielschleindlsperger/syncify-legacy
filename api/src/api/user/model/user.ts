@@ -4,8 +4,8 @@ export interface User {
   id: string
   name: string
   avatar: string
-  accessToken?: string
-  refreshToken?: string
+  accessToken: string
+  refreshToken: string
   room?: Room
   createdAt?: string
   updatedAt?: string

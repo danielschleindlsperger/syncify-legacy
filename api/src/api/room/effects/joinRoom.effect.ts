@@ -1,6 +1,6 @@
 import { Effect, use } from '@marblejs/core'
 import { flatMap, map } from 'rxjs/operators'
-import * as SpotifyWebApi from 'spotify-web-api-node'
+import { playTracks } from '../../common/spotify'
 import { roomIdValidator$ } from './validate-room'
 import { userDao, User } from '../../user'
 
@@ -16,11 +16,6 @@ export const joinRoomEffect$: Effect = req$ =>
       return userDao.save(updatedUser)
     }),
     // experimental: testing only.
-    flatMap(user => {
-      const spotifyApi = new SpotifyWebApi({ accessToken: user.accessToken })
-      return spotifyApi.play({ uris: ['spotify:track:7jmTA4qUoE3powcTpw3dvF'] })
-    }),
-    map(body => ({
-      body,
-    }))
+    flatMap(({ accessToken }) => playTracks(accessToken)(['spotify:track:7jmTA4qUoE3powcTpw3dvF'])),
+    map(body => ({ body }))
   )
