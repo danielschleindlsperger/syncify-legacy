@@ -6,6 +6,7 @@ export interface User {
   avatar: string
   accessToken: string
   refreshToken: string
+  deviceId?: string
   room?: Room
   createdAt?: string
   updatedAt?: string

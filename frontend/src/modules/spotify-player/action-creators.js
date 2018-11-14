@@ -1,4 +1,5 @@
 import * as types from './action-types'
+import { updateUser } from '../../api'
 
 // ACTIONS CREATORS
 export const setPlayerState = playerState => dispatch => {
@@ -13,5 +14,6 @@ export const setConnected = connected => dispatch => {
 
 export const setDeviceId = deviceId => dispatch => {
   dispatch({ type: types.SET_PLAYER_DEVICE_ID, deviceId })
+  updateUser({ deviceId })
   return deviceId
 }

@@ -22,6 +22,10 @@ export const UserEntity = new EntitySchema<User>({
     refreshToken: {
       type: 'varchar',
     },
+    deviceId: {
+      type: 'varchar',
+      nullable: true,
+    },
     updatedAt: {
       type: 'timestamp',
       updateDate: true,
