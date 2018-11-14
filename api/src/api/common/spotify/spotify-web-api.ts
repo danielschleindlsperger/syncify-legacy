@@ -1,6 +1,4 @@
 import * as SpotifyWebApi from 'spotify-web-api-node'
-import { prop } from 'ramda'
-import { from, Observable } from 'rxjs'
 import { Configuration } from '../../../config'
 
 export type SpotifyOAuthResponse = {

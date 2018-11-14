@@ -1,9 +1,7 @@
 import { from, Observable } from 'rxjs'
-import { tap } from 'rxjs/operators'
 import { prop } from 'ramda'
 import { spotifyFactory } from './spotify-web-api'
 import { logAndRethrow } from '../../../util'
-import { accessSync } from 'fs'
 
 export const playTracks = (accessToken: string) => (tracks: string[]): Observable<any> =>
   from(
