@@ -1,13 +1,7 @@
-import {
-  authenticatedRequest,
-  initApi
-} from './authenticated-request'
-import {
-  initStore
-} from '../store'
-import {
-  setExistingAuth
-} from 'root/modules/auth'
+import { authenticatedRequest } from './authenticated-request'
+import { initApi } from './init-api'
+import { initStore } from '../store'
+import { setExistingAuth } from 'root/modules/auth'
 
 describe('authenticatedRequest', () => {
   let store
@@ -15,10 +9,12 @@ describe('authenticatedRequest', () => {
     store = initStore()
   })
   it('returns axios instance with default auth header', () => {
-    store.dispatch(setExistingAuth({
-      token: 'token',
-      validUntil: 12345
-    }))
+    store.dispatch(
+      setExistingAuth({
+        token: 'token',
+        validUntil: 12345,
+      })
+    )
     initApi(store)
     const axios = authenticatedRequest()
     expect(axios.defaults.headers.Authorization).toBe('Bearer token')

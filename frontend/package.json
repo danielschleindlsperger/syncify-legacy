@@ -50,6 +50,7 @@
     "redux-devtools-extension": "^2.13.5",
     "redux-thunk": "^2.3.0",
     "rxjs": "^6.3.2",
+    "spotify-web-api-node": "^4.0.0",
     "styled-components": "^4.0.0-beta.9",
     "styled-icons": "^3.0.0",
     "styled-reset": "^1.5.1"

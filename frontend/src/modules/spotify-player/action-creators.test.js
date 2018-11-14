@@ -4,6 +4,13 @@ import { createStoreWithGlobalMiddleware } from 'root/utils/redux-helpers'
 
 const store = createStoreWithGlobalMiddleware(playerReducer)
 
+jest.mock('../../api', () => ({
+  updateUser: jest.fn(),
+  setWebPlayerAsActiveDevice: () => Promise.resolve(),
+}))
+
+afterEach(jest.restoreAllMocks)
+
 describe('setPlayerState', () => {
   it('sets a player state', () => {
     const fakePlayerState = { a: 'foo', b: 'bar' }
