@@ -10,5 +10,5 @@ export const tokensFromOauthCode = (code: string): Observable<SpotifyOAuthRespon
   from(
     spotifyFactory()
       .authorizationCodeGrant(code)
-      .then(prop('body'))
+      .then(prop('body')),
   )

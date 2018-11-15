@@ -6,5 +6,5 @@ export const entityWithoutFields = (excludes: string[]) => (entity: EntitySchema
   pipe(
     path(['options', 'columns']),
     omit(excludes),
-    keys
+    keys,
   )(entity)

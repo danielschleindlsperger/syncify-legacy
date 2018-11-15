@@ -9,7 +9,7 @@ import { neverNil } from '../util'
 const seedParallel = (seeders: Seeder[]) => (connection: Connection) =>
   pipe(
     map((seeder: Seeder) => seeder(connection)),
-    Promise.all.bind(Promise)
+    Promise.all.bind(Promise),
   )(seeders)
 
 const seedDatabase = () =>

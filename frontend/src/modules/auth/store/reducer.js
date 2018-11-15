@@ -10,6 +10,9 @@ const initialState = {
 // REDUCERS
 export const authReducer = niceReducer(initialState, [
   typedReduce(types.SET_AUTH_TOKEN, (state, { token }) => ({ ...state, token })),
-  typedReduce(types.SET_AUTH_TOKEN_VALID_UNTIL, (state, { validUntil }) => ({ ...state, validUntil })),
+  typedReduce(types.SET_AUTH_TOKEN_VALID_UNTIL, (state, { validUntil }) => ({
+    ...state,
+    validUntil,
+  })),
   typedReduce(types.SET_AUTH_USER, (state, { user }) => ({ ...state, user })),
 ])

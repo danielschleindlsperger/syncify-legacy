@@ -16,5 +16,5 @@ export const createRoomEffect$: Effect = req$ =>
     use(roomValidator$),
     map(req => req.body),
     flatMap(roomDao.create),
-    map(body => ({ body }))
+    map(body => ({ body })),
   )

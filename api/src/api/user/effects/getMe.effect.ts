@@ -8,7 +8,5 @@ export const getMeEffect$: Effect = req$ =>
     map(req => req.user),
     flatMap(neverNullable),
     map(user => ({ body: user })),
-    catchError(() =>
-      throwError(new HttpError('User does not exist', HttpStatus.NOT_FOUND))
-    )
+    catchError(() => throwError(new HttpError('User does not exist', HttpStatus.NOT_FOUND))),
   )

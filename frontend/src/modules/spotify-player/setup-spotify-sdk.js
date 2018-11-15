@@ -31,5 +31,5 @@ export const initSpotifySdk = store =>
     store => store.getState(),
     R.view(authUser),
     registerSpotifyListener(store),
-    () => loadSpotifyScript()
+    () => loadSpotifyScript(),
   )(store)

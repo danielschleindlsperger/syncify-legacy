@@ -17,9 +17,7 @@ export namespace Server {
     console.error(chalk.red('[server] errored'), error.message)
   }
 
-  export const create = async (
-    app: (req: IncomingMessage, res: ServerResponse) => void
-  ) =>
+  export const create = async (app: (req: IncomingMessage, res: ServerResponse) => void) =>
     createServer(app)
       .listen(port, onListen)
       .on('close', onClose)

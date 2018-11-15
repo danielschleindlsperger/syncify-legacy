@@ -8,7 +8,7 @@ const getSpotifyAccesstoken = () =>
   pipe(
     store => store.getState(),
     view(authUser),
-    prop('accessToken')
+    prop('accessToken'),
   )(store)
 
 const getDeviceId = () => view(deviceId, store.getState())

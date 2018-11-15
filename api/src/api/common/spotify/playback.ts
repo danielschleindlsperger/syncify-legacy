@@ -7,5 +7,5 @@ export const playTracks = (accessToken: string) => (tracks: string[]): Observabl
   from(
     spotifyFactory({ accessToken })
       .play({ uris: tracks })
-      .then(prop('body'))
+      .then(prop('body')),
   ).pipe(logAndRethrow('Error playing song with Spotify API'))

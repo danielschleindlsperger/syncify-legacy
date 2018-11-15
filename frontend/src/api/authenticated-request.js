@@ -6,7 +6,7 @@ import { store } from './init-api'
 const viewToken = store =>
   pipe(
     unless(isNil, store => store.getState()),
-    view(authToken)
+    view(authToken),
   )(store)
 
 export const authenticatedRequest = () =>
@@ -22,6 +22,6 @@ export const authenticatedRequest = () =>
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        })
-    )
+        }),
+    ),
   )(store)

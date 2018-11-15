@@ -13,7 +13,7 @@ test('logAndRethrow logs error with a message and rethrows that same error', don
       tap(() => {
         throw error
       }),
-      logAndRethrow('something bad happened')
+      logAndRethrow('something bad happened'),
     )
     .subscribe(
       () => {
@@ -24,6 +24,6 @@ test('logAndRethrow logs error with a message and rethrows that same error', don
         expect(console.error).toHaveBeenCalledTimes(1)
         expect(console.error).toHaveBeenCalledWith('something bad happened', error)
         done()
-      }
+      },
     )
 })

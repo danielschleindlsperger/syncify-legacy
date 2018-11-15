@@ -15,16 +15,13 @@ const actionMatchesReducer = action => typedReduce => action.type === typedReduc
 // Pass in a default state and an array of `typed reducers`.
 // This is basically a more functional form of the typical switch case.
 // :: (State, Array Object) -> (State, Object) -> State
-export const niceReducer = (defaultState, typedReducers) => (state = defaultState, action) => R.pipe(
-  R.find(actionMatchesReducer(action)),
-  R.prop('reducer'),
-  // if no reducer is found, simply return provided state
-  R.ifElse(
-    R.isNil,
-    R.always(state),
-    reducer => reducer(state, action),
-  ),
-)(typedReducers)
+export const niceReducer = (defaultState, typedReducers) => (state = defaultState, action) =>
+  R.pipe(
+    R.find(actionMatchesReducer(action)),
+    R.prop('reducer'),
+    // if no reducer is found, simply return provided state
+    R.ifElse(R.isNil, R.always(state), reducer => reducer(state, action)),
+  )(typedReducers)
 
 // test helper
 export const createStoreWithGlobalMiddleware = reducer =>

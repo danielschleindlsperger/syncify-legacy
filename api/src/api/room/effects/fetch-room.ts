@@ -8,5 +8,5 @@ export const fetchRoom = pipe(
   (req: HttpRequest) => req.params.id,
   roomDao.findOne,
   flatMap(neverNullable),
-  catchError(() => throwError(new HttpError('Room does not exist.', HttpStatus.NOT_FOUND)))
+  catchError(() => throwError(new HttpError('Room does not exist.', HttpStatus.NOT_FOUND))),
 )

@@ -12,6 +12,6 @@ export const handleConnection = store => player =>
     .pipe(
       merge(notReady$(player)),
       tap(({ device_id }) => store.dispatch(setDeviceId(device_id))),
-      tap(({ connected }) => store.dispatch(setConnected(connected)))
+      tap(({ connected }) => store.dispatch(setConnected(connected))),
     )
     .subscribe()

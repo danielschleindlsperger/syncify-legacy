@@ -7,14 +7,14 @@ export const roomDao = {
     from(
       getRepository('room').find({
         select: ROOM_LIST_FIELDS,
-      })
+      }),
     ),
   findOne: (id: string) =>
     from(
       getRepository('room').findOne({
         where: { id },
         relations: ['listeners'],
-      })
+      }),
     ),
   create: (room: Room) => from(getRepository('room').save(room)),
 }

@@ -46,5 +46,5 @@ export const UserEntity = new EntitySchema<User>({
 export const SECURED_FIELDS = entityWithoutFields(['refreshToken'])(UserEntity)
 
 export const PUBLIC_FIELDS = entityWithoutFields(['refreshToken', 'accessToken', 'updatedAt'])(
-  UserEntity
+  UserEntity,
 )

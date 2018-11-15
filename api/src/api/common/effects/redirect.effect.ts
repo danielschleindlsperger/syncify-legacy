@@ -6,7 +6,7 @@ export const redirectEffect$ = (Location: string): Effect => req$ =>
     mapTo({
       status: 302, // moved temporarily
       headers: { Location },
-    })
+    }),
   )
 
 export const redirect = (Location: string) => ({

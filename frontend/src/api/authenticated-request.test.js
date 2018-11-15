@@ -13,7 +13,7 @@ describe('authenticatedRequest', () => {
       setExistingAuth({
         token: 'token',
         validUntil: 12345,
-      })
+      }),
     )
     initApi(store)
     const axios = authenticatedRequest()

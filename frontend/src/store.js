@@ -9,10 +9,4 @@ const rootReducer = combineReducers({
   player,
 })
 
-export const initStore = () =>
-  createStore(
-    rootReducer,
-    composeWithDevTools(
-      applyMiddleware(thunk),
-    ),
-  )
+export const initStore = () => createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))

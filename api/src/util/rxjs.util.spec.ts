@@ -9,7 +9,7 @@ describe('neverNullable', () => {
       error => {
         expect(error.message).toBe('value was nullable')
         done()
-      }
+      },
     )
   })
 
@@ -21,7 +21,7 @@ describe('neverNullable', () => {
       },
       error => {
         throw error
-      }
+      },
     )
   })
 })

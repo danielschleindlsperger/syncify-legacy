@@ -14,5 +14,5 @@ export const updateUserEffect$: Effect = req$ =>
     use(userValidator$),
     map(getUserProps),
     flatMap(userDao.save),
-    map(users => ({ body: users }))
+    map(users => ({ body: users })),
   )

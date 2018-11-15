@@ -6,7 +6,7 @@ import { roomIdValidator$ } from './validate-room'
 
 const omitProtectedProps = R.over(
   R.lensProp('listeners'),
-  R.map(R.omit(['accessToken', 'refreshToken', 'updatedAt']))
+  R.map(R.omit(['accessToken', 'refreshToken', 'updatedAt'])),
 )
 
 export const getRoomEffect$: Effect = req$ =>
@@ -18,5 +18,5 @@ export const getRoomEffect$: Effect = req$ =>
     map(omitProtectedProps),
     map(body => ({
       body,
-    }))
+    })),
   )

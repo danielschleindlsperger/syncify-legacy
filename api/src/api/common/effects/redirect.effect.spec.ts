@@ -17,7 +17,7 @@ describe('redirectEffect$', () => {
       },
       () => {
         throw new Error('Should not error')
-      }
+      },
     )
   })
 })

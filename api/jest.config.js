@@ -1,6 +1,6 @@
 module.exports = {
   transform: {
-    '^.+\\.tsx?$': 'ts-jest'
+    '^.+\\.tsx?$': 'ts-jest',
   },
   testMatch: ['**/*.spec.ts'],
   coverageDirectory: './coverage/',
@@ -13,15 +13,11 @@ module.exports = {
     'connection/server',
   ],
   collectCoverageFrom: ['src/**/*.ts'],
-  moduleFileExtensions: [
-    'ts',
-    'js',
-    'json'
-  ],
-  setupTestFrameworkScriptFile: "./src/tests/setup.ts",
+  moduleFileExtensions: ['ts', 'js', 'json'],
+  setupTestFrameworkScriptFile: './src/tests/setup.ts',
   globals: {
     'ts-jest': {
       tsConfig: './tsconfig.json',
-    }
-  }
-};
+    },
+  },
+}

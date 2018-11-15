@@ -17,5 +17,5 @@ export const joinRoomEffect$: Effect = req$ =>
     }),
     // experimental: testing only.
     flatMap(({ accessToken }) => playTracks(accessToken)(['spotify:track:7jmTA4qUoE3powcTpw3dvF'])),
-    map(body => ({ body }))
+    map(body => ({ body })),
   )

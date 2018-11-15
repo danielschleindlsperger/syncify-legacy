@@ -14,6 +14,5 @@ export const Database = {
       synchronize: true,
       logging: ['error'],
     }).catch(error => console.error(error)),
-  drop: (connection: Connection) =>
-    connection.dropDatabase().then(() => connection),
+  drop: (connection: Connection) => connection.dropDatabase().then(() => connection),
 }

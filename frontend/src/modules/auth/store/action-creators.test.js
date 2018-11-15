@@ -17,7 +17,9 @@ describe('setExistingAuth', () => {
   })
 
   it('returns token and validity values', () => {
-    const { token, validUntil } = store.dispatch(setExistingAuth({ token: 'token', validUntil: 12345 }))
+    const { token, validUntil } = store.dispatch(
+      setExistingAuth({ token: 'token', validUntil: 12345 }),
+    )
     expect(token).toBe('token')
     expect(validUntil).toBe(12345)
   })

@@ -6,7 +6,7 @@ export const currentTrack = R.lensProp('current_track')
 export const currentTrackFromState = R.view(
   R.compose(
     trackWindow,
-    currentTrack
-  )
+    currentTrack,
+  ),
 )
 export const deviceId = R.lensPath(['player', 'deviceId'])

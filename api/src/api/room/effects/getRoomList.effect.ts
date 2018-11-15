@@ -7,5 +7,5 @@ export const getRoomListEffect$: Effect = req$ =>
     flatMap(roomDao.all),
     map(body => ({
       body,
-    }))
+    })),
   )

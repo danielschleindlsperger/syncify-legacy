@@ -6,5 +6,5 @@ export const getMe = (accessToken: string): Observable<SpotifyUserDto> =>
   from(
     spotifyFactory({ accessToken })
       .getMe()
-      .then(prop('body'))
+      .then(prop('body')),
   )

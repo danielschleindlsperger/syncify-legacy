@@ -17,8 +17,8 @@ const userFromSpotifyData = (tokens: SpotifyOAuthResponse) =>
         avatar: spotifyUser.images[0].url,
         accessToken: tokens.access_token,
         refreshToken: tokens.refresh_token,
-      })
-    )
+      }),
+    ),
   )
 
 export const authCallbackEffect$: Effect = req$ =>
@@ -31,5 +31,5 @@ export const authCallbackEffect$: Effect = req$ =>
     map(generateTokenPayload),
     map(generateToken({ secret: Configuration.jwtSecret })),
     // TODO: use cookie instead of query param
-    map(token => redirect(`${Configuration.appUrl}?token=${token}`))
+    map(token => redirect(`${Configuration.appUrl}?token=${token}`)),
   )
