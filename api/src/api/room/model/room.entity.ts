@@ -16,6 +16,9 @@ export const RoomEntity = new EntitySchema<Room>({
       type: 'varchar',
       nullable: true,
     },
+    playlist: {
+      type: 'simple-array',
+    },
   },
   relations: {
     listeners: {

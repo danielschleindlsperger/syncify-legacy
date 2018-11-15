@@ -21,5 +21,5 @@ export const spotifyFactory = () =>
 export const setWebPlayerAsActiveDevice = () =>
   spotifyFactory().transferMyPlayback({
     deviceIds: [getDeviceId()],
-    play: true,
+    play: false, // don't start playing just yet
   })

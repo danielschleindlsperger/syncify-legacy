@@ -1,5 +1,5 @@
 import { EntitySchema } from 'typeorm'
-import { entityFields } from './database.util'
+import { entityWithoutFields } from './database.util'
 
 type Model = {
   name: string
@@ -18,9 +18,9 @@ const ModelEntity = new EntitySchema<Model>({
   },
 })
 
-describe('entityFields', () => {
+describe('entityWithoutFields', () => {
   it('takes an entity and returns all its fields without the excluded ones', () => {
-    const selectFields = entityFields(['password'])(ModelEntity)
+    const selectFields = entityWithoutFields(['password'])(ModelEntity)
     expect(selectFields).toStrictEqual(['name'])
   })
 })

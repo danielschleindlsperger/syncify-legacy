@@ -1,6 +1,6 @@
 import { EntitySchema } from 'typeorm'
 import { User } from './user'
-import { entityFields } from '../../../util'
+import { entityWithoutFields } from '../../../util'
 
 export const UserEntity = new EntitySchema<User>({
   name: 'user',
@@ -43,6 +43,8 @@ export const UserEntity = new EntitySchema<User>({
   },
 })
 
-export const SECURED_FIELDS = entityFields(['refreshToken'])(UserEntity)
+export const SECURED_FIELDS = entityWithoutFields(['refreshToken'])(UserEntity)
 
-export const PUBLIC_FIELDS = entityFields(['refreshToken', 'accessToken', 'updatedAt'])(UserEntity)
+export const PUBLIC_FIELDS = entityWithoutFields(['refreshToken', 'accessToken', 'updatedAt'])(
+  UserEntity
+)
