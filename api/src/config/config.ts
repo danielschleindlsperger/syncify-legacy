@@ -16,6 +16,9 @@ class ConfigurationLoader {
   @EnvValue('PORT')
   port: number = 3000
 
+  @EnvValue('NODE_ENV')
+  environment: string = 'development'
+
   // Database stuff
   @EnvValue('DB_HOST')
   dbHost: string = 'localhost'
@@ -45,4 +48,11 @@ class ConfigurationLoader {
   spotifyRedirectUrl: string = ''
 }
 
-export const Configuration = new ConfigurationLoader()
+const config = new ConfigurationLoader()
+
+export const Configuration = {
+  ...config,
+  isDev: config.environment === 'development',
+  isProd: config.environment === 'production',
+  isTesting: config.environment === 'test',
+}

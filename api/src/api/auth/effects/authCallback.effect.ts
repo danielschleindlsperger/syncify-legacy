@@ -3,7 +3,7 @@ import { generateToken } from '@marblejs/middleware-jwt'
 import { map, flatMap } from 'rxjs/operators'
 import { tokensFromOauthCode, getMe, SpotifyOAuthResponse } from '../../common/spotify'
 import { User, userDao } from '../../user'
-import { neverNullable } from '../../../util'
+import { neverNullable, logAndRethrow } from '../../../util'
 import { generateTokenPayload } from '../helpers'
 import { Configuration } from '../../../config'
 import { redirect } from '../../common/effects'
@@ -27,6 +27,7 @@ export const authCallbackEffect$: Effect = req$ =>
     flatMap(neverNullable),
     flatMap((code: string) => tokensFromOauthCode(code)),
     flatMap(userFromSpotifyData),
+    logAndRethrow('Error fetching user from spotify'),
     flatMap(userDao.save),
     map(generateTokenPayload),
     map(generateToken({ secret: Configuration.jwtSecret })),
