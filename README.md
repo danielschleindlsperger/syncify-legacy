@@ -38,4 +38,4 @@ npm run install:all
 npm run start:all
 ```
 
-Now you can access the whole app on http://localhost:8080
+Now you can access the whole app on [localhost:8080](http://localhost:8080)
