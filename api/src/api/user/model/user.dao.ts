@@ -8,7 +8,7 @@ const userRepository = () => getRepository('user')
 export const UserDAO = {
   all: () => from(userRepository().find()),
   allPublic: () => from(userRepository().find({ select: PUBLIC_FIELDS })),
-  save: (user: User) => from(userRepository().save(user)),
+  save: (user: User) => from(userRepository().save(user)) as Observable<User>,
   findById: (id: string) => from(userRepository().findOneOrFail({ id })) as Observable<User>,
   findByIdSecured: (id: string) =>
     from(

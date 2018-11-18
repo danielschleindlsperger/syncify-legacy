@@ -7,6 +7,7 @@ export const RoomDAO = {
     from(
       getRepository('room').find({
         select: ROOM_LIST_FIELDS,
+        order: { createdAt: 'DESC' },
       }),
     ),
   findOne: (id: string) =>
@@ -16,5 +17,5 @@ export const RoomDAO = {
         relations: ['listeners'],
       }),
     ),
-  create: (room: Room) => from(getRepository('room').save(room)),
+  save: (room: Room) => from(getRepository('room').save(room)),
 }

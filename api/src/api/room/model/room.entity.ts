@@ -16,8 +16,18 @@ export const RoomEntity = new EntitySchema<Room>({
       type: 'varchar',
       nullable: true,
     },
+    // fixed empty state for this, should be empty array but is actually undefined
     playlist: {
       type: 'simple-array',
+      nullable: true,
+    },
+    updatedAt: {
+      type: 'timestamp',
+      updateDate: true,
+    },
+    createdAt: {
+      type: 'timestamp',
+      createDate: true,
     },
   },
   relations: {
