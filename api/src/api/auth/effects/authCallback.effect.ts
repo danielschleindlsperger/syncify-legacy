@@ -2,7 +2,7 @@ import { Effect } from '@marblejs/core'
 import { generateToken } from '@marblejs/middleware-jwt'
 import { map, flatMap } from 'rxjs/operators'
 import { tokensFromOauthCode, getMe, SpotifyOAuthResponse } from '../../common/spotify'
-import { User, userDao } from '../../user'
+import { User, UserDAO } from '../../user'
 import { neverNullable, logAndRethrow } from '../../../util'
 import { generateTokenPayload } from '../helpers'
 import { Configuration } from '../../../config'
@@ -28,7 +28,7 @@ export const authCallbackEffect$: Effect = req$ =>
     flatMap((code: string) => tokensFromOauthCode(code)),
     flatMap(userFromSpotifyData),
     logAndRethrow('Error fetching user from spotify'),
-    flatMap(userDao.save),
+    flatMap(UserDAO.save),
     map(generateTokenPayload),
     map(generateToken({ secret: Configuration.jwtSecret })),
     // TODO: use cookie instead of query param

@@ -1,6 +1,6 @@
 import * as request from 'supertest'
 import { of } from 'rxjs'
-import { userDao, User } from '../../user/model'
+import { UserDAO, User } from '../../user/model'
 import { app } from '../../../app'
 import * as spotify from '../../common/spotify'
 import { Configuration } from '../../../config'
@@ -51,7 +51,7 @@ test('authCallback effect gets users data from spotify, saves user in database a
     .expect(302)
     .expect('location', new RegExp(Configuration.appUrl))
 
-  userDao.findById(spotifyGetMeResponse.id).subscribe(user => {
+  UserDAO.findById(spotifyGetMeResponse.id).subscribe(user => {
     expect(user.avatar).toBe(spotifyGetMeResponse.images[0].url)
     expect(user.name).toBe(spotifyGetMeResponse.display_name)
 

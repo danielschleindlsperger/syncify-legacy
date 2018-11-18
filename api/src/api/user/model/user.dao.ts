@@ -5,7 +5,7 @@ import { SECURED_FIELDS, PUBLIC_FIELDS } from './user.entity'
 
 const userRepository = () => getRepository('user')
 
-export const userDao = {
+export const UserDAO = {
   all: () => from(userRepository().find()),
   allPublic: () => from(userRepository().find({ select: PUBLIC_FIELDS })),
   save: (user: User) => from(userRepository().save(user)),

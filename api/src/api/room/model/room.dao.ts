@@ -2,7 +2,7 @@ import { getRepository } from 'typeorm'
 import { from } from 'rxjs'
 import { Room, ROOM_LIST_FIELDS } from './room'
 
-export const roomDao = {
+export const RoomDAO = {
   all: () =>
     from(
       getRepository('room').find({
