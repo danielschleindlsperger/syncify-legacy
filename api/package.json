@@ -25,7 +25,8 @@
     "rxjs": "~6.2.2",
     "spotify-web-api-node": "^4.0.0",
     "type-env": "^1.1.0",
-    "typeorm": "^0.2.7"
+    "typeorm": "^0.2.7",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@types/dotenv": "^4.0.3",

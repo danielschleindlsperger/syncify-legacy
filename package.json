@@ -6,6 +6,7 @@
   "main": "",
   "scripts": {
     "proxy": "node proxy.js",
+    "docker": "docker-compose -f ./.docker/docker-compose.yml up -d",
     "install:api": "cd ./api && npm i",
     "install:frontend": "cd ./frontend && npm i",
     "install:all": "concurrently \"npm run install:api\" \"npm run install:frontend\" ",

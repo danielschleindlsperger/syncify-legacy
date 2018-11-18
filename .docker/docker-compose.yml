@@ -1,0 +1,14 @@
+version: '3'
+services:
+  mysql:
+    image: 'mysql:5.7'
+    user: 'root:mysql' # might not be necessary on windows systems
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+    volumes:
+      - ./mysql:/docker-entrypoint-initdb.d/:ro
+      - syncify_volume:/var/lib/mysql:rw
+    ports:
+      - '4000:3306'
+volumes:
+  syncify_volume:
