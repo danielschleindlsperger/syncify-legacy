@@ -11,6 +11,5 @@ afterEach(async () => {
 })
 
 afterAll(async () => {
-  // might be not needed, uncomment if needed
-  // await Database.disconnect(connection)
+  await Database.disconnect(connection)
 })
