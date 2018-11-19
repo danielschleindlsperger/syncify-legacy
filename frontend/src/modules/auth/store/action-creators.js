@@ -1,16 +1,8 @@
 import * as types from './action-types'
-import { inOneHourAsSeconds } from 'root/utils/time'
 
 // ACTIONS CREATORS
-export const setExistingAuth = ({ token, validUntil }) => dispatch => {
+export const setAuth = ({ token, validUntil }) => dispatch => {
   dispatch({ type: types.SET_AUTH_TOKEN, token })
-  dispatch({ type: types.SET_AUTH_TOKEN_VALID_UNTIL, validUntil })
-  return { token, validUntil }
-}
-
-export const setFreshAuth = token => dispatch => {
-  dispatch({ type: types.SET_AUTH_TOKEN, token })
-  const validUntil = inOneHourAsSeconds(Date.now())
   dispatch({ type: types.SET_AUTH_TOKEN_VALID_UNTIL, validUntil })
   return { token, validUntil }
 }

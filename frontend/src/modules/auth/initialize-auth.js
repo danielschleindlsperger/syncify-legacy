@@ -1,6 +1,6 @@
 import * as R from 'ramda'
-import { success, promise } from 'root/utils/promise'
-import { setExistingAuth, setUser } from './store'
+import { promise } from 'root/utils/promise'
+import { setAuth, setUser } from './store'
 import { getMe } from '../../api'
 import { getInitialToken } from './initial-token'
 import { JWT_STORAGE_KEY, VALID_UNTIL_STORAGE_KEY } from './constants'
@@ -15,7 +15,7 @@ export const initialAuthorization = store =>
     resolve(
       R.pipe(
         getInitialToken,
-        authInfo => store.dispatch(setExistingAuth(authInfo)),
+        authInfo => store.dispatch(setAuth(authInfo)),
         R.tap(persistToken),
         () => getMe().then(user => store.dispatch(setUser(user))),
       )(),

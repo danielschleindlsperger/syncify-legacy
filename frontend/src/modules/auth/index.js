@@ -1,5 +1,5 @@
 import { authReducer } from './store'
-export { setExistingAuth, setFreshAuth, setUser } from './store'
+export { setAuth, setUser } from './store'
 export { initialAuthorization } from './initialize-auth'
 export * from './lenses'
 
