@@ -1,7 +1,7 @@
 import { Effect, use } from '@marblejs/core'
 import { flatMap, map } from 'rxjs/operators'
 import { playTracks } from '../../common/spotify'
-import { roomIdValidator$ } from './validate-room'
+import { roomIdValidator$ } from './helpers/validate-room'
 import { UserDAO, User } from '../../user'
 
 export const joinRoomEffect$: Effect = req$ =>

@@ -13,9 +13,16 @@ const defaultConnectionOptions: ConnectionOptions = {
   logging: ['error'],
 }
 
+const testingConnectionOptions: ConnectionOptions = {
+  ...defaultConnectionOptions,
+  dropSchema: true,
+}
+
 export const Database = {
   connect: (): Promise<void | Connection> =>
     createConnection(defaultConnectionOptions).catch(error => console.error(error)),
+  connectTest: (): Promise<void | Connection> =>
+    createConnection(testingConnectionOptions).catch(error => console.error(error)),
   clear: async (connection: Connection) => {
     // used for clearing the database in between tests
     const entities = connection.entityMetadatas

@@ -3,7 +3,7 @@ import { User } from '../../user'
 
 export const generateTokenPayload = (user: User) => ({
   _id: user.id,
-  exp: generateExpirationInHours(24),
+  exp: generateExpirationInHours(1),
 })
 
 export type Payload = ReturnType<typeof generateTokenPayload>

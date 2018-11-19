@@ -1,8 +1,8 @@
 import { HttpRequest, HttpStatus, HttpError } from '@marblejs/core'
 import { pipe, throwError } from 'rxjs'
 import { flatMap, catchError } from 'rxjs/operators'
-import { RoomDAO } from '../model'
-import { neverNullable } from '../../../util'
+import { RoomDAO } from '../../model'
+import { neverNullable } from '../../../../util'
 
 export const fetchRoom = pipe(
   (req: HttpRequest) => req.params.id,

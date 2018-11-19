@@ -25,3 +25,12 @@ test('returns a room', async () => {
       expect(res.playlist).toEqual(room.playlist)
     })
 })
+
+test('returns 404 if no matching id is found', async () => {
+  const user = await mockUser()
+
+  await request(app)
+    .get(`/api/room/non-existing-id`)
+    .use(authenticatedRequest(user))
+    .expect(404)
+})

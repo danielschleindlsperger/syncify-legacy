@@ -1,10 +1,10 @@
 import * as faker from 'faker'
+import * as uuid from 'uuid'
 import { getRepository } from 'typeorm'
-import { UserDAO, User } from '../../api/user'
-import { generateTokenPayload } from '../../api/auth/helpers'
+import { User } from '../../api/user'
 
-const fakeData = (data): User => ({
-  id: faker.random.number(10),
+const fakeData = (data: Partial<User>): User => ({
+  id: uuid.v4(),
   name: `${faker.name.firstName()} ${faker.name.lastName()}`,
   avatar: faker.image.avatar(),
   accessToken: faker.random.alphaNumeric(171),
@@ -13,4 +13,5 @@ const fakeData = (data): User => ({
   ...data,
 })
 
-export const mockUser = async (data = {}) => getRepository('user').save(fakeData(data))
+export const mockUser = async (data: Partial<User> = {}) =>
+  getRepository('user').save(fakeData(data))

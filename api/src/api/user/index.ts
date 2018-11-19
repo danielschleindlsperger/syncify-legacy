@@ -13,7 +13,7 @@ export const getMe$ = EffectFactory.matchPath('/me')
   .matchType('GET')
   .use(getMeEffect$)
 
-export const updateUser$ = EffectFactory.matchPath('/')
+export const updateUser$ = EffectFactory.matchPath('/:id')
   .matchType('PATCH')
   .use(updateUserEffect$)
 

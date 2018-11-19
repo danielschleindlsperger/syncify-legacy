@@ -1,8 +1,8 @@
 import { Effect, use } from '@marblejs/core'
 import { flatMap, map } from 'rxjs/operators'
 import * as R from 'ramda'
-import { fetchRoom } from './fetch-room'
-import { roomIdValidator$ } from './validate-room'
+import { fetchRoom } from './helpers/fetch-room'
+import { roomIdValidator$ } from './helpers/validate-room'
 
 const omitProtectedProps = R.over(
   R.lensProp('listeners'),

@@ -3,7 +3,7 @@ import { Database } from '../connection/database'
 let connection
 
 beforeAll(async () => {
-  connection = await Database.connect()
+  connection = await Database.connectTest()
 })
 
 afterEach(async () => {

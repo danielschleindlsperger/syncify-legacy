@@ -39,6 +39,7 @@ export const UserEntity = new EntitySchema<User>({
     room: {
       type: 'many-to-one',
       target: 'room',
+      onDelete: 'SET NULL',
     },
   },
 })
