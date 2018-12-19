@@ -25,8 +25,10 @@
     "reflect-metadata": "^0.1.12",
     "rxjs": "~6.2.2",
     "spotify-web-api-node": "^4.0.0",
+    "ts-node": "^7.0.1",
     "type-env": "^1.1.0",
-    "typeorm": "^0.2.9"
+    "typeorm": "^0.2.9",
+    "typescript": "^3.2.2"
   },
   "devDependencies": {
     "@types/dotenv": "^4.0.3",
@@ -40,8 +42,6 @@
     "nodemon": "^1.18.9",
     "supertest": "^3.3.0",
     "ts-jest": "^23.10.5",
-    "ts-node": "^7.0.1",
-    "typescript": "^3.2.2",
     "uuid": "^3.3.2"
   }
 }
