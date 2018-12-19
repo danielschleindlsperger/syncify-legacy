@@ -10,7 +10,7 @@
     "db:seed": "NODE_ENV=development ts-node src/seed/index.ts",
     "db:drop": "NODE_ENV=development ts-node src/seed/drop.ts"
   },
-  "author": "",
+  "author": "Daniel Schleindlsperger <daniel@schleindlsperger.de>",
   "license": "ISC",
   "dependencies": {
     "@marblejs/core": "^1.2.1",
