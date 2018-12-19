@@ -23,3 +23,8 @@ export const setWebPlayerAsActiveDevice = () =>
     deviceIds: [getDeviceId()],
     play: false, // don't start playing just yet
   })
+
+export const getMyPlaylists = () =>
+  spotifyFactory()
+    .getUserPlaylists()
+    .then(x => x.body)

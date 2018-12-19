@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { initApi } from './api'
+import { initApi, getMyPlaylists } from './api'
 import App from './components/App'
 import { initialAuthorization } from './modules/auth'
 import { initStore } from './store'
@@ -18,3 +18,4 @@ initialAuthorization(store)
   .then(player => {
     render(<App store={store} />, document.querySelector('#app'))
   })
+  .then(() => getMyPlaylists().then(console.log))
