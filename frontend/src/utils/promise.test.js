@@ -6,6 +6,7 @@ describe('success', () => {
   it('is a promise', () => {
     expect(isPromise(success())).toBe(true)
   })
+
   it('returns the provided value', async () => {
     expect(await success('a value')).toBe('a value')
   })
@@ -13,13 +14,13 @@ describe('success', () => {
 
 describe('failure', () => {
   it('is a promise', () => {
-    expect(isPromise(failure())).toBe(true)
+    const failed = failure().catch(() => {})
+    expect(isPromise(failed)).toBe(true)
   })
+
   it('can be catched', async () => {
-    try {
-      await failure('an error')
-    } catch (e) {
-      expect(e).toBe('an error')
-    }
+    return failure('an error').catch(err => {
+      expect(err).toBe('an error')
+    })
   })
 })
