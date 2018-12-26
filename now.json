@@ -1,0 +1,21 @@
+{
+  "name": "syncify",
+  "version": 2,
+  "builds": [
+    {
+      "src": "frontend/package.json",
+      "use": "@now/static-build"
+    }
+  ],
+  "routes": [
+    {
+      "src": "^/assets/(.*)",
+      "dest": "frontend/assets/$1"
+    },
+    {
+      "src": ".*",
+      "dest": "frontend/assets/index.html"
+    }
+  ],
+  "regions": ["bru1"]
+}
