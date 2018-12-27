@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { authUser } from 'root/modules/auth/lenses'
+import { authUser } from '../../modules/auth/lenses'
 import { bootstrapEvents } from './events/bootstrap-events'
 
 const loadSpotifyScript = () => {

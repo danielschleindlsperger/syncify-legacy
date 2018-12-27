@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { promise } from 'root/utils/promise'
+import { promise } from '../../utils/promise'
 import { setAuth, setUser } from './store'
 import { getMe } from '../../api'
 import { getInitialToken } from './initial-token'

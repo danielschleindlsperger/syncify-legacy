@@ -1,7 +1,7 @@
 import { authenticatedRequest } from './authenticated-request'
 import { initApi } from './init-api'
 import { initStore } from '../store'
-import { setAuth } from 'root/modules/auth'
+import { setAuth } from '../modules/auth'
 
 describe('authenticatedRequest', () => {
   let store

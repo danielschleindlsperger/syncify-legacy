@@ -1,6 +1,6 @@
 import { setPlayerState, setConnected, setDeviceId } from './action-creators'
 import { playerReducer } from './reducer'
-import { createStoreWithGlobalMiddleware } from 'root/utils/redux-helpers'
+import { createStoreWithGlobalMiddleware } from '../../utils/redux-helpers'
 
 const store = createStoreWithGlobalMiddleware(playerReducer)
 

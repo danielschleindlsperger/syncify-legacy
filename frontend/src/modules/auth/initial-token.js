@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { query } from 'root/utils/query'
+import { query } from '../../utils/query'
 import { JWT_STORAGE_KEY, VALID_UNTIL_STORAGE_KEY } from './constants'
 
 const JWT_QUERY_KEY = 'token'

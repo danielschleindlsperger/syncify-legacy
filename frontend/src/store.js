@@ -1,8 +1,8 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import auth from 'root/modules/auth'
-import player from 'root/modules/spotify-player'
+import auth from './modules/auth'
+import player from './modules/spotify-player'
 
 const rootReducer = combineReducers({
   auth,

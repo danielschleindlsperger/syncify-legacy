@@ -1,4 +1,4 @@
-import { createStoreWithGlobalMiddleware } from 'root/utils/redux-helpers'
+import { createStoreWithGlobalMiddleware } from '../../../utils/redux-helpers'
 import { setAuth, setUser } from './action-creators'
 import { authReducer } from './reducer'
 

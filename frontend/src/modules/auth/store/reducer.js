@@ -1,4 +1,4 @@
-import { niceReducer, typedReduce } from 'root/utils/redux-helpers'
+import { niceReducer, typedReduce } from '../../../utils/redux-helpers'
 import * as types from './action-types'
 
 const initialState = {

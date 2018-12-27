@@ -16,7 +16,6 @@ ErrorUI.propTypes = {
 
 export class RoomListContainer extends React.Component {
   state = { rooms: [], error: false }
-  _isMounted = false
 
   fetchRooms = () =>
     getAllRooms()
@@ -24,12 +23,7 @@ export class RoomListContainer extends React.Component {
       .catch(() => this.setState({ rooms: [], error: true }))
 
   componentDidMount() {
-    this._isMounted = true
     this.fetchRooms()
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false
   }
 
   render() {
