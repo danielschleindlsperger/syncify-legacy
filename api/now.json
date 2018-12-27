@@ -1,0 +1,17 @@
+{
+  "name": "syncify-api",
+  "version": 1,
+  "type": "docker",
+  "env": {
+    "NODE_ENV": "production",
+    "JWT_SECRET": "@syncify-jwt-secret",
+    "SPOTIFY_CLIENT_ID": "@syncify-client-id",
+    "SPOTIFY_CLIENT_SECRET": "@syncify-client-secret",
+    "SPOTIFY_REDIRECT_URL": "https://syncify.schleindlsperger.de/api/auth/callback",
+    "DB_HOST": "@syncify-db-host",
+    "DB_USER": "root",
+    "DB_SECRET": "@syncify-db-secret",
+    "DB_PORT": "3306",
+    "DB_NAME": "syncify"
+  }
+}
