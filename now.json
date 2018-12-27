@@ -5,9 +5,14 @@
     {
       "src": "frontend/package.json",
       "use": "@now/static-build"
-    }
+    },
+    { "src": "api/src/index.ts", "use": "@now/node" }
   ],
   "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "api/src/index.ts"
+    },
     {
       "src": "^/assets/(.*)",
       "dest": "frontend/assets/$1"
@@ -17,5 +22,17 @@
       "dest": "frontend/assets/index.html"
     }
   ],
+  "env": {
+    "NODE_ENV": "production",
+    "JWT_SECRET": "@syncify-jwt-secret",
+    "SPOTIFY_CLIENT_ID": "@syncify-client-id",
+    "SPOTIFY_CLIENT_SECRET": "@syncify-client-secret",
+    "SPOTIFY_REDIRECT_URL": "https://syncify.co/api/auth/callback",
+    "DB_HOST": "@syncify-db-host",
+    "DB_USER": "root",
+    "DB_SECRET": "@syncify-db-secret",
+    "DB_PORT": "3306",
+    "DB_NAME": "syncify"
+  },
   "regions": ["bru1"]
 }

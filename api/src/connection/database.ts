@@ -1,5 +1,8 @@
 import { createConnection, Connection, ConnectionOptions } from 'typeorm'
 import { Configuration } from '../config'
+// manually import entities to avoid dynamic imports for a single file lambda build
+import { UserEntity } from '../api/user'
+import { RoomEntity } from '../api/room'
 
 const defaultConnectionOptions: ConnectionOptions = {
   type: 'mysql',
@@ -8,7 +11,7 @@ const defaultConnectionOptions: ConnectionOptions = {
   username: Configuration.dbUser,
   password: Configuration.dbSecret,
   database: Configuration.dbName,
-  entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+  entities: [UserEntity, RoomEntity],
   synchronize: true,
   logging: ['error'],
 }

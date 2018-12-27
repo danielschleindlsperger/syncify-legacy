@@ -6,7 +6,6 @@
   "scripts": {
     "test": "jest --expand --runInBand",
     "start:dev": "NODE_ENV=development nodemon",
-    "start:prod": "NODE_ENV=production ts-node --project tsconfig.json src/index.ts",
     "db:seed": "NODE_ENV=development ts-node src/seed/index.ts",
     "db:drop": "NODE_ENV=development ts-node src/seed/drop.ts"
   },
