@@ -1,4 +1,4 @@
-import { createStore } from '../index.js'
+import { createStore } from '../../index.js'
 
 let store
 
@@ -20,7 +20,7 @@ test('can set token validity', () => {
 test('can set user', () => {
   const user = { name: 'Foo' }
   store.dispatch.auth.setUser(user)
-  expect(store.getState().auth.user).toBe(user)
+  expect(store.getState().auth.user).toEqual(user)
 })
 
 test('can token and validity at once', () => {
