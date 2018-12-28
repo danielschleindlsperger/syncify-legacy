@@ -38,6 +38,9 @@
   },
   "dependencies": {
     "@reach/router": "^1.2.1",
+    "@rematch/core": "^1.0.6",
+    "@rematch/persist": "^1.1.5",
+    "@rematch/select": "^2.0.3",
     "axios": "^0.18.0",
     "prop-types": "^15.6.2",
     "ramda": "^0.25.0",
