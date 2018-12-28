@@ -7,13 +7,11 @@
   "scripts": {
     "proxy": "node proxy.js",
     "docker": "docker-compose -f ./.docker/docker-compose.yml up -d",
-    "install:api": "cd ./api && npm i",
-    "install:frontend": "cd ./frontend && npm i",
-    "install:all": "concurrently \"npm run install:api\" \"npm run install:frontend\" ",
-    "start:api": "cd ./api && npm run start:dev",
-    "start:frontend": "cd ./frontend && npm run start",
-    "start:all": "concurrently \"npm run start:api\" \"npm run start:frontend\" \"npm run proxy\" ",
-    "path-alias": "now alias syncify.co -r path-rules.json"
+    "bootstrap": "lerna bootstrap",
+    "start": "lerna run start:dev --parallel",
+    "deploy": "lerna run deploy --parallel",
+    "path-alias": "now alias syncify.co -r path-rules.json",
+    "test": "lerna run test --parallel"
   },
   "husky": {
     "hooks": {
@@ -30,6 +28,7 @@
     "http-proxy": "^1.17.0",
     "http-proxy-rules": "^1.1.3",
     "husky": "^1.3.0",
+    "lerna": "^3.8.0",
     "prettier": "^1.15.3",
     "pretty-quick": "^1.8.0"
   }

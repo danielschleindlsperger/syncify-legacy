@@ -5,11 +5,12 @@
   "author": "Daniel Schleindlsperger <daniel@schleindlsperger.de>",
   "main": "src/index.js",
   "scripts": {
-    "start": "parcel index.html",
+    "start:dev": "parcel index.html",
     "build": "parcel build index.html",
     "test": "jest",
     "storybook": "start-storybook -p 6006",
-    "storybook:build": "build-storybook"
+    "storybook:build": "build-storybook",
+    "deploy": "now && now alias"
   },
   "license": "ISC",
   "devDependencies": {

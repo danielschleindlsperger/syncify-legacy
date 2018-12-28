@@ -1,0 +1,11 @@
+{
+  "name": "syncify-dev-proxy",
+  "version": "0.0.1",
+  "description": "Proxy server for combining front- and backend during development.",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "node index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

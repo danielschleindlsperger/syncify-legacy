@@ -1,0 +1,11 @@
+{
+  "version": "independent",
+  "npmClient": "npm",
+  "command": {
+    "version": {
+      "ignoreChanges": ["*.md"],
+      "allowBranch": "master"
+    }
+  },
+  "packages": ["api", "frontend", "proxy"]
+}
