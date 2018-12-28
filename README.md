@@ -13,6 +13,7 @@ Syncify is a synchronized listening room experience for Spotify. Think community
 
 - [Node.js](https://nodejs.org/en/) >= 8 (with npm >= 5)
 - [Docker](https://www.docker.com/get-docker)
+- [now.sh](https://zeit.co/now) CLI installed and configured
 
 ## Environment
 
@@ -27,15 +28,26 @@ Afterwards fill in the unprovided credentials (Spotify, etc..).
 
 ## Up and running
 
-```bash
-# start containers
-npm run docker
+### NPM Commands
 
+```bash
 # install all dependencies
-npm run install:all
+npm run bootstrap
 
 # start containers and apps
-npm run start:all
+npm start
+
+# deploy apps and set alias to domain
+npm run deploy
+
+# set now.sh path aliases (should already be set and never be needed)
+npm run path-alias
+
+# run tests for all apps
+npm t
+
+# start all containers
+npm run docker
 ```
 
 Now you can access the whole app on [localhost:8080](http://localhost:8080)
