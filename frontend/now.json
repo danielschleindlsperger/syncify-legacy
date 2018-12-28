@@ -1,0 +1,7 @@
+{
+  "name": "syncify-frontend",
+  "version": 1,
+  "type": "docker",
+  "alias": "frontend.syncify.co",
+  "regions": ["bru1"]
+}

@@ -7,11 +7,15 @@
     "JWT_SECRET": "@syncify-jwt-secret",
     "SPOTIFY_CLIENT_ID": "@syncify-client-id",
     "SPOTIFY_CLIENT_SECRET": "@syncify-client-secret",
-    "SPOTIFY_REDIRECT_URL": "https://syncify.schleindlsperger.de/api/auth/callback",
+    "SPOTIFY_REDIRECT_URL": "https://syncify.co/api/auth/callback",
+    "APP_URL": "https://syncify.co",
+    "API_URL": "https://syncify.co/api",
     "DB_HOST": "@syncify-db-host",
     "DB_USER": "root",
     "DB_SECRET": "@syncify-db-secret",
     "DB_PORT": "3306",
     "DB_NAME": "syncify"
-  }
+  },
+  "alias": "api.syncify.co",
+  "regions": ["bru1"]
 }

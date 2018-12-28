@@ -24,8 +24,9 @@ ENV NODE_ENV production
 COPY --from=base /app/node_modules ./node_modules
 COPY package.json package-lock.json /app/
 # remove dev-dependencies
-RUN npm prune --production
 COPY . .
+RUN npm run build
+# RUN npm prune --production
 
 # SETTINGS
 EXPOSE 3000

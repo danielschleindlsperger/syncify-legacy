@@ -12,7 +12,8 @@
     "install:all": "concurrently \"npm run install:api\" \"npm run install:frontend\" ",
     "start:api": "cd ./api && npm run start:dev",
     "start:frontend": "cd ./frontend && npm run start",
-    "start:all": "concurrently \"npm run start:api\" \"npm run start:frontend\" \"npm run proxy\" "
+    "start:all": "concurrently \"npm run start:api\" \"npm run start:frontend\" \"npm run proxy\" ",
+    "path-alias": "now alias syncify.co -r path-rules.json"
   },
   "husky": {
     "hooks": {

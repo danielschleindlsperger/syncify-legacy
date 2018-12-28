@@ -1,0 +1,11 @@
+{
+  "rules": [
+    {
+      "pathname": "/api/**",
+      "dest": "api.syncify.co"
+    },
+    {
+      "dest": "frontend.syncify.co"
+    }
+  ]
+}

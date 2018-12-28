@@ -6,11 +6,10 @@
   "main": "src/index.js",
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build index.html --public-url /assets --out-dir dist/assets",
+    "build": "parcel build index.html",
     "test": "jest",
     "storybook": "start-storybook -p 6006",
-    "storybook:build": "build-storybook",
-    "now-build": "npm run build"
+    "storybook:build": "build-storybook"
   },
   "license": "ISC",
   "devDependencies": {

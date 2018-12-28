@@ -6,6 +6,8 @@
   "scripts": {
     "test": "jest --expand --runInBand",
     "start:dev": "NODE_ENV=development nodemon",
+    "start:prod": "NODE_ENV=production node dist/index.js",
+    "build": "ncc build -o dist src/index.ts",
     "db:seed": "NODE_ENV=development ts-node src/seed/index.ts",
     "db:drop": "NODE_ENV=development ts-node src/seed/drop.ts"
   },
@@ -35,6 +37,7 @@
     "@types/node": "^10.12.18",
     "@types/ramda": "^0.25.45",
     "@types/supertest": "^2.0.7",
+    "@zeit/ncc": "^0.8.1",
     "faker": "^4.1.0",
     "jest": "^23.6.0",
     "mock-req": "^0.2.0",
