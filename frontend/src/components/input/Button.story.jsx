@@ -12,7 +12,17 @@ const buttonStories = storiesOf('Button', module).addDecorator(Story => (
 ))
 
 buttonStories.add('Standard', () => <Button onClick={action('clicked')}>Standard Button</Button>)
+buttonStories.add('Standard Small', () => (
+  <Button small onClick={action('clicked')}>
+    Standard Small
+  </Button>
+))
 
 buttonStories.add('Light', () => (
   <ButtonLight onClick={action('clicked')}>Light Button</ButtonLight>
+))
+buttonStories.add('Light Small', () => (
+  <ButtonLight small onClick={action('clicked')}>
+    Light Button
+  </ButtonLight>
 ))
