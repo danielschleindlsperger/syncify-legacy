@@ -5,7 +5,9 @@ export const GlobalStyle = createGlobalStyle`
   ${reset};
   body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: 14px;
+    /* Offsets fixed navbar */
+    padding-top: 50px;
+    font-size: 15px;
     box-sizing: border-box;
     * {
       box-sizing: border-box;

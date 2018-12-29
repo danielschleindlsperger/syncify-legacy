@@ -1,17 +1,20 @@
 import React from 'react'
 import { connect, Provider } from 'react-redux'
 import { ReduxStorePropType } from '../prop-types'
+import { AppNavbar } from './AppNavbar'
 import { Routes } from './Routes'
 import { GlobalStyle } from './GlobalStyle'
 
 const App = ({ store }) => (
   <React.Fragment>
     <GlobalStyle />
-    {/* header or something */}
     <Provider store={store}>
-      <Routes />
+      <React.Fragment>
+        <AppNavbar />
+        <Routes />
+        {/* footer or something */}
+      </React.Fragment>
     </Provider>
-    {/* footer or something */}
   </React.Fragment>
 )
 
@@ -19,4 +22,4 @@ App.propTypes = {
   store: ReduxStorePropType,
 }
 
-export default connect()(App)
+export default App
