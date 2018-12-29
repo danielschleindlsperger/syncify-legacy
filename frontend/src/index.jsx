@@ -1,21 +1,19 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { initApi, getMyPlaylists } from './api'
+import { getMyPlaylists } from './api'
 import App from './components/App'
-import { initialAuthorization } from './modules/auth'
-import { initStore } from './store'
-import { initializeSpotifyPlayer } from './modules/spotify-player'
+import { store, waitForHydration } from './store'
+import { viewAccessToken } from './store/lenses'
+import { initSpotifySdk } from './modules/spotify-sdk'
 
-const store = initStore()
-
-initApi(store)
-
-// handles tokens among other stuff
-initialAuthorization(store)
-  .then(() => initializeSpotifyPlayer(store))
-  // TODO: redirect to login page
+window.store = store
+waitForHydration(store)
+  .then(() => store.dispatch.auth.initialToken())
+  .then(() => store.dispatch.auth.fetchUser())
+  .then(() => initSpotifySdk({ accessToken: viewAccessToken(store.getState()) }))
+  .then(player => store.dispatch.spotifyPlayer.initPlayerState(player))
   .catch(error => console.error('Login failed!', error))
-  .then(player => {
+  .then(() => {
     render(<App store={store} />, document.querySelector('#app'))
   })
-  .then(() => getMyPlaylists().then(console.log))
+  .then(() => getMyPlaylists(viewAccessToken(store.getState())).then(console.log))

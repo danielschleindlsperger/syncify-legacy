@@ -4,6 +4,7 @@ import * as R from 'ramda'
 import { FlexWrap, PlayerImage, PlayerText, StackFlexCenter } from './styled'
 import { trackInfo, progressInfo } from './props'
 import { ProgressBar } from './ProgressBar'
+import { viewPlayerState } from '../../store/lenses'
 
 export const PlayerPlaceholder = () => <div>No Song playing yet.</div>
 
@@ -22,20 +23,21 @@ export const StyledPlayer = ({ songName, artistName, coverArt, duration = 1, pos
 
 const whenNotNil = R.when(R.complement(R.isNil))
 
-const mapStateToProps = R.pipe(
-  R.path(['player', 'playerState']),
-  whenNotNil(playerState => ({
-    ...progressInfo(playerState),
-    ...trackInfo(playerState),
-  })),
-  R.defaultTo({})
-)
+const mapStateToProps = state =>
+  R.pipe(
+    viewPlayerState,
+    whenNotNil(playerState => ({
+      ...progressInfo(playerState),
+      ...trackInfo(playerState),
+    })),
+    R.defaultTo({}),
+  )(state)
 
 const hasRequiredProps = R.pipe(
   R.prop('songName'),
-  R.complement(R.isNil)
+  R.complement(R.isNil),
 )
 
 export const Player = connect(mapStateToProps)(
-  R.ifElse(hasRequiredProps, StyledPlayer, PlayerPlaceholder)
+  R.ifElse(hasRequiredProps, StyledPlayer, PlayerPlaceholder),
 )

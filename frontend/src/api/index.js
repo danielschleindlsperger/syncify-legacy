@@ -1,5 +1,4 @@
 export { authenticatedRequest } from './authenticated-request'
-export { initApi } from './init-api'
 export * from './rooms'
 export * from './spotify'
 export * from './user'

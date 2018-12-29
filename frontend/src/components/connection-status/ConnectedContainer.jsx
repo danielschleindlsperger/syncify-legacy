@@ -1,10 +1,9 @@
 import { connect } from 'react-redux'
-import * as R from 'ramda'
 import { Connected } from './Connected'
+import { viewConnected } from '../../store/lenses'
 
-const mapStateToProps = R.pipe(
-  R.prop('player'),
-  R.pick(['connected']),
-)
+const mapStateToProps = state => ({
+  connected: viewConnected(state),
+})
 
 export const ConnectedContainer = connect(mapStateToProps)(Connected)

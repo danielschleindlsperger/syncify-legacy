@@ -1,4 +1,6 @@
 import { updateUser, setWebPlayerAsActiveDevice } from '../../../api'
+import { viewToken, viewAccessToken, viewUser } from '../../lenses'
+import { applyAll } from '../../../utils'
 
 export const spotifyPlayer = {
   state: {
@@ -19,9 +21,25 @@ export const spotifyPlayer = {
     },
   },
   effects: dispatch => ({
-    setPlayerDeviceId(deviceId) {
-      updateUser({ deviceId })
-      setWebPlayerAsActiveDevice()
+    initPlayerState(player) {
+      player.addListener('ready', ({ device_id }) => {
+        dispatch.spotifyPlayer.setPlayerDeviceId(device_id)
+        dispatch.spotifyPlayer.setConnected(true)
+      })
+
+      player.addListener('not_ready', () => {
+        dispatch.spotifyPlayer.setConnected(false)
+      })
+
+      player.addListener('player_state_changed', track => {
+        dispatch.spotifyPlayer.setPlayerState(track)
+      })
+    },
+    setPlayerDeviceId(deviceId, rootState) {
+      const [user, accessToken, token] = applyAll([viewUser, viewAccessToken, viewToken])(rootState)
+      updateUser(token, user.id, { deviceId })
+
+      setWebPlayerAsActiveDevice(accessToken)
       dispatch.spotifyPlayer.setDeviceId(deviceId)
     },
   }),

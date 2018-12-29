@@ -1,10 +1,12 @@
 import { pipe, prop, ifElse, isNil, allPass } from 'ramda'
+import { getMe } from '../../../api'
 import { query } from '../../../utils/query'
+import { viewToken } from '../../lenses'
 
 const tokenValid = allPass([auth => auth.token, auth => auth.validUntil > Date.now()])
 
 const JWT_QUERY_KEY = 'token'
-const ONE_HOUR_IN_SECONDS = 3600
+const ONE_HOUR_IN_MILLIS = 3600000
 
 const maybeTokenFromQuery = pipe(
   query,
@@ -14,7 +16,7 @@ const maybeTokenFromQuery = pipe(
     () => null,
     token => ({
       token,
-      validUntil: Math.round(Date.now() / 1000 + ONE_HOUR_IN_SECONDS),
+      validUntil: Math.round(Date.now() + ONE_HOUR_IN_MILLIS),
     }),
   ),
 )
@@ -46,12 +48,16 @@ export const auth = {
     },
   }),
   effects: dispatch => ({
-    async initialToken(payload, rootState) {
+    async initialToken() {
       const auth = maybeTokenFromQuery()
       if (auth) {
-        dispatch.auth.setAuth(auth)
-        return
+        return dispatch.auth.setAuth(auth)
       }
+    },
+    async fetchUser(payload, rootState) {
+      const token = viewToken(rootState)
+      const user = await getMe(token)
+      return dispatch.auth.setUser(user)
     },
   }),
 }

@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { getAllRooms } from '../../api'
+import { viewToken } from '../../store/lenses'
 import { RoomList } from './RoomList'
 
 const ErrorUI = ({ onClick }) => (
@@ -14,13 +16,15 @@ ErrorUI.propTypes = {
   onClick: PropTypes.func.isRequired,
 }
 
-export class RoomListContainer extends React.Component {
+let RoomListContainer = class extends React.Component {
   state = { rooms: [], error: false }
 
-  fetchRooms = () =>
-    getAllRooms()
+  fetchRooms = () => {
+    const { token } = this.props
+    return getAllRooms(token)
       .then(rooms => this.setState({ rooms, error: false }))
       .catch(() => this.setState({ rooms: [], error: true }))
+  }
 
   componentDidMount() {
     this.fetchRooms()
@@ -35,3 +39,15 @@ export class RoomListContainer extends React.Component {
     )
   }
 }
+
+RoomListContainer.propTypes = {
+  token: PropTypes.string.isRequired,
+}
+
+const mapProps = state => ({
+  token: viewToken(state),
+})
+
+RoomListContainer = connect(mapProps)(RoomListContainer)
+
+export { RoomListContainer }

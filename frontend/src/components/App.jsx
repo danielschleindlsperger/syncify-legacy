@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect, Provider } from 'react-redux'
-import { ReduxStorePropType } from '../utils/prop-types'
+import { ReduxStorePropType } from '../prop-types'
 import { Routes } from './Routes'
 import { GlobalStyle } from './GlobalStyle'
 

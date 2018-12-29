@@ -1,10 +1,14 @@
-import { createStore } from '../../index.js'
-
-let store
+import { createStore } from '../../store.js'
+import { getMe } from '../../../api'
 
 const FAKE_DATE_NOW = 1541354997536
-const FAKE_DATE_NOW_SECONDS = Math.round(FAKE_DATE_NOW / 1000)
-const ONE_HOUR_IN_SECONDS = 3600
+const ONE_HOUR_IN_MILLIS = 3600000
+
+jest.mock('../../../api', () => ({
+  getMe: jest.fn(() => Promise.resolve({ name: 'Foo' })),
+}))
+
+let store
 
 beforeEach(() => {
   store = createStore()
@@ -75,7 +79,7 @@ test(`gets a valid token from query string`, async () => {
   const state = store.getState()
 
   expect(state.auth.token).toBe('tokenFromQuery')
-  expect(state.auth.validUntil).toBe(FAKE_DATE_NOW_SECONDS + ONE_HOUR_IN_SECONDS)
+  expect(state.auth.validUntil).toBe(FAKE_DATE_NOW + ONE_HOUR_IN_MILLIS)
 })
 
 test(`doesn't explode when not query string exists`, async () => {
@@ -84,4 +88,13 @@ test(`doesn't explode when not query string exists`, async () => {
 
   expect(state.auth.token).toBe(null)
   expect(state.auth.validUntil).toBe(0)
+})
+
+test(`fetches and sets user`, async () => {
+  store.dispatch.auth.setToken('token')
+  await store.dispatch.auth.fetchUser()
+
+  const state = store.getState()
+  expect(state.auth.user).toEqual({ name: 'Foo' })
+  expect(getMe).toHaveBeenCalledWith('token')
 })

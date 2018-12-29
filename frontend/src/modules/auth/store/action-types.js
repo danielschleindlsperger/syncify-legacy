@@ -1,4 +1,0 @@
-// Action types
-export const SET_AUTH_TOKEN = 'SET_AUTH_TOKEN'
-export const SET_AUTH_TOKEN_VALID_UNTIL = 'SET_AUTH_TOKEN_VALID_UNTIL'
-export const SET_AUTH_USER = 'SET_AUTH_USER'

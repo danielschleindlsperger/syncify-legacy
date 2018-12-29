@@ -2,7 +2,6 @@ import { query } from './query'
 
 describe('query', () => {
   afterEach(() => {
-    window.localStorage.clear()
     jsdom.reconfigure({
       url: 'http://localhost',
     })

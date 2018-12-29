@@ -1,27 +1,18 @@
 import axios from 'axios'
-import { pipe, unless, view, ifElse, isNil } from 'ramda'
-import { authToken } from '../modules/auth/lenses'
-import { store } from './init-api'
+import { pipe, ifElse } from 'ramda'
 
-const viewToken = store =>
+export const authenticatedRequest = accessToken =>
   pipe(
-    unless(isNil, store => store.getState()),
-    view(authToken),
-  )(store)
-
-export const authenticatedRequest = () =>
-  pipe(
-    viewToken,
     ifElse(
-      isNil,
-      () => {
-        throw new Error('Could not retrieve token from store')
-      },
+      token => Boolean(token),
       token =>
         axios.create({
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }),
+      () => {
+        throw new Error('Invalid token passed.')
+      },
     ),
-  )(store)
+  )(accessToken)

@@ -1,11 +1,11 @@
 import { authenticatedRequest } from './authenticated-request'
 
-export const getAllRooms = () =>
-  authenticatedRequest()
+export const getAllRooms = token =>
+  authenticatedRequest(token)
     .get('/api/room')
     .then(x => x.data)
 
-export const joinRoom = roomId =>
-  authenticatedRequest()
+export const joinRoom = token => roomId =>
+  authenticatedRequest(token)
     .get(`/api/room/${roomId}/join`)
     .then(x => x.data)

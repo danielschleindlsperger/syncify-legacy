@@ -1,4 +1,4 @@
-import { createStore } from '../../index.js'
+import { createStore } from '../../store.js'
 import { updateUser, setWebPlayerAsActiveDevice } from '../../../api'
 
 jest.mock('../../../api', () => ({
@@ -33,8 +33,9 @@ test('can set spotify player state', () => {
 
 test('updates user on backend and changes spotify device after setting device id', async () => {
   const deviceId = 'device-id'
+  store.dispatch.auth.setUser({ id: '12345' })
   await store.dispatch.spotifyPlayer.setPlayerDeviceId(deviceId)
   expect(store.getState().spotifyPlayer.deviceId).toBe('device-id')
-  expect(updateUser).toHaveBeenCalledWith({ deviceId })
+  expect(updateUser).toHaveBeenCalledWith(null, '12345', { deviceId })
   expect(setWebPlayerAsActiveDevice).toHaveBeenCalledTimes(1)
 })

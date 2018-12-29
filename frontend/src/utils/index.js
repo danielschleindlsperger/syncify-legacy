@@ -1,4 +1,2 @@
-export * from './promise'
-export * from './prop-types'
+export * from './fp'
 export * from './query'
-export * from './time'
