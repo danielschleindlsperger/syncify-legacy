@@ -1,4 +1,23 @@
-import { allPass } from 'ramda'
+import { pipe, prop, ifElse, isNil, allPass } from 'ramda'
+import { query } from '../../../utils/query'
+
+const tokenValid = allPass([auth => auth.token, auth => auth.validUntil > Date.now()])
+
+const JWT_QUERY_KEY = 'token'
+const ONE_HOUR_IN_SECONDS = 3600
+
+const maybeTokenFromQuery = pipe(
+  query,
+  prop(JWT_QUERY_KEY),
+  ifElse(
+    isNil,
+    () => null,
+    token => ({
+      token,
+      validUntil: Math.round(Date.now() / 1000 + ONE_HOUR_IN_SECONDS),
+    }),
+  ),
+)
 
 export const auth = {
   state: {
@@ -22,8 +41,17 @@ export const auth = {
     },
   },
   selectors: slice => ({
-    tokenValid() {
-      return slice(allPass([auth => auth.token, auth => auth.validUntil > Date.now()]))
+    isLoggedIn() {
+      return slice(tokenValid)
+    },
+  }),
+  effects: dispatch => ({
+    async initialToken(payload, rootState) {
+      const auth = maybeTokenFromQuery()
+      if (auth) {
+        dispatch.auth.setAuth(auth)
+        return
+      }
     },
   }),
 }
