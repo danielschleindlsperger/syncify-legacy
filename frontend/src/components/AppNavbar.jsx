@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from '@reach/router'
 import { Navbar, NavbarGroup, NavbarItem } from './navigation'
 import { Button } from './input'
+import { CreateRoom } from './CreateRoom'
 
 export const AppNavbar = () => (
   <Navbar>
@@ -13,7 +14,7 @@ export const AppNavbar = () => (
     </NavbarItem>
     <NavbarGroup alignRight>
       <NavbarItem>
-        <Button small>Create a Room</Button>
+        <CreateRoom />
       </NavbarItem>
     </NavbarGroup>
   </Navbar>
