@@ -1,6 +1,6 @@
 # Syncify
 
-Syncify is a synchronized listening room experience for Spotify. Think community radio.
+Syncify is a synchronized listening room experience for Spotify. Think community radio. [syncify.co](https://syncify.co)
 
 ## Table of Contents
 
