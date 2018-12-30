@@ -6,7 +6,7 @@
   "main": "src/index.js",
   "scripts": {
     "start:dev": "parcel index.html",
-    "build": "parcel build index.html --experimental-scope-hoisting",
+    "build": "parcel build index.html",
     "test": "jest",
     "storybook": "start-storybook -p 6006 --ci",
     "storybook:build": "build-storybook",
