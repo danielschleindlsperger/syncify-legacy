@@ -37,8 +37,8 @@ npm run bootstrap
 # start containers and apps
 npm start
 
-# deploy apps and set alias to domain
-npm run deploy
+# deploy apps and set alias to domain (does not alias when one of the deployments fails)
+npm run deploy && npm run alias
 
 # set now.sh path aliases (should already be set and never be needed)
 npm run path-alias

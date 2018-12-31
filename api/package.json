@@ -10,7 +10,8 @@
     "build": "ncc build -o dist src/index.ts",
     "db:seed": "NODE_ENV=development ts-node src/seed/index.ts",
     "db:drop": "NODE_ENV=development ts-node src/seed/drop.ts",
-    "deploy": "now && now alias"
+    "deploy": "now",
+    "alias-deployment": "now alias"
   },
   "author": "Daniel Schleindlsperger <daniel@schleindlsperger.de>",
   "license": "ISC",

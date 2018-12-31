@@ -10,7 +10,8 @@
     "test": "jest",
     "storybook": "start-storybook -p 6006 --ci",
     "storybook:build": "build-storybook",
-    "deploy": "now && now alias"
+    "deploy": "now",
+    "alias-deployment": "now alias"
   },
   "license": "ISC",
   "devDependencies": {
