@@ -14,8 +14,8 @@ test('creates and returns a room', async () => {
     name: 'hello',
     playlist: [
       {
-        spotifyUri: 'spotify:uri',
-        isActive: false,
+        id: 'spotify:uri',
+        durationMs: 123456,
       },
     ],
   }
