@@ -43,6 +43,7 @@
     "@rematch/persist": "^1.1.5",
     "@rematch/select": "^2.0.3",
     "axios": "^0.18.0",
+    "formik": "^1.4.1",
     "prop-types": "^15.6.2",
     "ramda": "^0.26.1",
     "react": "^16.7.0",

@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Link } from '@reach/router'
 import PropTypes from 'prop-types'
 import { MQ_TABLET, MQ_DESKTOP } from '../style-constants'
+import fallbackImage from '../../static/img/placeholder-fire.jpg'
 
 const RoomTitle = styled('h2')`
   font-size: 20px;
@@ -19,7 +20,7 @@ const ImageOverlay = styled('div')`
   position: absolute;
   width: 100%;
   height: 100%;
-  background: url(${({ url }) => url});
+  background: url(${props => props.url || fallbackImage});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -74,17 +75,19 @@ const RoomBlock = styled('div')`
   }
 `
 
-export const StyledRoomBlock = ({ id, coverArt, name, listenersCount }) => (
-  <RoomBlock>
-    <Link to={`/rooms/${id}`}>
-      <ImageOverlay url={coverArt} />
-      <OverlayText>
-        <RoomTitle>{name}</RoomTitle>
-        <ListenersText>{listenersCount} listening</ListenersText>
-      </OverlayText>
-    </Link>
-  </RoomBlock>
-)
+export const StyledRoomBlock = ({ id, coverArt, name, listenersCount }) => {
+  return (
+    <RoomBlock>
+      <Link to={`/rooms/${id}`}>
+        <ImageOverlay url={coverArt} />
+        <OverlayText>
+          <RoomTitle>{name}</RoomTitle>
+          <ListenersText>{listenersCount} listening</ListenersText>
+        </OverlayText>
+      </Link>
+    </RoomBlock>
+  )
+}
 
 StyledRoomBlock.propTypes = {
   id: PropTypes.string,

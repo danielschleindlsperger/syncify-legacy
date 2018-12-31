@@ -22,6 +22,15 @@ export const Button = styled.button`
     color: ${COLORS.PRIMARY};
     background-color: white;
   }
+  /* TODO: make disabled button look nice */
+  &:disabled {
+    background-color: gainsboro;
+    color: white;
+    &:hover {
+      background-color: gainsboro;
+      color: white;
+    }
+  }
 `
 
 Button.propTypes = {

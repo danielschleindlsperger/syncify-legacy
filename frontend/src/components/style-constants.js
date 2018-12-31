@@ -5,3 +5,11 @@ export const COLORS = {
   BLACK: '#111',
   PRIMARY: 'rebeccapurple',
 }
+
+export const FONT_SIZES = {
+  // 15 is global base, everything else each multiply by golden ratio
+  BASE: '15px',
+  SMALL: '24px',
+  MEDIUM: '39px',
+  LARGE: '64px',
+}

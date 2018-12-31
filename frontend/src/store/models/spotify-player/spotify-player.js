@@ -39,7 +39,7 @@ export const spotifyPlayer = {
       const [user, accessToken, token] = applyAll([viewUser, viewAccessToken, viewToken])(rootState)
       updateUser(token, user.id, { deviceId })
 
-      setWebPlayerAsActiveDevice(accessToken)
+      setWebPlayerAsActiveDevice(accessToken, deviceId)
       dispatch.spotifyPlayer.setDeviceId(deviceId)
     },
   }),

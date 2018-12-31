@@ -18,7 +18,7 @@ export const RoomEntity = new EntitySchema<Room>({
     },
     // fixed empty state for this, should be empty array but is actually undefined
     playlist: {
-      type: 'simple-array',
+      type: 'json',
       nullable: true,
     },
     updatedAt: {
@@ -31,10 +31,17 @@ export const RoomEntity = new EntitySchema<Room>({
     },
   },
   relations: {
+    admins: {
+      type: 'many-to-many',
+      joinTable: true,
+      target: 'user',
+      eager: true,
+    },
     listeners: {
       type: 'one-to-many',
       target: 'user',
       inverseSide: 'room',
+      eager: true,
     },
   },
 })

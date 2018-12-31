@@ -1,6 +1,5 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { getMyPlaylists } from './api'
 import App from './components/App'
 import { store, waitForHydration } from './store'
 import { viewAccessToken } from './store/lenses'
@@ -16,4 +15,3 @@ waitForHydration(store)
   .then(() => {
     render(<App store={store} />, document.querySelector('#app'))
   })
-  .then(() => getMyPlaylists(viewAccessToken(store.getState())).then(console.log))

@@ -65,6 +65,6 @@ export class StyledModal extends React.Component {
       </Modal>
     )
 
-    return children({ openModal: this.openModal, Content })
+    return children({ openModal: this.openModal, closeModal: this.closeModal, Content })
   }
 }

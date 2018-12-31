@@ -1,5 +1,5 @@
 import { getRepository } from 'typeorm'
-import { from } from 'rxjs'
+import { from, Observable } from 'rxjs'
 import { Room, ROOM_LIST_FIELDS } from './room'
 
 export const RoomDAO = {
@@ -11,11 +11,6 @@ export const RoomDAO = {
       }),
     ),
   findOne: (id: string) =>
-    from(
-      getRepository('room').findOne({
-        where: { id },
-        relations: ['listeners'],
-      }),
-    ),
+    from(getRepository('room').findOneOrFail({ where: { id } })) as Observable<Room>,
   save: (room: Room) => from(getRepository('room').save(room)),
 }

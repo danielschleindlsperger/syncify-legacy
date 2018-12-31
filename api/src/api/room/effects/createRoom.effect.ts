@@ -1,6 +1,6 @@
 import { Effect, use, Middleware } from '@marblejs/core'
 import { validator$, Joi } from '@marblejs/middleware-joi'
-import { flatMap, map } from 'rxjs/operators'
+import { flatMap, map, tap } from 'rxjs/operators'
 import { RoomDAO } from '../model'
 import { logAndRethrow } from '../../../util'
 
@@ -11,8 +11,8 @@ const roomValidator$: Middleware = validator$({
       .required(),
     playlist: Joi.array().items(
       Joi.object({
-        isActive: Joi.boolean(),
-        spotifyUri: Joi.string(),
+        id: Joi.string().required(),
+        durationMs: Joi.number(),
       }),
     ),
   }),
@@ -21,7 +21,10 @@ const roomValidator$: Middleware = validator$({
 export const createRoomEffect$: Effect = req$ =>
   req$.pipe(
     use(roomValidator$),
-    map(req => req.body),
+    map(req => ({
+      ...req.body,
+      admins: [req.user],
+    })),
     flatMap(RoomDAO.save),
     map(body => ({ body })),
     logAndRethrow(''),

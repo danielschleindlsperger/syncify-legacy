@@ -2,16 +2,20 @@ import { User } from '../../user'
 import { RoomEntity } from './room.entity'
 import { entityWithoutFields } from '../../../util'
 
-export interface Track {
-  spotifyUri: string
-  isActive: boolean
+export interface PlaylistTrack {
+  // spotify id
+  id: string
+  durationMs: number
+  playbackStartedAt?: number
+  isActive?: boolean // undefined acts the same as false
 }
 
 export interface Room {
   id?: string
   name: string
+  admins: User[]
   coverArt?: string
-  playlist: Track[]
+  playlist: PlaylistTrack[]
   listeners: User[]
   createdAt?: string
   updatedAt?: string
