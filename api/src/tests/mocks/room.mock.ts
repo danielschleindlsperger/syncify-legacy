@@ -1,6 +1,7 @@
 import * as faker from 'faker'
 import { getRepository } from 'typeorm'
 import { Room } from '../../api/room'
+import { mockUser } from './user.mock'
 
 const albumCovers = [
   'https://i.scdn.co/image/736db0f59731686c77fcf21516fee9ac3eeb1c30',
@@ -11,13 +12,14 @@ const albumCovers = [
   'https://i.scdn.co/image/29f366d517db08a7fc7ba45f1e431901493f78d6',
 ]
 
-export const fakeData = (data = {}): Room => ({
+export const fakeData = async (data = {}): Promise<Room> => ({
   id: faker.random.uuid(),
   name: faker.random.words(3),
+  admins: [await mockUser()],
   coverArt: faker.random.arrayElement(albumCovers),
   playlist: [],
-  listeners: [],
+  listeners: [await mockUser(), await mockUser(), await mockUser()],
   ...data,
 })
 
-export const mockRoom = async (data = {}) => getRepository('room').save(fakeData(data))
+export const mockRoom = async (data = {}) => getRepository('room').save(await fakeData(data))
