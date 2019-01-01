@@ -21,7 +21,7 @@ test('returns a room', async () => {
       expect(res.id).toBe(room.id)
       expect(res.name).toBe(room.name)
       expect(res.coverArt).toBe(room.coverArt)
-      expect(res.listeners).toEqual(room.listeners)
+      expect(res.listeners.length).toBe(room.listeners.length)
       expect(res.playlist).toEqual(room.playlist)
     })
 })

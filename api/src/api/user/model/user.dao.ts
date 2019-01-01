@@ -9,18 +9,19 @@ export const UserDAO = {
   all: () => from(userRepository().find()),
   allPublic: () => from(userRepository().find({ select: PUBLIC_FIELDS })),
   save: (user: User) => from(userRepository().save(user)) as Observable<User>,
-  findById: (id: string) => from(userRepository().findOneOrFail({ id })) as Observable<User>,
+  findById: (id: string) =>
+    from(userRepository().findOneOrFail({ where: { id } })) as Observable<User>,
   findByIdSecured: (id: string) =>
     from(
       userRepository().findOneOrFail({
-        id,
+        where: { id },
         select: SECURED_FIELDS,
       }),
     ),
   findByIdPublic: (id: string) =>
     from(
       userRepository().findOneOrFail({
-        id,
+        where: { id },
         select: PUBLIC_FIELDS,
       }),
     ),

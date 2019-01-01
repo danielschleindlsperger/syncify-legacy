@@ -1,6 +1,6 @@
 import { Effect, HttpError, HttpStatus } from '@marblejs/core'
 import { throwError } from 'rxjs'
-import { map, flatMap, catchError, tap } from 'rxjs/operators'
+import { map, flatMap, catchError } from 'rxjs/operators'
 import { neverNullable } from '../../../util'
 
 export const getMeEffect$: Effect = req$ =>
