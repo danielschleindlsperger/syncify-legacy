@@ -8,8 +8,6 @@ module.exports = {
 
     config.module.rules.push({
       test: /\.ts$/,
-      // transpile syncify-config
-      exclude: /node_modules\/(?!syncify-config)/,
       loader: 'ts-loader',
     })
 
