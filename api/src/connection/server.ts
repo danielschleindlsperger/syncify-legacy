@@ -1,12 +1,11 @@
 import { createServer, IncomingMessage, ServerResponse } from 'http'
 import chalk from 'chalk'
-import { Configuration } from '../config'
 
 export namespace Server {
-  const { host, port } = Configuration
+  const PORT = 3000
 
   const onListen = () => {
-    console.info(chalk.green('[server] running'), `@ http://${host}:${port}/`)
+    console.info(chalk.green('[server] running'), `@ http://localhost:${PORT}/`)
   }
 
   const onClose = () => {
@@ -19,7 +18,7 @@ export namespace Server {
 
   export const create = async (app: (req: IncomingMessage, res: ServerResponse) => void) =>
     createServer(app)
-      .listen(port, onListen)
+      .listen(PORT, onListen)
       .on('close', onClose)
       .on('error', onError)
 }

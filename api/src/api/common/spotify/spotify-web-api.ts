@@ -1,5 +1,5 @@
 import * as SpotifyWebApi from 'spotify-web-api-node'
-import { Configuration } from '../../../config'
+import { Config } from 'syncify-config'
 
 export type SpotifyOAuthResponse = {
   access_token: string
@@ -43,10 +43,12 @@ export type SpotifyUserDto = {
   uri: string
 }
 
+const { clientId, clientSecret, redirectUri } = Config.spotify
+
 export const spotifyFactory = (credentials: Partial<SpotifyCredentials> = {}) =>
   new SpotifyWebApi({
-    clientId: Configuration.spotifyClientId,
-    clientSecret: Configuration.spotifyClientSecret,
-    redirectUri: Configuration.spotifyRedirectUrl,
+    clientId,
+    clientSecret,
+    redirectUri,
     ...credentials,
   })

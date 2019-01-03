@@ -1,16 +1,18 @@
 import { createConnection, Connection, ConnectionOptions } from 'typeorm'
-import { Configuration } from '../config'
+import { Config } from 'syncify-config'
 // manually import entities to avoid dynamic imports for a single file lambda build
 import { UserEntity } from '../api/user'
 import { RoomEntity } from '../api/room'
 
+const { database } = Config
+
 const defaultConnectionOptions: ConnectionOptions = {
   type: 'mysql',
-  host: Configuration.dbHost,
-  port: Configuration.dbPort,
-  username: Configuration.dbUser,
-  password: Configuration.dbSecret,
-  database: Configuration.dbName,
+  host: database.host,
+  port: database.port,
+  username: database.user,
+  password: database.secret,
+  database: database.name,
   entities: [UserEntity, RoomEntity],
   synchronize: true,
   logging: ['error'],

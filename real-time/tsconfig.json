@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "pretty": true,
+    "strict": true,
+    "target": "es2017",
+    "resolveJsonModule": true,
+    "lib": ["dom", "es2017"],
+    "typeRoots": ["**/node_modules/@types"]
+  },
+  "include": ["./src"],
+  "exclude": ["**/*.spec.ts"]
+}

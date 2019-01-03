@@ -5,6 +5,7 @@ const HttpProxyRules = require('http-proxy-rules')
 const proxyRules = new HttpProxyRules({
   rules: {
     '.*/api': 'http://localhost:3000/api',
+    '.*/real-time': 'http://localhost:3001/real-time',
   },
   default: 'http://localhost:1234', // frontend
 })

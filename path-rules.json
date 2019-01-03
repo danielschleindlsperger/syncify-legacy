@@ -1,6 +1,10 @@
 {
   "rules": [
     {
+      "pathname": "/real-time/**",
+      "dest": "real-time.syncify.co"
+    },
+    {
       "pathname": "/api/**",
       "dest": "api.syncify.co"
     },

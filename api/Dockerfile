@@ -26,7 +26,7 @@ COPY package.json package-lock.json /app/
 # remove dev-dependencies
 COPY . .
 RUN npm run build
-# RUN npm prune --production
+RUN npm prune --production
 
 # SETTINGS
 EXPOSE 3000

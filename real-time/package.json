@@ -1,0 +1,25 @@
+{
+  "name": "syncify-real-time",
+  "version": "0.0.1",
+  "description": "Realtime handler for syncify (websockets)",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "backpack dev",
+    "build": "backpack build",
+    "start:prod": "node build/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "backpack-core": "^0.8.3",
+    "socket.io": "^2.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.18",
+    "@types/socket.io": "^2.1.2",
+    "nodemon": "^1.18.9",
+    "ts-loader": "^5.3.2",
+    "typescript": "^3.2.2"
+  }
+}

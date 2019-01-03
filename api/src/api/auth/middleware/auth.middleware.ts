@@ -1,11 +1,11 @@
 import { authorize$ as jwt$, VerifyOptions } from '@marblejs/middleware-jwt'
 import { flatMap } from 'rxjs/operators'
+import { Config } from 'syncify-config'
 import { Payload } from '../helpers/token.helper'
 import { UserDAO } from '../../user'
-import { Configuration } from '../../../config'
 import { neverNullable } from '../../../util'
 
-const jwtConfig: VerifyOptions = { secret: Configuration.jwtSecret }
+const jwtConfig: VerifyOptions = { secret: Config.jwtSecret }
 
 export const verifyPayload$ = (payload: Payload) =>
   UserDAO.findByIdSecured(payload._id).pipe(flatMap(neverNullable))

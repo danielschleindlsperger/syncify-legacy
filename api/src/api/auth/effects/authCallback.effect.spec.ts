@@ -1,9 +1,9 @@
 import * as request from 'supertest'
 import { of } from 'rxjs'
-import { UserDAO, User } from '../../user/model'
+import { Config } from 'syncify-config'
+import { UserDAO } from '../../user/model'
 import { app } from '../../../app'
 import * as spotify from '../../common/spotify'
-import { Configuration } from '../../../config'
 
 const spotifyCodeResponse = {
   access_token: 'access_token',
@@ -49,7 +49,7 @@ test('authCallback effect gets users data from spotify, saves user in database a
     // called by spotify
     .get('/api/auth/callback?code=1234')
     .expect(302)
-    .expect('location', new RegExp(Configuration.appUrl))
+    .expect('location', new RegExp(Config.appUrl))
 
   UserDAO.findById(spotifyGetMeResponse.id).subscribe(user => {
     expect(user.avatar).toBe(spotifyGetMeResponse.images[0].url)

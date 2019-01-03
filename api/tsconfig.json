@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "module": "commonjs",
@@ -15,7 +14,7 @@
     "target": "es2017",
     "resolveJsonModule": true,
     "lib": ["dom", "es2017"],
-    "typeRoots": ["./node_modules/@types"]
+    "typeRoots": ["**/node_modules/@types"]
   },
-  "include": ["./node_modules/@types", "./src/**/*.ts"]
+  "include": ["node_modules/@types", "**/src/**/*.ts", "node_modules/syncify-config"]
 }
