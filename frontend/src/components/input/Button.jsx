@@ -1,12 +1,12 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { COLORS } from '../style-constants'
+import { COLORS, DROP_SHADOWS } from '../style-constants'
 
 export const Button = styled.button`
   white-space: nowrap;
   display: inline-block;
   padding: ${props => (props.small ? '5px 10px' : '12px 14px')};
-  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: ${DROP_SHADOWS.SMALL.normal};
   border-radius: 4px;
   font-size: ${props => (props.small ? '14px' : '15px')};
   font-weight: ${props => (props.small ? 500 : 600)};
@@ -46,7 +46,7 @@ export const ButtonLight = styled(Button)`
   color: ${COLORS.PRIMARY};
   border: 1px solid ${COLORS.PRIMARY};
   &:hover {
-    box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+    box-shadow: ${DROP_SHADOWS.SMALL.elevated};
     transform: translateY(-1px);
   }
 `

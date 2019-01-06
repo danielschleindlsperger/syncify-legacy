@@ -1,43 +1,50 @@
 import React from 'react'
+import styled from 'styled-components'
 import { connect } from 'react-redux'
-import * as R from 'ramda'
+import { pipe, when, complement, isNil, defaultTo, prop, ifElse } from 'ramda'
+import { DROP_SHADOWS } from '../style-constants'
 import { FlexWrap, PlayerImage, PlayerText, StackFlexCenter } from './styled'
 import { trackInfo, progressInfo } from './props'
 import { ProgressBar } from './ProgressBar'
 import { viewPlayerState } from '../../store/lenses'
 
-export const PlayerPlaceholder = () => <div>No Song playing yet.</div>
+const PlayerWrapper = styled(FlexWrap)`
+  margin-top: 50px;
+  box-shadow: ${DROP_SHADOWS.SMALL.normal};
+`
+
+export const PlayerPlaceholder = () => <div>No Song playing right now.</div>
 
 export const StyledPlayer = ({ songName, artistName, coverArt, duration = 1, position = 0 }) => (
-  <FlexWrap style={{ marginTop: 50 }}>
+  <PlayerWrapper>
     <PlayerImage src={coverArt} alt={songName} />
     <StackFlexCenter>
       <PlayerText>{songName}</PlayerText>
       <PlayerText>{artistName}</PlayerText>
     </StackFlexCenter>
     <ProgressBar duration={duration} position={position} />
-  </FlexWrap>
+  </PlayerWrapper>
 )
 
 // TODO: fix router props dripping down
 
-const whenNotNil = R.when(R.complement(R.isNil))
+const whenNotNil = when(complement(isNil))
 
 const mapStateToProps = state =>
-  R.pipe(
+  pipe(
     viewPlayerState,
     whenNotNil(playerState => ({
       ...progressInfo(playerState),
       ...trackInfo(playerState),
     })),
-    R.defaultTo({}),
+    defaultTo({}),
   )(state)
 
-const hasRequiredProps = R.pipe(
-  R.prop('songName'),
-  R.complement(R.isNil),
+const hasRequiredProps = pipe(
+  prop('songName'),
+  complement(isNil),
 )
 
 export const Player = connect(mapStateToProps)(
-  R.ifElse(hasRequiredProps, StyledPlayer, PlayerPlaceholder),
+  ifElse(hasRequiredProps, StyledPlayer, PlayerPlaceholder),
 )

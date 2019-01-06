@@ -1,10 +1,8 @@
 import { Rabbit } from 'rabbit-queue'
 import { RoomDAO } from '../api/room'
 import { SCHEDULE_ROOM_SONG_CHANGE, CHANGE_USER_SONG } from './events'
-import { playTracks, playTrack } from '../api/common/spotify'
+import { playTrack } from '../api/common/spotify'
 import { queueNextSongChange, setNextPlaying } from '../api/room/actions'
-import { catchError } from 'rxjs/operators'
-import { of } from 'rxjs'
 
 type RoomSongChangePayload = {
   songId: string

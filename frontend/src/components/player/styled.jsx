@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { GOLDEN_RATIO } from '../style-constants'
 
 const PLAYER_MAX_HEIGHT = 300
 
@@ -7,7 +8,7 @@ export const FlexWrap = styled.div`
   display: flex;
   flex-flow: row nowrap;
   margin: 0 auto;
-  max-width: ${2 * PLAYER_MAX_HEIGHT}px;
+  max-width: ${(1 + GOLDEN_RATIO) * PLAYER_MAX_HEIGHT}px;
 `
 
 export const StackFlexCenter = styled.div`

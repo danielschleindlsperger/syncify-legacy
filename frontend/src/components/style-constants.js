@@ -14,4 +14,13 @@ export const FONT_SIZES = {
   LARGE: '64px',
 }
 
+export const DROP_SHADOWS = {
+  SMALL: {
+    normal: '0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08)',
+    elevated: '0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08)',
+  },
+  // MEDIUM: { normal: '', elevated: '' },
+}
+
 export const NAV_HEIGHT = 50
+export const GOLDEN_RATIO = 1.61803398875

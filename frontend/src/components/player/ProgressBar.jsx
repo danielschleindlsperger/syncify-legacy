@@ -1,16 +1,35 @@
-import styled from 'styled-components'
+import React from 'react'
+import styled, { keyframes } from 'styled-components'
 import PropTypes from 'prop-types'
+import { pipe } from 'ramda'
+import { COLORS } from '../style-constants'
 
-// TODO: animate progress bar: calculate remaining duration and start a transition
-// TODO: add an active? prop to stop animation
+const progressAnimation = props => keyframes`
+  from {
+    width: ${(props.position / props.duration) * 100}%;
+  }
+  to {
+    width: 100%;
+  }
+`
 
-export const ProgressBar = styled.div`
+const remaining = props =>
+  pipe(
+    ({ duration, position }) => duration - position,
+    remainingMs => remainingMs / 1000,
+    Math.round,
+    remaining => `${remaining}s`,
+  )(props)
+
+// Wrap in React.memo call so it does not rerender during the same song and screw up the animation.
+// Also a minimal performance boost.
+export const ProgressBar = React.memo(styled.div`
   height: 3px;
-  width: ${p => (p.position / p.duration) * 100}%;
-  background-color: lightskyblue;
+  animation: ${props => progressAnimation(props)} ${props => remaining(props)} linear forwards;
+  background-color: ${COLORS.PRIMARY};
   position: absolute;
   top: 100%;
-`
+`)
 
 ProgressBar.propTypes = {
   duration: PropTypes.number.isRequired,
