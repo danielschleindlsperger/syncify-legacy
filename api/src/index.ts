@@ -7,9 +7,13 @@ import { app } from './app'
 
 const bootstrap = async () => {
   await Database.connect()
-  await Queue.connect()
-  await Scheduler.run()
+  const queue = await Queue.init()
+  await Scheduler.registerHandlers(queue)
   await Server.create(app)
 }
 
 bootstrap()
+
+process.on('unhandledRejection', err => {
+  throw err
+})

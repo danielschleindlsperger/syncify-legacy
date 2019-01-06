@@ -7,7 +7,7 @@ export interface PlaylistTrack {
   id: string
   durationMs: number
   playbackStartedAt?: number
-  isActive?: boolean // undefined acts the same as false
+  isActive: boolean
 }
 
 export interface Room {

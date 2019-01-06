@@ -4,10 +4,10 @@
   "description": "Configuration package for syncify.",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
+  "typings": "dist/types/index.d.ts",
   "files": [
     "dist"
   ],
-  "types": "dist/index.d.ts",
   "scripts": {
     "build": "rollup -c",
     "prepublish": "npm run build"

@@ -1,36 +1,34 @@
 import { Rabbit } from 'rabbit-queue'
+import { Config } from 'syncify-config'
 
-// amqp://user:pass@host.com/vhost
-
+const {
+  rabbit: { connectionString },
+} = Config
 let connected = false
-let rabbit: Rabbit
+let queue: Rabbit
 
 export const Queue = {
   init() {
-    rabbit = new Rabbit(process.env.RABBIT_URL || 'amqp://root:root@localhost', {
-      prefetch: 1, //default prefetch from queue
-      replyPattern: true, //if reply pattern is enabled an exclusive queue is created
+    queue = new Rabbit(connectionString, {
+      prefetch: 1,
+      replyPattern: true,
       scheduledPublish: true,
-      prefix: 'syncify', //prefix all queues with an application name
-      socketOptions: {}, // socketOptions will be passed as a second param to amqp.connect and from ther to the socket library (net or tls)
+      prefix: 'syncify',
+      socketOptions: {},
     })
+    return Queue.get()
   },
-  connect: async (): Promise<Rabbit> =>
+  get: async (): Promise<Rabbit> =>
     connected
-      ? Promise.resolve(rabbit)
+      ? Promise.resolve(queue)
       : new Promise((resolve, reject) => {
-          Queue.init()
-          rabbit.on('connected', () => {
-            resolve(rabbit)
+          queue.on('connected', () => {
+            resolve(queue)
             connected = true
           })
 
-          rabbit.on('disconnected', () => {
-            reject(rabbit)
+          queue.on('disconnected', () => {
+            reject(queue)
           })
         }),
-  dispatch: (queueName: string, value: any, delay: number = 0) =>
-    rabbit
-      .publishWithDelay(queueName, value, { expiration: delay })
-      .then(() => console.log('message will be published')),
 }

@@ -11,6 +11,8 @@ export const RoomDAO = {
       }),
     ),
   findOne: (id: string) =>
-    from(getRepository('room').findOneOrFail({ where: { id } })) as Observable<Room>,
+    from(
+      getRepository('room').findOneOrFail({ where: { id } }, { relations: ['listeners'] }),
+    ) as Observable<Room>,
   save: (room: Room) => from(getRepository('room').save(room)),
 }

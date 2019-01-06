@@ -13,3 +13,5 @@ export const FONT_SIZES = {
   MEDIUM: '39px',
   LARGE: '64px',
 }
+
+export const NAV_HEIGHT = 50

@@ -9,7 +9,7 @@ import { viewPlayerState } from '../../store/lenses'
 export const PlayerPlaceholder = () => <div>No Song playing yet.</div>
 
 export const StyledPlayer = ({ songName, artistName, coverArt, duration = 1, position = 0 }) => (
-  <FlexWrap>
+  <FlexWrap style={{ marginTop: 50 }}>
     <PlayerImage src={coverArt} alt={songName} />
     <StackFlexCenter>
       <PlayerText>{songName}</PlayerText>

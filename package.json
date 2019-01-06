@@ -7,7 +7,7 @@
   "scripts": {
     "docker": "docker-compose -f ./.docker/docker-compose.yml up -d",
     "bootstrap": "lerna bootstrap",
-    "start": "npm run docker && lerna bootstrap && lerna run start:dev --parallel",
+    "start": "npm run docker && lerna run start:dev --parallel",
     "deploy": "lerna run deploy --parallel",
     "alias": "lerna run alias",
     "path-alias": "now alias syncify.co -r path-rules.json",

@@ -14,7 +14,10 @@
     "DB_USER": "root",
     "DB_SECRET": "@syncify-db-secret",
     "DB_PORT": "3306",
-    "DB_NAME": "syncify"
+    "DB_NAME": "syncify",
+    "RABBIT_USER": "@syncify-rabbit-user",
+    "RABBIT_SECRET": "@syncify-rabbit-password",
+    "RABBIT_HOST": "139.59.214.83"
   },
   "alias": "api.syncify.co",
   "regions": ["bru1"]

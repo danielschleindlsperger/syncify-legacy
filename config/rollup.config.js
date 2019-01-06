@@ -14,5 +14,5 @@ export default {
     },
   ],
   external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
-  plugins: [typescript({ cacheRoot: './.cache' })],
+  plugins: [typescript({ cacheRoot: './.cache', useTsconfigDeclarationDir: true })],
 }

@@ -1,38 +1,70 @@
 import { Rabbit } from 'rabbit-queue'
-import { findIndex } from 'ramda'
-import { Queue } from '../connection/queue'
-import { playTracks } from '../api/common/spotify'
 import { RoomDAO } from '../api/room'
+import { SCHEDULE_ROOM_SONG_CHANGE, CHANGE_USER_SONG } from './events'
+import { playTracks, playTrack } from '../api/common/spotify'
+import { queueNextSongChange, setNextPlaying } from '../api/room/actions'
+import { catchError } from 'rxjs/operators'
+import { of } from 'rxjs'
 
-export const Scheduler = {
-  run: async () => {
-    const queue = await Queue.connect()
-    // initQueues(queue)
-  },
+type RoomSongChangePayload = {
+  songId: string
+  roomId: string
 }
 
-const initQueues = (queue: Rabbit) => {
-  queue
-    .createQueue('change-user-song', { durable: false }, (msg, ack) => {
-      const { accessToken, songId, roomId } = JSON.parse(msg.content.toString())
+type UserSongChangePayload = {
+  accessToken: string
+  songId: string
+  playbackOffset: number
+}
 
-      // dispatch current song change
-      const spotifyUri = `spotify:track:${songId}`
-      playTracks(accessToken)([spotifyUri]).subscribe(() => ack())
+const handleScheduleRoomSongChange = (queue: Rabbit) => {
+  queue.createQueue(SCHEDULE_ROOM_SONG_CHANGE, { durable: false }, (msg, ack) => {
+    // TODO: validate if this scheduled song change is still the latest one
+    const { songId, roomId }: RoomSongChangePayload = JSON.parse(msg.content.toString())
 
-      // schedule next song change
-      RoomDAO.findOne(roomId).subscribe(room => {
-        const { playlist } = room
-        const currentSongIndex = findIndex(song => song.id === songId, playlist)
-        if (!playlist || playlist.length < currentSongIndex) return
-        const { durationMs: delay } = playlist[currentSongIndex]
-        const { id } = playlist[currentSongIndex + 1]
-        Queue.dispatch(
-          'change-user-song',
-          { accessToken: accessToken, songId: id, roomId: room.id },
-          delay,
-        )
+    RoomDAO.findOne(roomId).subscribe(room => {
+      console.log(`Dispatching song change event for room ${roomId} and song ${songId}`)
+      room.listeners.forEach(user => {
+        const payload: UserSongChangePayload = {
+          accessToken: user.accessToken,
+          playbackOffset: 0,
+          songId,
+        }
+        queue.publish(CHANGE_USER_SONG, payload)
       })
+
+      const newRoom = setNextPlaying(room)
+      RoomDAO.save(newRoom)
+      queueNextSongChange(room).catch(console.error)
     })
-    .then(() => console.log('queue created'))
+    ack()
+  })
 }
+
+const handleUserSongChange = (queue: Rabbit) => {
+  queue.createQueue(CHANGE_USER_SONG, { durable: false }, (msg, ack) => {
+    // TODO: validate if this scheduled song change is still the latest one
+    const { accessToken, songId, playbackOffset }: UserSongChangePayload = JSON.parse(
+      msg.content.toString(),
+    )
+    console.log(`Changing song to ${songId} for user with accessToken ${accessToken}`)
+    playTrack(accessToken, `spotify:track:${songId}`, playbackOffset)
+    ack()
+  })
+}
+
+const dispatchRoomSongChange = (queue: Rabbit, delay: number, payload: RoomSongChangePayload) => {
+  console.log(`queueing song ${payload.songId} for room ${payload.roomId} in ${delay}ms`)
+  return queue.publishWithDelay(SCHEDULE_ROOM_SONG_CHANGE, payload, { expiration: delay })
+}
+
+const dispatchUserSongChange = (queue: Rabbit, payload: UserSongChangePayload) => {
+  return queue.publish(CHANGE_USER_SONG, payload)
+}
+
+const registerHandlers = (queue: Rabbit) => {
+  handleScheduleRoomSongChange(queue)
+  handleUserSongChange(queue)
+}
+
+export const Scheduler = { registerHandlers, dispatchRoomSongChange, dispatchUserSongChange }

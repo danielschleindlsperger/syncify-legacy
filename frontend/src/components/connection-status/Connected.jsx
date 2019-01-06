@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Zap } from 'styled-icons/feather/Zap'
 import { ZapOff } from 'styled-icons/feather/ZapOff'
+import { NAV_HEIGHT } from '../style-constants'
 
 const SIZE = 50
 
@@ -34,7 +35,7 @@ const Error = () => (
 
 const TopRight = styled.div`
   position: fixed;
-  top: 0;
+  top: ${NAV_HEIGHT}px;
   right: 0;
   padding-top: 5px;
   padding-right: 5px;
