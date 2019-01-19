@@ -21,6 +21,10 @@ export const RoomEntity = new EntitySchema<Room>({
       type: 'json',
       nullable: true,
     },
+    settings: {
+      type: 'json',
+      nullable: false,
+    },
     updatedAt: {
       type: 'timestamp',
       updateDate: true,

@@ -18,6 +18,9 @@ test('creates and returns a room', async () => {
         durationMs: 123456,
       },
     ],
+    settings: {
+      loop: false,
+    },
   }
 
   await request(app)

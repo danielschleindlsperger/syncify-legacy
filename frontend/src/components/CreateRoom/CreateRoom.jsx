@@ -34,7 +34,7 @@ const validate = values => {
 
 const CreateRoomForm = ({ playlists, handleSubmit }) => (
   <Formik
-    initialValues={{ name: '', playlistId: null }}
+    initialValues={{ name: '', playlistId: null, settings: { loop: false } }}
     validate={validate}
     onSubmit={(values, { setSubmitting }) => {
       handleSubmit(values)
@@ -50,6 +50,11 @@ const CreateRoomForm = ({ playlists, handleSubmit }) => (
           <ErrorMessage name="name" component="div" />
           <label htmlFor="room-name">Room name</label>
           <Field type="text" name="name" id="room-name" />
+        </InputGroup>
+        <InputGroup>
+          <h3>Settings</h3>
+          <label htmlFor="room-setting-loop">Loop</label>
+          <Field type="checkbox" name="settings.loop" id="room-setting-loop" />
         </InputGroup>
 
         <InputGroup>
@@ -101,11 +106,11 @@ let CreateRoom = class extends React.Component {
       .then(userPlaylists => this.setState({ userPlaylists }))
   }
 
-  handleSubmit = ({ name, playlistId }) => {
+  handleSubmit = ({ name, playlistId, settings }) => {
     const { accessToken, token } = this.props
     return getPlaylist(accessToken, playlistId)
       .then(extractTracks)
-      .then(playlist => createRoom(token)({ name, playlist }))
+      .then(playlist => createRoom(token)({ name, playlist, settings }))
       .then(room => {
         navigate(`/rooms/${room.id}`)
       })

@@ -18,6 +18,9 @@ export const fakeData = async (data = {}): Promise<Room> => ({
   admins: [await mockUser()],
   coverArt: faker.random.arrayElement(albumCovers),
   playlist: [],
+  settings: {
+    loop: false,
+  },
   listeners: [await mockUser(), await mockUser(), await mockUser()],
   ...data,
 })

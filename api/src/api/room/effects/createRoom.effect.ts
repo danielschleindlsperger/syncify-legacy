@@ -3,8 +3,6 @@ import { validator$, Joi } from '@marblejs/middleware-joi'
 import { flatMap, map, tap } from 'rxjs/operators'
 import { Room, RoomDAO } from '../model'
 import { logAndRethrow } from '../../../util'
-import { Queue } from '../../../connection/queue'
-import { Scheduler } from '../../../scheduler'
 import { queueNextSongChange } from '../actions'
 
 const roomValidator$: Middleware = validator$({
@@ -18,6 +16,7 @@ const roomValidator$: Middleware = validator$({
         durationMs: Joi.number(),
       }),
     ),
+    settings: Joi.object({ loop: Joi.boolean().required() }).required(),
   }),
 })
 

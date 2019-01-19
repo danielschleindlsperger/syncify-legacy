@@ -1,4 +1,4 @@
-import { findIndex, pipe, over, lensIndex, assoc, dissoc } from 'ramda'
+import { findIndex } from 'ramda'
 
 import { Room } from './model'
 import { Queue } from '../../connection/queue'
@@ -18,8 +18,14 @@ export const queueNextSongChange = async (room: Room) => {
 
 const currentlyPlaying = (room: Room) => room.playlist.find(song => song.isActive)
 const nextPlaying = (room: Room) => {
+  if (room.playlist.length === 0) return undefined
   const currentSongIndex = findIndex(song => song.isActive, room.playlist)
-  return currentSongIndex !== -1 ? room.playlist[currentSongIndex + 1] : undefined
+  const isOnLastSong = currentSongIndex + 1 === room.playlist.length
+  return isOnLastSong
+    ? room.settings.loop
+      ? room.playlist[0]
+      : undefined
+    : room.playlist[currentSongIndex + 1]
 }
 
 export const setNextPlaying = (room: Room) => {

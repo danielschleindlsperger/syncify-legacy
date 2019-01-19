@@ -10,6 +10,10 @@ export interface PlaylistTrack {
   isActive: boolean
 }
 
+export interface RoomSettings {
+  loop: boolean
+}
+
 export interface Room {
   id?: string
   name: string
@@ -17,6 +21,7 @@ export interface Room {
   coverArt?: string
   playlist: PlaylistTrack[]
   listeners: User[]
+  settings: RoomSettings
   createdAt?: string
   updatedAt?: string
 }
