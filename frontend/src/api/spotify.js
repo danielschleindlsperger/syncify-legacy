@@ -17,3 +17,8 @@ export const getPlaylist = (accessToken, playlistId) =>
   spotifyFactory(accessToken)
     .getPlaylist(playlistId)
     .then(x => x.body)
+
+export const getSongs = (accessToken, songIds) =>
+  spotifyFactory(accessToken)
+    .getTracks(songIds)
+    .then(x => x.body.tracks)

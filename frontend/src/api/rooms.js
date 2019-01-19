@@ -5,6 +5,11 @@ export const getAllRooms = token =>
     .get('/api/room')
     .then(x => x.data)
 
+export const getRoom = token => roomId =>
+  authenticatedRequest(token)
+    .get(`/api/room/${roomId}`)
+    .then(x => x.data)
+
 export const createRoom = token => payload =>
   authenticatedRequest(token)
     .post(`/api/room/`, payload)
