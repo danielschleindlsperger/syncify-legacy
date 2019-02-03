@@ -13,9 +13,10 @@ Syncify is a synchronized listening room experience for Spotify. Think community
 
 - [Node.js](https://nodejs.org/en/) >= 8 (with npm >= 5)
 - [Docker](https://www.docker.com/get-docker)
-- [now.sh](https://zeit.co/now) CLI installed and configured
 
 ## Environment
+
+A list of all environment variables across all applications with a little explanation can be [found here](./documentation/environment-configuration.md)
 
 For a development environment copy the provided `.env.example` file once for your local instance and once for tests (might be the same file).
 
@@ -36,12 +37,6 @@ npm run bootstrap
 
 # start containers and apps
 npm start
-
-# deploy apps and set alias to domain (does not alias when one of the deployments fails)
-npm run deploy && npm run alias
-
-# set now.sh path aliases (should already be set and never be needed)
-npm run path-alias
 
 # run tests for all apps
 npm t
