@@ -11,12 +11,13 @@ type RoomSongChangePayload = {
 
 type UserSongChangePayload = {
   accessToken: string
+  deviceId?: string
   songId: string
   playbackOffset: number
 }
 
 const handleScheduleRoomSongChange = (queue: Rabbit) => {
-  queue.createQueue(SCHEDULE_ROOM_SONG_CHANGE, { durable: false }, (msg, ack) => {
+  return queue.createQueue(SCHEDULE_ROOM_SONG_CHANGE, { durable: false }, (msg, ack) => {
     // TODO: validate if this scheduled song change is still the latest one
     const { songId, roomId }: RoomSongChangePayload = JSON.parse(msg.content.toString())
 
@@ -26,6 +27,7 @@ const handleScheduleRoomSongChange = (queue: Rabbit) => {
       room.listeners.forEach(user => {
         const payload: UserSongChangePayload = {
           accessToken: user.accessToken,
+          deviceId: user.deviceId,
           playbackOffset: 0,
           songId,
         }
@@ -46,13 +48,13 @@ const handleScheduleRoomSongChange = (queue: Rabbit) => {
 }
 
 const handleUserSongChange = (queue: Rabbit) => {
-  queue.createQueue(CHANGE_USER_SONG, { durable: false }, (msg, ack) => {
+  return queue.createQueue(CHANGE_USER_SONG, { durable: false }, (msg, ack) => {
     // TODO: validate if this scheduled song change is still the latest one
-    const { accessToken, songId, playbackOffset }: UserSongChangePayload = JSON.parse(
+    const { accessToken, deviceId, songId, playbackOffset }: UserSongChangePayload = JSON.parse(
       msg.content.toString(),
     )
     console.log(`Changing song to ${songId} for user with accessToken ${accessToken.slice(0)}`)
-    playTrack(accessToken, `spotify:track:${songId}`, playbackOffset)
+    playTrack(accessToken, `spotify:track:${songId}`, playbackOffset, deviceId)
     ack()
   })
 }

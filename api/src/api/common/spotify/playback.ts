@@ -33,10 +33,15 @@ export const playTracks = (accessToken: string) => (
   ).pipe(logAndRethrow('Error playing song with Spotify API'))
 }
 
-export const playTrack = (accessToken: string, songUri: string, songOffset: number = 0) =>
+export const playTrack = (
+  accessToken: string,
+  songUri: string,
+  songOffset: number = 0,
+  deviceId?: string,
+) =>
   axios
     .put(
-      'https://api.spotify.com/v1/me/player/play',
+      `https://api.spotify.com/v1/me/player/play${deviceId ? `?device_id=${deviceId}` : ''}`,
       {
         uris: [songUri],
         position_ms: songOffset,
