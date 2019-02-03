@@ -20,8 +20,9 @@ const handleScheduleRoomSongChange = (queue: Rabbit) => {
     // TODO: validate if this scheduled song change is still the latest one
     const { songId, roomId }: RoomSongChangePayload = JSON.parse(msg.content.toString())
 
-    RoomDAO.findOne(roomId).subscribe(room => {
+    RoomDAO.findOne(roomId).subscribe(async room => {
       console.log(`Dispatching song change event for room ${roomId} and song ${songId}`)
+
       room.listeners.forEach(user => {
         const payload: UserSongChangePayload = {
           accessToken: user.accessToken,
@@ -33,7 +34,12 @@ const handleScheduleRoomSongChange = (queue: Rabbit) => {
 
       const newRoom = setNextPlaying(room)
       RoomDAO.save(newRoom)
-      queueNextSongChange(room).catch(console.error)
+      queueNextSongChange(room).catch((err: Error) => {
+        console.error(
+          `Error queueing next song change for room "${room.name}" with id "${room.id}"`,
+          err,
+        )
+      })
     })
     ack()
   })
@@ -45,7 +51,7 @@ const handleUserSongChange = (queue: Rabbit) => {
     const { accessToken, songId, playbackOffset }: UserSongChangePayload = JSON.parse(
       msg.content.toString(),
     )
-    console.log(`Changing song to ${songId} for user with accessToken ${accessToken}`)
+    console.log(`Changing song to ${songId} for user with accessToken ${accessToken.slice(0)}`)
     playTrack(accessToken, `spotify:track:${songId}`, playbackOffset)
     ack()
   })
