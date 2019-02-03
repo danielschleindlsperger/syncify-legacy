@@ -31,7 +31,6 @@
     "rxjs": "~6.2.2",
     "socket.io": "^2.2.0",
     "spotify-web-api-node": "^4.0.0",
-    "syncify-config": "0.0.1",
     "ts-node": "^7.0.1",
     "type-env": "^1.1.0",
     "typeorm": "^0.2.11",

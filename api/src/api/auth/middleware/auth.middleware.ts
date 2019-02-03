@@ -1,6 +1,6 @@
 import { authorize$ as jwt$, VerifyOptions } from '@marblejs/middleware-jwt'
 import { flatMap } from 'rxjs/operators'
-import { Config } from 'syncify-config'
+import { Config } from '../../../config'
 import { Payload } from '../helpers/token.helper'
 import { UserDAO } from '../../user'
 import { neverNullable } from '../../../util'

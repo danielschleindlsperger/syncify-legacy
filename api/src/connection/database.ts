@@ -1,5 +1,5 @@
 import { createConnection, Connection, ConnectionOptions } from 'typeorm'
-import { Config } from 'syncify-config'
+import { Config } from '../config'
 // manually import entities to avoid dynamic imports for a single file lambda build
 import { UserEntity } from '../api/user'
 import { RoomEntity } from '../api/room'

@@ -1,7 +1,7 @@
 import { httpListener } from '@marblejs/core'
 import { bodyParser$ } from '@marblejs/middleware-body'
 import { loggerWithOpts$ } from '@marblejs/middleware-logger'
-import { Config } from 'syncify-config'
+import { Config } from './config'
 import { api$ } from './api'
 
 const logger$ = loggerWithOpts$({

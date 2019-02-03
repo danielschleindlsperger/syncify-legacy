@@ -1,5 +1,5 @@
 import { Rabbit } from 'rabbit-queue'
-import { Config } from 'syncify-config'
+import { Config } from '../config'
 
 const {
   rabbit: { connectionString },

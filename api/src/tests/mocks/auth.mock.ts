@@ -1,5 +1,5 @@
 import { generateToken } from '@marblejs/middleware-jwt'
-import { Config } from 'syncify-config'
+import { Config } from '../../config'
 import { generateTokenPayload } from '../../api/auth/helpers'
 import { User } from '../../api/user'
 import { Plugin, SuperAgentRequest } from 'superagent'

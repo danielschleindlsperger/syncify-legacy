@@ -1,5 +1,5 @@
 import * as SpotifyWebApi from 'spotify-web-api-node'
-import { Config } from 'syncify-config'
+import { Config } from '../../../config'
 
 export type SpotifyOAuthResponse = {
   access_token: string

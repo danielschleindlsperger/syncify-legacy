@@ -1,6 +1,6 @@
 import * as request from 'supertest'
 import { of } from 'rxjs'
-import { Config } from 'syncify-config'
+import { Config } from '../../../config'
 import { UserDAO } from '../../user/model'
 import { app } from '../../../app'
 import * as spotify from '../../common/spotify'

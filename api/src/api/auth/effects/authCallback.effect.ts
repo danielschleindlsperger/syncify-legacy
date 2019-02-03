@@ -1,7 +1,7 @@
 import { Effect } from '@marblejs/core'
 import { generateToken } from '@marblejs/middleware-jwt'
 import { map, flatMap } from 'rxjs/operators'
-import { Config } from 'syncify-config'
+import { Config } from '../../../config'
 import { tokensFromOauthCode, getMe, SpotifyOAuthResponse } from '../../common/spotify'
 import { User, UserDAO } from '../../user'
 import { neverNullable, logAndRethrow } from '../../../util'
