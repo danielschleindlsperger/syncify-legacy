@@ -8,6 +8,7 @@ Syncify is a synchronized listening room experience for Spotify. Think community
 - [Frontend Documentation](frontend/README.md)
 - [Prerequisites](#prerequisites)
 - [Up and running](#up-and-running)
+- [Deployment](./documentation/deployment.md)
 
 ## Prerequisites
 

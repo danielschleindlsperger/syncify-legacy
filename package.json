@@ -8,7 +8,8 @@
     "docker": "docker-compose -f ./.docker/docker-compose.yml up -d",
     "bootstrap": "lerna bootstrap",
     "start": "npm run docker && lerna run start:dev --parallel",
-    "test": "lerna run test --parallel"
+    "test": "lerna run test --parallel",
+    "deploy": "cd ./.deployment && docker-compose build && docker-compose up -d"
   },
   "husky": {
     "hooks": {
