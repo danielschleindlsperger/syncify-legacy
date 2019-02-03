@@ -16,5 +16,5 @@
     "lib": ["dom", "es2017"],
     "typeRoots": ["**/node_modules/@types"]
   },
-  "include": ["node_modules/@types", "**/src/**/*.ts", "node_modules/syncify-config"]
+  "include": ["node_modules/@types", "**/src/**/*.ts"]
 }
