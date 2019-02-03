@@ -7,5 +7,5 @@
       "allowBranch": "master"
     }
   },
-  "packages": ["api", "frontend", "real-time", "dev-proxy", "scheduler"]
+  "packages": ["api", "frontend", "real-time", "router", "scheduler"]
 }

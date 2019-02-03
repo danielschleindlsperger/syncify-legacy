@@ -21,14 +21,17 @@ export const Queue = {
   get: async (): Promise<Rabbit> =>
     connected
       ? Promise.resolve(queue)
-      : new Promise((resolve, reject) => {
+      : new Promise(resolve => {
           queue.on('connected', () => {
-            resolve(queue)
             connected = true
+            resolve(queue)
           })
 
           queue.on('disconnected', () => {
-            reject(queue)
+            setTimeout(() => {
+              console.log('Could not connect to RabbitMQ. Reconnecting in 2s.')
+              queue.reconnect()
+            }, 2000)
           })
         }),
 }
