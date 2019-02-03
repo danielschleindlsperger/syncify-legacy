@@ -17,7 +17,7 @@ export const UserDAO = {
         where: { id },
         select: SECURED_FIELDS,
       }),
-    ),
+    ) as Observable<User>,
   findByIdPublic: (id: string) =>
     from(
       userRepository().findOneOrFail({

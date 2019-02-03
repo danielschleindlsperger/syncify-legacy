@@ -1,5 +1,5 @@
 import { pipe, prop, ifElse, isNil, allPass } from 'ramda'
-import { getMe } from '../../../api'
+import { getMe, refreshAuth } from '../../../api'
 import { query } from '../../../utils/query'
 import { viewToken } from '../../lenses'
 
@@ -57,7 +57,20 @@ export const auth = {
     async fetchUser(payload, rootState) {
       const token = viewToken(rootState)
       const user = await getMe(token)
+      setInterval(
+        () => {
+          dispatch.auth.refreshToken()
+        },
+        // refresh tokens every 25 minutes
+        1000 * 60 * 25,
+      )
       return dispatch.auth.setUser(user)
+    },
+    async refreshToken(payload, rootState) {
+      const currentToken = viewToken(rootState)
+      const { user, token } = await refreshAuth(currentToken)
+      dispatch.auth.setUser(user)
+      dispatch.auth.setToken(token)
     },
   }),
 }

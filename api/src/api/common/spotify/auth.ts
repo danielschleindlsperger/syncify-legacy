@@ -12,3 +12,10 @@ export const tokensFromOauthCode = (code: string): Observable<SpotifyOAuthRespon
       .authorizationCodeGrant(code)
       .then(prop('body')),
   )
+
+export const refreshAccessToken = (refreshToken: string): Observable<string> =>
+  from(
+    spotifyFactory({ refreshToken })
+      .refreshAccessToken()
+      .then((res: any): string => res.body.access_token),
+  )

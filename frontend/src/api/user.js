@@ -9,3 +9,8 @@ export const updateUser = (token, userId, update) =>
   authenticatedRequest(token)
     .patch(`/api/user/${userId}`, update)
     .then(x => x.data)
+
+export const refreshAuth = token =>
+  authenticatedRequest(token)
+    .post(`/api/auth/refresh`)
+    .then(x => x.data)
