@@ -35,12 +35,16 @@ export const spotifyPlayer = {
         dispatch.spotifyPlayer.setPlayerState(track)
       })
     },
-    setPlayerDeviceId(deviceId, rootState) {
-      const [user, accessToken, token] = applyAll([viewUser, viewAccessToken, viewToken])(rootState)
-      updateUser(token, user.id, { deviceId })
+    async setPlayerDeviceId(deviceId, rootState) {
+      if (deviceId) {
+        const [user, accessToken, token] = applyAll([viewUser, viewAccessToken, viewToken])(
+          rootState,
+        )
+        updateUser(token, user.id, { deviceId })
 
-      setWebPlayerAsActiveDevice(accessToken, deviceId)
-      dispatch.spotifyPlayer.setDeviceId(deviceId)
+        await setWebPlayerAsActiveDevice(accessToken, deviceId)
+        dispatch.spotifyPlayer.setDeviceId(deviceId)
+      }
     },
   }),
 }
