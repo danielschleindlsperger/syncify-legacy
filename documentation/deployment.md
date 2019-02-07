@@ -1,7 +1,11 @@
 # Deployment
 
-Deployed in a minimal fashion with docker-compose on a Digital Ocean droplet.
+Running on Kubernetes (DO)
 
 ## Databases
 
 Hosted on separate DO droplet with CaptainRover
+
+## Links
+
+- [Pulling Images from Private Registry](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)

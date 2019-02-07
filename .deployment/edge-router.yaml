@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: edge-router
+  labels:
+    app: syncify
+spec:
+  selector:
+    matchLabels:
+      app: syncify
+      tier: edge-router
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: syncify
+        tier: edge-router
+    spec:
+      containers:
+        - name: edge-router
+          image: repo.treescale.com/liachthuaber/syncify-edge-router:latest
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          env:
+            - name: GET_HOSTS_FROM
+              value: dns
+          ports:
+            - containerPort: 80
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: edge-router
+  labels:
+    app: syncify
+    tier: edge-router
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+  selector:
+    app: syncify
+    tier: edge-router
