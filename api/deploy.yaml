@@ -18,10 +18,10 @@ spec:
     spec:
       containers:
         - name: api
-          image: repo.treescale.com/liachthuaber/syncify-api:latest
+          image: repo.treescale.com/liachthuaber/syncify-api:0.1.1
           resources:
             requests:
-              cpu: 300m
+              cpu: 100m
               memory: 500Mi
           env:
             - name: GET_HOSTS_FROM

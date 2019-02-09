@@ -10,8 +10,7 @@
     "test": "jest",
     "storybook": "start-storybook -p 6006 --ci",
     "storybook:build": "build-storybook",
-    "docker:build": "docker build -t repo.treescale.com/liachthuaber/syncify-frontend:latest .",
-    "docker:publish": "docker push repo.treescale.com/liachthuaber/syncify-frontend:latest",
+    "docker:build": "./build.sh",
     "deploy": "kubectl --kubeconfig=\"../k8s-syncify-kubeconfig.yaml\" apply -f ./deploy.yaml"
   },
   "license": "ISC",

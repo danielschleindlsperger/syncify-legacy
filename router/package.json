@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "node index.js",
-    "docker:build": "docker build -t repo.treescale.com/liachthuaber/syncify-edge-router:latest .",
-    "docker:publish": "docker push repo.treescale.com/liachthuaber/syncify-edge-router:latest",
+    "docker:build": "./build.sh",
     "deploy": "kubectl --kubeconfig=\"../k8s-syncify-kubeconfig.yaml\" apply -f ./deploy.yaml"
   },
   "author": "",
