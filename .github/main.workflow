@@ -1,6 +1,6 @@
 workflow "Build" {
   on = "push"
-  resolves = ["Publish Edge Router Image", "Publish API Image", "Publish Frontend Image"]
+  resolves = []
 }
 
 action "Is Master Branch" {

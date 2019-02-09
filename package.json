@@ -11,10 +11,6 @@
     "test": "lerna run test --parallel",
     "docker:build": "lerna run docker:build --since",
     "docker:publish": "lerna run docker:publish --since",
-    "deploy:frontend": "npm run kube -- apply -f ./.deployment/frontend.yaml",
-    "deploy:api": "npm run kube -- apply -f ./.deployment/api.yaml",
-    "deploy:edge-router": "npm run kube -- apply -f ./.deployment/edge-router.yaml",
-    "kube": "kubectl --kubeconfig=\"./k8s-syncify-kubeconfig.yaml\"",
     "release": "lerna run docker:build --since --parallel && lerna run docker:publish --since --parallel && lerna run deploy"
   },
   "husky": {

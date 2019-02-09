@@ -44,6 +44,12 @@ npm t
 
 # start all containers
 npm run docker
+
+# tag a release version
+npx lerna version
+
+# builds all containers, pushes them to registry and deploys to kubernetes
+npm run release
 ```
 
 Now you can access the whole app on [localhost:8080](http://localhost:8080)
