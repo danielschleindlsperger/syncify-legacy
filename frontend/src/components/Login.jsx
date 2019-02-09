@@ -1,9 +1,10 @@
-import React from 'react'
-import { HeadlineLarge, Text } from '../components/typography'
+import React, { useEffect } from 'react'
+import { HeadlineLarge, HeadlineSmall, Text } from './typography'
 
-const Login = () => (
+export const Login = React.memo(() => (
   <div style={{ width: 600, maxWidth: '100%', margin: '50px auto' }}>
-    <HeadlineLarge>Login</HeadlineLarge>
+    <HeadlineLarge>Hol' up!</HeadlineLarge>
+    <HeadlineSmall style={{ marginTop: 20 }}>You are not logged in.</HeadlineSmall>
     <Text style={{ display: 'block', marginTop: 20 }}>
       Unfortunately you can't use Syncify without logging into your Spotify account first. You will
       be redirected to Spotify and then again here.
@@ -12,6 +13,4 @@ const Login = () => (
       Login
     </a>
   </div>
-)
-
-export default Login
+))
