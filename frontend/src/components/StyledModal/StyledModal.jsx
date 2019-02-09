@@ -1,16 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 import Modal from 'react-modal'
+import { X } from 'styled-icons/feather/X'
 
 // Bind to app node for accessibility http://reactcommunity.org/react-modal/accessibility/
 // Also use fallback for storybook since it uses a different root node selector.
 Modal.setAppElement(document.querySelector('#app') || document.querySelector('#root'))
 
-const CloseButton = props => (
-  <button {...props} style={{ padding: 10, margin: 10, position: 'absolute', top: 0, right: 0 }}>
-    X
-  </button>
-)
+const CloseButton = styled.button`
+  background: none;
+  border: none;
+  padding: 10px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+`
 
 // TODO: maybe inline styles are not a good idea?
 const style = {
@@ -41,12 +47,15 @@ const style = {
     WebkitOverflowScrolling: 'touch',
     borderRadius: 3,
     outline: 'none',
-    padding: '20px',
+    padding: '40px',
   },
 }
 
 export class StyledModal extends React.Component {
-  static propTypes = { defaultOpen: PropTypes.bool, children: PropTypes.func.isRequired }
+  static propTypes = {
+    defaultOpen: PropTypes.bool,
+    children: PropTypes.func.isRequired,
+  }
   static defaultProps = { defaultOpen: false }
 
   state = { isOpen: this.props.defaultOpen }
@@ -60,11 +69,17 @@ export class StyledModal extends React.Component {
 
     const Content = ({ children, ...props }) => (
       <Modal {...props} style={style} isOpen={isOpen} onRequestClose={this.closeModal}>
-        <CloseButton onClick={this.closeModal} />
+        <CloseButton onClick={this.closeModal}>
+          <X width="40" />
+        </CloseButton>
         {children}
       </Modal>
     )
 
-    return children({ openModal: this.openModal, closeModal: this.closeModal, Content })
+    return children({
+      openModal: this.openModal,
+      closeModal: this.closeModal,
+      Content,
+    })
   }
 }
