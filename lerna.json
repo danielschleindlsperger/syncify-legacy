@@ -1,5 +1,5 @@
 {
-  "version": "independent",
+  "version": "0.0.1",
   "npmClient": "npm",
   "command": {
     "version": {
@@ -7,5 +7,5 @@
       "allowBranch": "master"
     }
   },
-  "packages": ["api", "frontend", "real-time", "router", "scheduler"]
+  "packages": ["api", "frontend", "real-time", "router"]
 }

@@ -14,7 +14,7 @@ const defaultConnectionOptions: ConnectionOptions = {
   password: database.secret,
   database: database.name,
   entities: [UserEntity, RoomEntity],
-  synchronize: true,
+  // synchronize: true,
   logging: ['error'],
 }
 

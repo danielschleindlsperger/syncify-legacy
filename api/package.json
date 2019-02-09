@@ -9,7 +9,10 @@
     "start:dev": "NODE_ENV=development backpack",
     "start:prod": "NODE_ENV=production node build/main.js",
     "db:seed": "NODE_ENV=development ts-node src/seed/index.ts",
-    "db:drop": "NODE_ENV=development ts-node src/seed/drop.ts"
+    "db:drop": "NODE_ENV=development ts-node src/seed/drop.ts",
+    "docker:build": "docker build -t repo.treescale.com/liachthuaber/syncify-api:latest .",
+    "docker:publish": "docker push repo.treescale.com/liachthuaber/syncify-api:latest",
+    "deploy": "kubectl --kubeconfig=\"../k8s-syncify-kubeconfig.yaml\" apply -f ./deploy.yaml"
   },
   "author": "Daniel Schleindlsperger <daniel@schleindlsperger.de>",
   "license": "ISC",

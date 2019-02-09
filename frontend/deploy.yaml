@@ -1,47 +1,47 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api
+  name: frontend
   labels:
     app: syncify
 spec:
   selector:
     matchLabels:
       app: syncify
-      tier: api
+      tier: frontend
   replicas: 1
   template:
     metadata:
       labels:
         app: syncify
-        tier: api
+        tier: frontend
     spec:
       containers:
-        - name: api
-          image: repo.treescale.com/liachthuaber/syncify-api:latest
+        - name: frontend
+          image: repo.treescale.com/liachthuaber/syncify-frontend:latest
           resources:
             requests:
-              cpu: 100m
-              memory: 100Mi
+              cpu: 300m
+              memory: 200Mi
           env:
             - name: GET_HOSTS_FROM
               value: dns
           ports:
-            - containerPort: 3000
+            - containerPort: 80
       imagePullSecrets:
         - name: regcred
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: api
+  name: frontend
   labels:
     app: syncify
-    tier: api
+    tier: frontend
 spec:
   type: NodePort
   ports:
-    - port: 3000
+    - port: 80
   selector:
     app: syncify
     tier: frontend
