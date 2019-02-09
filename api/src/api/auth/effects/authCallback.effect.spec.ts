@@ -47,6 +47,7 @@ afterEach(jest.restoreAllMocks)
 test('authCallback effect gets users data from spotify, saves user in database and redirects to frontend', async () => {
   await request(app)
     // called by spotify
+    // TODO: test with state (redirect url)
     .get('/api/auth/callback?code=1234')
     .expect(302)
     .expect('location', new RegExp(Config.appUrl))
