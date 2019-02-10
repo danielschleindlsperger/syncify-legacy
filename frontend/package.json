@@ -1,6 +1,6 @@
 {
   "name": "syncify-frontend",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Syncify Webapp",
   "author": "Daniel Schleindlsperger <daniel@schleindlsperger.de>",
   "main": "src/index.js",
