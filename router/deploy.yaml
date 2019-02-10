@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: edge-router
-          image: repo.treescale.com/liachthuaber/syncify-edge-router:latest
+          image: repo.treescale.com/liachthuaber/syncify-edge-router:0.1.2
           resources:
             requests:
               cpu: 100m

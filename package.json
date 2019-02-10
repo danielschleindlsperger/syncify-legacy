@@ -10,7 +10,7 @@
     "start": "npm run docker && lerna run start:dev --parallel",
     "test": "lerna run test --parallel",
     "kube": "kubectl --kubeconfig=\"./k8s-syncify-kubeconfig.yaml\"",
-    "docker:build": "lerna run docker:build --since --parallel",
+    "docker:build": "lerna run docker:build --parallel",
     "deploy": "lerna run deploy --parallel"
   },
   "husky": {
