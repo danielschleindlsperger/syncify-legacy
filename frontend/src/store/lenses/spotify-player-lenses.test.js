@@ -1,4 +1,9 @@
-import { viewConnected, viewDeviceId, viewPlayerState } from './spotify-player-lenses'
+import {
+  viewConnected,
+  viewDeviceId,
+  viewPlayerState,
+  viewPlayerSdk,
+} from './spotify-player-lenses'
 
 const mockState = {
   spotifyPlayer: {
@@ -7,6 +12,7 @@ const mockState = {
     playerState: {
       foo: 'bar',
     },
+    playerSdk: { foo: 'bar' },
   },
 }
 
@@ -20,4 +26,8 @@ test('can get device id', () => {
 
 test('can get player state', () => {
   expect(viewPlayerState(mockState)).toEqual(mockState.spotifyPlayer.playerState)
+})
+
+test('can get player sdk instance', () => {
+  expect(viewPlayerSdk(mockState)).toEqual(mockState.spotifyPlayer.playerSdk)
 })

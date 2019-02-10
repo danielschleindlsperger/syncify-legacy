@@ -63,6 +63,7 @@ export const auth = {
         },
         // refresh tokens every 25 minutes
         1000 * 60 * 25,
+        // 1000 * 10,
       )
       return dispatch.auth.setUser(user)
     },
