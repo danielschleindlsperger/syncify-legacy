@@ -32,7 +32,7 @@ const validate = values => {
   return errors
 }
 
-const CreateRoomForm = ({ playlists, handleSubmit }) => (
+const CreateRoomForm = React.memo(({ playlists, handleSubmit }) => (
   <Formik
     initialValues={{ name: '', playlistId: null, settings: { loop: false } }}
     validate={validate}
@@ -69,7 +69,7 @@ const CreateRoomForm = ({ playlists, handleSubmit }) => (
       </Form>
     )}
   </Formik>
-)
+))
 
 // TODO:
 // Somehow split up this component: Right now it can't be codesplit and also the whole modal will
