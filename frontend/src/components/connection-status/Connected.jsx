@@ -39,6 +39,7 @@ const TopRight = styled.div`
   right: 0;
   padding-top: 5px;
   padding-right: 5px;
+  z-index: 10;
 `
 
 export const Connected = ({ connected }) => (
