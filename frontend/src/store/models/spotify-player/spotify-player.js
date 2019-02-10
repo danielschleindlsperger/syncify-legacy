@@ -1,7 +1,6 @@
 import { updateUser, setWebPlayerAsActiveDevice } from '../../../api'
 import { viewToken, viewAccessToken, viewUser, viewPlayerSdk } from '../../lenses'
 import { applyAll } from '../../../utils'
-import { store } from '../../'
 
 const loadSpotifyScript = () => {
   const script = document.createElement('script')
@@ -49,7 +48,7 @@ export const spotifyPlayer = {
     },
   },
   effects: dispatch => ({
-    async initSdk(payload, rootState) {
+    async initSdk(store, rootState) {
       // might cause synchronicity issues
       loadSpotifyScript()
       // call with store instead of concrete state to allow the spotify sdk to get the current value each time
