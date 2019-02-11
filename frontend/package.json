@@ -11,7 +11,7 @@
     "storybook": "start-storybook -p 6006 --ci",
     "storybook:build": "build-storybook",
     "docker:build": "./build.sh",
-    "deploy": "kubectl --kubeconfig=\"../k8s-syncify-kubeconfig.yaml\" apply -f ./deploy.yaml"
+    "deploy": "./deploy.sh"
   },
   "license": "ISC",
   "devDependencies": {

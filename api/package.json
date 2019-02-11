@@ -11,7 +11,7 @@
     "db:seed": "NODE_ENV=development ts-node src/seed/index.ts",
     "db:drop": "NODE_ENV=development ts-node src/seed/drop.ts",
     "docker:build": "./build.sh",
-    "deploy": "kubectl --kubeconfig=\"../k8s-syncify-kubeconfig.yaml\" apply -f ./deploy.yaml"
+    "deploy": "./deploy.sh"
   },
   "author": "Daniel Schleindlsperger <daniel@schleindlsperger.de>",
   "license": "ISC",
