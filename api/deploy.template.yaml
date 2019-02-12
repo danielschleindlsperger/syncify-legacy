@@ -53,16 +53,16 @@ spec:
                   name: spotify-credentials
                   key: spotify-client-secret
             - name: SPOTIFY_REDIRECT_URL
-              value: http://syncify.co/api/auth/callback
+              value: https://syncify.co/api/auth/callback
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
                   name: jwt
                   key: jwt-secret
             - name: APP_URL
-              value: http://syncify.co
+              value: https://syncify.co
             - name: API_URL
-              value: http://syncify.co/api
+              value: https://syncify.co/api
             - name: RABBIT_HOST
               valueFrom:
                 secretKeyRef:
