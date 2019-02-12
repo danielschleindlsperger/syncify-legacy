@@ -3,6 +3,7 @@ import { Config } from '../config'
 // manually import entities to avoid dynamic imports for a single file lambda build
 import { UserEntity } from '../api/user'
 import { RoomEntity } from '../api/room'
+import * as migrations from '../migrations'
 
 const { database } = Config
 
@@ -14,8 +15,11 @@ const defaultConnectionOptions: ConnectionOptions = {
   password: database.secret,
   database: database.name,
   entities: [UserEntity, RoomEntity],
-  // synchronize: true,
+  synchronize: !Config.isProd,
   logging: ['error'],
+  migrationsTableName: 'migrations',
+  migrations: Object.values(migrations),
+  migrationsRun: Config.isProd,
 }
 
 const testingConnectionOptions: ConnectionOptions = {

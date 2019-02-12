@@ -1,6 +1,7 @@
 import { Effect } from '@marblejs/core'
 import { generateToken } from '@marblejs/middleware-jwt'
-import { map, flatMap, tap } from 'rxjs/operators'
+import { map, flatMap } from 'rxjs/operators'
+import { path } from 'ramda'
 import { Config } from '../../../config'
 import { tokensFromOauthCode, getMe, SpotifyOAuthResponse } from '../../common/spotify'
 import { User, UserDAO } from '../../user'
@@ -14,7 +15,7 @@ const userFromSpotifyData = (tokens: SpotifyOAuthResponse) =>
       (spotifyUser): User => ({
         id: spotifyUser.id,
         name: spotifyUser.display_name,
-        avatar: spotifyUser.images[0].url,
+        avatar: path(['images', 0, 'url'], spotifyUser),
         accessToken: tokens.access_token,
         refreshToken: tokens.refresh_token,
       }),

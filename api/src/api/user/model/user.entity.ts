@@ -15,6 +15,8 @@ export const UserEntity = new EntitySchema<User>({
     },
     avatar: {
       type: 'varchar',
+      nullable: true,
+      default: null,
     },
     accessToken: {
       type: 'varchar',
