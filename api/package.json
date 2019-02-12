@@ -1,6 +1,6 @@
 {
   "name": "syncify-api",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Backend for Syncify",
   "main": "dist/index.js",
   "scripts": {
