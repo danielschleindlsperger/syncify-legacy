@@ -66,6 +66,18 @@ export class RabbitConfig {
   }
 }
 
+@LoadConfig
+export class PusherConfig {
+  @EnvValue('PUSHER_APP_ID')
+  id: string = ''
+
+  @EnvValue('PUSHER_APP_KEY')
+  key: string = ''
+
+  @EnvValue('PUSHER_APP_SECRET')
+  secret: string = ''
+}
+
 const generalConfig = new GeneralConfig()
 const { environment } = generalConfig
 
@@ -79,6 +91,7 @@ export const Config = {
   database: new DatabaseConfig(),
   spotify: new SpotifyConfig(),
   rabbit: new RabbitConfig(),
+  pusher: new PusherConfig(),
   isDev: environment === 'development',
   isProd: environment === 'production',
   isTesting: environment === 'test',
