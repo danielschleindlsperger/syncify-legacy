@@ -3,6 +3,8 @@ import { render } from 'react-dom'
 import App from './components/App'
 import { store } from './store'
 
+store.dispatch.room.initPusher()
+
 store.dispatch.auth
   .initialToken()
   .then(() => store.dispatch.auth.fetchUser())

@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { allPass } from 'ramda'
 import T from 'prop-types'
 import { DROP_SHADOWS, GOLDEN_RATIO } from '../style-constants'
 import { Text } from '../typography'
@@ -81,7 +80,8 @@ const PlaylistWrapper = styled.div`
   box-shadow: ${DROP_SHADOWS.SMALL.normal};
   width: 100%;
   max-width: 600px;
-  margin: 0 auto;
+  max-height: 600px;
+  overflow-y: scroll;
 `
 
 export const Playlist = ({ playlist, currentTrack, onSongSelect, ...props }) =>

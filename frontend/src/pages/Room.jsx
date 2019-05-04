@@ -8,6 +8,7 @@ import { ConnectedContainer } from '../components/connection-status/ConnectedCon
 import { Player } from '../components/player'
 import { Playlist } from '../components/playlist'
 import { joinRoom, getRoom, getSongs } from '../api'
+import { Chat } from '../components/Chat'
 
 const extractTrackData = track => ({
   name: track.name,
@@ -47,8 +48,11 @@ class Room extends React.Component {
   }
 
   componentDidMount() {
+    const { roomId, joinRoom } = this.props
     this.tryToRoinRoom()
     this.fetchPlaylist()
+
+    joinRoom(roomId)
   }
 
   componentDidUpdate(prevProps) {
@@ -60,6 +64,11 @@ class Room extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    const { leaveRoom } = this.props
+    leaveRoom()
+  }
+
   render = () => {
     const { playlist } = this.state
     const { currentTrack } = this.props
@@ -69,12 +78,14 @@ class Room extends React.Component {
         <div>
           <ConnectedContainer />
           <Player />
-          <Playlist
-            style={{ marginTop: 50 }}
-            playlist={playlist}
-            currentTrack={currentTrack}
-            onSongSelect={() => console.log('clicked!')}
-          />
+          <div style={{ display: 'flex', justifyContent: 'center', margin: '50px auto 0' }}>
+            <Playlist
+              playlist={playlist}
+              currentTrack={currentTrack}
+              onSongSelect={() => console.log('clicked!')}
+            />
+            <Chat style={{ marginLeft: 50 }} />
+          </div>
         </div>
       </WithAuth>
     )
@@ -95,4 +106,12 @@ const mapProps = state => ({
   currentTrack: viewCurrentTrack(state),
 })
 
-export default connect(mapProps)(Room)
+const mapDispatch = ({ room: { joinRoom, leaveRoom } }) => ({
+  joinRoom,
+  leaveRoom,
+})
+
+export default connect(
+  mapProps,
+  mapDispatch,
+)(Room)
