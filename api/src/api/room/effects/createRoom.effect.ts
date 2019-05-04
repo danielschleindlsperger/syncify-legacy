@@ -1,11 +1,11 @@
-import { Effect, use, Middleware } from '@marblejs/core'
+import { HttpEffect, use, HttpMiddlewareEffect } from '@marblejs/core'
 import { validator$, Joi } from '@marblejs/middleware-joi'
 import { flatMap, map, tap } from 'rxjs/operators'
 import { Room, RoomDAO } from '../model'
 import { logAndRethrow } from '../../../util'
 import { queueNextSongChange } from '../actions'
 
-const roomValidator$: Middleware = validator$({
+const roomValidator$: HttpMiddlewareEffect = validator$({
   body: Joi.object({
     name: Joi.string()
       .min(3)
@@ -20,17 +20,17 @@ const roomValidator$: Middleware = validator$({
   }),
 })
 
-export const createRoomEffect$: Effect = req$ =>
+export const createRoomEffect$: HttpEffect = req$ =>
   req$.pipe(
     use(roomValidator$),
-    map(req => ({
-      ...req.body,
-      admins: [req.user],
-    })),
-    map((room: Room) => ({
-      ...room,
-      playlist: room.playlist.map(song => ({ ...song, isActive: false })),
-    })),
+    map(req => ({ ...req.body, admins: [req.user] } as Room)),
+    map(
+      // TODO: remove typecast
+      (room: Room) => ({
+        ...room,
+        playlist: room.playlist.map(song => ({ ...song, isActive: false })),
+      }),
+    ),
     map((room: Room) => {
       // Maybe make this immutable idk
       room.playlist[0].isActive = true

@@ -1,13 +1,12 @@
 import * as request from 'supertest'
 import { of } from 'rxjs'
-import { Config } from '../../../config'
 import { UserDAO } from '../../user/model'
 import { app } from '../../../app'
 import * as spotify from '../../common/spotify'
 
 const spotifyCodeResponse = {
   access_token: 'access_token',
-  token_type: 'Bearer',
+  token_type: 'Bearer' as 'Bearer',
   expires_in: 3600,
   refresh_token: 'refresh_token',
   scope: '',
@@ -34,8 +33,8 @@ const spotifyGetMeResponse = {
       url: 'image.url',
     },
   ],
-  product: 'premium',
-  type: 'user',
+  product: 'premium' as 'premium',
+  type: 'user' as 'user',
   uri: '',
 }
 

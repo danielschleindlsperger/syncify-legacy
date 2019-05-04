@@ -1,4 +1,4 @@
-import { Effect, use } from '@marblejs/core'
+import { HttpEffect, use } from '@marblejs/core'
 import { map, flatMap } from 'rxjs/operators'
 import { generateToken } from '@marblejs/middleware-jwt'
 import { generateTokenPayload } from '../helpers'
@@ -8,7 +8,7 @@ import { authorize$ } from '../middleware'
 import { refreshAccessToken } from '../../common/spotify'
 import { neverNullable } from '../../../util'
 
-export const refreshEffect$: Effect = req$ =>
+export const refreshEffect$: HttpEffect = req$ =>
   req$.pipe(
     use(authorize$),
     flatMap(req => UserDAO.findById(req.user.id)),

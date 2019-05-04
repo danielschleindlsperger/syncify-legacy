@@ -1,4 +1,4 @@
-import { Effect } from '@marblejs/core'
+import { HttpEffect } from '@marblejs/core'
 import { generateToken } from '@marblejs/middleware-jwt'
 import { map, flatMap } from 'rxjs/operators'
 import { path } from 'ramda'
@@ -22,16 +22,24 @@ const userFromSpotifyData = (tokens: SpotifyOAuthResponse) =>
     ),
   )
 
-export const authCallbackEffect$: Effect = req$ =>
+export const authCallbackEffect$: HttpEffect = req$ =>
   req$.pipe(
-    map(req => req.query.code),
+    map(req => req.query as { code: string }), // hack until io-ts middleware is implemented
+    map(query => query.code),
     flatMap(neverNullable),
     flatMap((code: string) => tokensFromOauthCode(code)),
     flatMap(userFromSpotifyData),
-    logAndRethrow('Error fetching user from spotify'),
+    // logAndRethrow('Error fetching user from spotify'),
     flatMap(UserDAO.save),
     map(generateTokenPayload),
     map(generateToken({ secret: Config.jwtSecret })), // TODO: use cookie instead of query param)
-    flatMap(token => req$.pipe(map(req => ({ token, redirectTo: req.query.state })))),
-    map(({ token, redirectTo }) => redirect(`${redirectTo}?token=${token}`)),
+    flatMap(token =>
+      req$.pipe(
+        map(req => {
+          const query = req.query as { state: string }
+          const redirectTo = query.state
+          return redirect(`${redirectTo}?token=${token}`)
+        }),
+      ),
+    ),
   )

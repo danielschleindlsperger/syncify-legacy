@@ -6,4 +6,5 @@ import { store } from '../store'
 const WithAuth = ({ isLoggedIn, children }) => (isLoggedIn ? children : <Login />)
 
 const mapStateToProps = state => ({ isLoggedIn: store.select.auth.isLoggedIn(state) })
+
 export default connect(mapStateToProps)(WithAuth)

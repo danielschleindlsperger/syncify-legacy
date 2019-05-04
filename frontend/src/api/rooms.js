@@ -12,7 +12,7 @@ export const getRoom = token => roomId =>
 
 export const createRoom = token => payload =>
   authenticatedRequest(token)
-    .post(`/api/room/`, payload)
+    .post('/api/room', payload)
     .then(x => x.data)
 
 export const joinRoom = token => roomId =>

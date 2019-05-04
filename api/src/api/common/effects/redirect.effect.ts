@@ -1,7 +1,7 @@
-import { Effect } from '@marblejs/core'
+import { HttpEffect } from '@marblejs/core'
 import { mapTo } from 'rxjs/operators'
 
-export const redirectEffect$ = (Location: string): Effect => req$ =>
+export const redirectEffect$ = (Location: string): HttpEffect => req$ =>
   req$.pipe(
     mapTo({
       status: 302, // moved temporarily

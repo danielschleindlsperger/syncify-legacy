@@ -5,7 +5,8 @@ import { RoomDAO } from '../../model'
 import { neverNullable } from '../../../../util'
 
 export const fetchRoom = pipe(
-  (req: HttpRequest) => req.params.id,
+  (req: HttpRequest) => req.params as { id: string }, // TODO: remove typecast
+  params => params.id,
   RoomDAO.findOne,
   flatMap(neverNullable),
   catchError(() => throwError(new HttpError('Room does not exist.', HttpStatus.NOT_FOUND))),

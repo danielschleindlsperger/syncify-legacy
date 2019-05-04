@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import { load } from 'dotenv'
+import { config } from 'dotenv'
 import { Config as LoadConfig, EnvValue } from 'type-env'
 
 @LoadConfig
@@ -82,7 +82,7 @@ const generalConfig = new GeneralConfig()
 const { environment } = generalConfig
 
 // Load .env file for development
-load({
+config({
   path: resolve(`../.env.${environment}`),
 })
 

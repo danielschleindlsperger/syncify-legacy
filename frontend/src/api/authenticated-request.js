@@ -9,6 +9,8 @@ export const authenticatedRequest = accessToken =>
         axios.create({
           headers: {
             Authorization: `Bearer ${token}`,
+            // default is 'application/json;charset=utf-8' which some backend libraries cannot parse (e.g. node's is-type)
+            'Content-Type': 'application/json',
           },
         }),
       () => {

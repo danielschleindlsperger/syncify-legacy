@@ -18,9 +18,9 @@ export type SpotifyCredentials = {
 }
 
 export type SpotifyUserImage = {
-  height: null
+  height: number
   url: string
-  width: null
+  width: number
 }
 
 export type SpotifyUserDto = {

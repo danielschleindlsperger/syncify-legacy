@@ -1,4 +1,4 @@
-import { Effect, use } from '@marblejs/core'
+import { HttpEffect, use } from '@marblejs/core'
 import { flatMap, map, zip, tap } from 'rxjs/operators'
 import { roomIdValidator$ } from './helpers/validate-room'
 import { UserDAO, User } from '../../user'
@@ -9,16 +9,17 @@ import { from, of } from 'rxjs'
 
 // This endpoint should be deleted and instead handled with a real time connection
 
-export const joinRoomEffect$: Effect = req$ =>
+export const joinRoomEffect$: HttpEffect = req$ =>
   req$.pipe(
     use(roomIdValidator$),
     flatMap(req => {
       // if supplied id is invalid fuck it (actually we need to validate it at some point)
+      const params = req.params as { id: string } // TODO: remove typecast
       const updatedUser: User = {
         ...req.user,
-        room: req.params.id,
+        room: params.id,
       }
-      return UserDAO.save(updatedUser).pipe(zip(RoomDAO.findOne(req.params.id)))
+      return UserDAO.save(updatedUser).pipe(zip(RoomDAO.findOne(params.id)))
     }),
     map(async ([user, room]) => {
       const queue = await Queue.get()
