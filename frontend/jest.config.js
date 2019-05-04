@@ -1,5 +1,5 @@
 module.exports = {
-  setupTestFrameworkScriptFile: '<rootDir>tests/setupTests.js',
+  setupFilesAfterEnv: ['<rootDir>tests/setupTests.js'],
   testEnvironment: 'jest-environment-jsdom-global',
   transformIgnorePatterns: [
     // node_modules that should be transpiled
