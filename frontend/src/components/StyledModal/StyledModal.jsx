@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Modal from 'react-modal'
-import { X } from 'styled-icons/feather/X'
+import { X } from 'styled-icons/feather/X/X'
 
 // Bind to app node for accessibility http://reactcommunity.org/react-modal/accessibility/
 // Also use fallback for storybook since it uses a different root node selector.

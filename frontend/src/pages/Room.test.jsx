@@ -2,10 +2,10 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { render } from 'react-testing-library'
 import Room from './Room'
-import { initStore } from '../store'
+import { createStore } from '../store'
 import { joinRoom } from '../api'
 
-const store = initStore()
+const store = createStore()
 
 store.getState = jest.fn().mockImplementation = () => ({
   auth: { token: 'token' },

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Zap } from 'styled-icons/feather/Zap'
-import { ZapOff } from 'styled-icons/feather/ZapOff'
+import { Zap } from 'styled-icons/feather/Zap/Zap'
+import { ZapOff } from 'styled-icons/feather/ZapOff/ZapOff'
 import { NAV_HEIGHT } from '../style-constants'
 
 const SIZE = 50
