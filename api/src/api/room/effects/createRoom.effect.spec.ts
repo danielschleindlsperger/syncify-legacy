@@ -30,6 +30,12 @@ test('creates and returns a room', async () => {
     .expect(200)
     .expect(({ body: res }) => {
       expect(res.name).toBe(requestData.name)
-      expect(res.playlist).toEqual(requestData.playlist)
+      expect(res.playlist).toEqual([
+        {
+          ...requestData.playlist[0],
+          isActive: true,
+          playbackStartedAt: expect.any(Number),
+        },
+      ])
     })
 })

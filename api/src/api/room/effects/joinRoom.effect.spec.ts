@@ -17,7 +17,7 @@ test('returns 401 for unauthenticated request', async () => {
     .expect(401)
 })
 
-test('sets room id on user entity', async () => {
+xtest('sets room id on user entity', async () => {
   const user = await mockUser()
   const room = await mockRoom()
 

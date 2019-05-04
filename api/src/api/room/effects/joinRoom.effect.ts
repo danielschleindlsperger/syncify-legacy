@@ -21,7 +21,6 @@ export const joinRoomEffect$: Effect = req$ =>
       return UserDAO.save(updatedUser).pipe(zip(RoomDAO.findOne(req.params.id)))
     }),
     map(async ([user, room]) => {
-      console.log('listeners in effect', room.listeners.map(user => user.name))
       const queue = await Queue.get()
       const currentSong = room.playlist.find(song => song.isActive)
       if (currentSong) {

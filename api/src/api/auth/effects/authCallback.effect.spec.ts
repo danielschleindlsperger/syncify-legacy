@@ -47,10 +47,9 @@ afterEach(jest.restoreAllMocks)
 test('authCallback effect gets users data from spotify, saves user in database and redirects to frontend', async () => {
   await request(app)
     // called by spotify
-    // TODO: test with state (redirect url)
-    .get('/api/auth/callback?code=1234')
+    .get('/api/auth/callback?code=1234&state=https://syncify.co')
     .expect(302)
-    .expect('location', new RegExp(Config.appUrl))
+    .expect('location', new RegExp('https://syncify.co'))
 
   UserDAO.findById(spotifyGetMeResponse.id).subscribe(user => {
     expect(user.avatar).toBe(spotifyGetMeResponse.images[0].url)
