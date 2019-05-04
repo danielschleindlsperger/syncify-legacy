@@ -8,4 +8,3 @@ build
 .cache
 /coverage/
 lerna-debug.log
-k8s-syncify-kubeconfig.yaml
