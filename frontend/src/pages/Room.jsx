@@ -7,7 +7,7 @@ import WithAuth from '../components/WithAuth'
 import { ConnectedContainer } from '../components/connection-status/ConnectedContainer'
 import { Player } from '../components/player'
 import { Playlist } from '../components/playlist'
-import { joinRoom, getRoom, getSongs } from '../api'
+import * as Api from '../api'
 import { Chat } from '../components/Chat'
 
 const extractTrackData = track => ({
@@ -18,78 +18,54 @@ const extractTrackData = track => ({
   imageUrl: track.album.images[1].url,
 })
 
-class Room extends React.Component {
-  state = { playlist: [] }
+const Room = ({ roomId, token, accessToken, connected, currentTrack, joinRoom, leaveRoom }) => {
+  const [playlist, setPlaylist] = React.useState([])
 
-  tryToRoinRoom = () => {
-    const { roomId, token, connected } = this.props
-    console.log('JOINING ROOM ', { roomId, connected })
-    // Don't join when spotify player is not connected, since the spotify api will return an error
-    // if we start playback before we're connected.
-    // If we're connected: join with a timeout (for the same reasons)
-    if (connected) {
-      setTimeout(() => {
-        joinRoom(token)(roomId)
-      }, 500)
-    }
-  }
+  React.useEffect(
+    () => {
+      // only join room when connected so that the backend does not change the song when we're not ready yet<
+      if (connected) {
+        setTimeout(() => {
+          Api.joinRoom(token)(roomId)
+        }, 500)
+      }
+    },
+    [connected, roomId],
+  )
 
-  async fetchPlaylist() {
-    const { roomId, token, accessToken } = this.props
+  // load playlist once at the start for each room
+  // leave room on unmount
+  React.useEffect(
+    () => {
+      joinRoom(roomId)
 
-    const playlist = await getRoom(token)(roomId)
-      .then(room => room.playlist.map(song => song.id))
-      .then(ids => getSongs(accessToken, ids))
-      .then(tracks => tracks.map(extractTrackData))
+      Api.getRoom(token)(roomId)
+        .then(room => room.playlist.map(song => song.id))
+        .then(ids => Api.getSongs(accessToken, ids))
+        .then(tracks => tracks.map(extractTrackData))
+        .then(playlist => setPlaylist(playlist))
 
-    console.log(playlist)
+      return () => leaveRoom()
+    },
+    [roomId],
+  )
 
-    this.setState({ playlist })
-  }
-
-  componentDidMount() {
-    const { roomId, joinRoom } = this.props
-    this.tryToRoinRoom()
-    this.fetchPlaylist()
-
-    joinRoom(roomId)
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.roomId !== this.props.roomId) {
-      // Apparently the component is not destroyed and re-mounted when navigating to a new room, so we
-      // run again on componentDidUpdate.
-      this.tryToRoinRoom()
-      this.fetchPlaylist()
-    }
-  }
-
-  componentWillUnmount() {
-    const { leaveRoom } = this.props
-    leaveRoom()
-  }
-
-  render = () => {
-    const { playlist } = this.state
-    const { currentTrack } = this.props
-
-    return (
-      <WithAuth>
-        <div>
-          <ConnectedContainer />
-          <Player />
-          <div style={{ display: 'flex', justifyContent: 'center', margin: '50px auto 0' }}>
-            <Playlist
-              playlist={playlist}
-              currentTrack={currentTrack}
-              onSongSelect={() => console.log('clicked!')}
-            />
-            <Chat style={{ marginLeft: 50 }} />
-          </div>
+  return (
+    <WithAuth>
+      <div>
+        <ConnectedContainer />
+        <Player />
+        <div style={{ display: 'flex', justifyContent: 'center', margin: '50px auto 0' }}>
+          <Playlist
+            playlist={playlist}
+            currentTrack={currentTrack}
+            onSongSelect={() => console.log('clicked!')}
+          />
+          <Chat style={{ marginLeft: 50 }} />
         </div>
-      </WithAuth>
-    )
-  }
+      </div>
+    </WithAuth>
+  )
 }
 
 Room.propTypes = {
