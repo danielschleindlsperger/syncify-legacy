@@ -25,6 +25,7 @@
     "chalk": "^2.4.2",
     "dotenv": "^8.0.0",
     "mysql": "^2.17.1",
+    "pusher": "^2.2.0",
     "rabbit-queue": "^3.0.2",
     "ramda": "^0.26.1",
     "reflect-metadata": "^0.1.13",

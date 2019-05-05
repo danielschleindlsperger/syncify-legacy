@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { DROP_SHADOWS, FONT_SIZES } from './style-constants'
 
-// placeholder component
-
 const message = T.shape({
   content: T.string.isRequired,
   from: T.shape({
@@ -14,6 +12,39 @@ const message = T.shape({
   }),
   time: T.string,
 })
+
+const member = T.shape({
+  id: T.string.isRequired,
+  info: T.shape({
+    name: T.string.isRequired,
+    avatar: T.string,
+  }).isRequired,
+})
+
+const ChatMembers = ({ members, ...props }) => (
+  <div style={{ display: 'flex', justifyContent: 'flex-end' }} {...props}>
+    {members.map(member => (
+      <div
+        key={member.id}
+        title={member.info.name}
+        style={{
+          width: 50,
+          height: 50,
+          backgroundColor: 'grey',
+          backgroundImage: `url(${member.info.avatar})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          borderRadius: '50%',
+          marginLeft: 10,
+        }}
+      />
+    ))}
+  </div>
+)
+
+ChatMembers.propTypes = {
+  members: T.arrayOf(member).isRequired,
+}
 
 const StyledInput = styled.input`
   padding: 0 10px;
@@ -76,8 +107,9 @@ const ChatWrapper = styled.div`
   flex-direction: column;
 `
 
-let Chat = ({ messages, sendMessage, ...props }) => (
+let Chat = ({ members, messages, sendMessage, ...props }) => (
   <ChatWrapper {...props}>
+    <ChatMembers members={members} />
     <Messages messages={messages} style={{ maxHeight: '550px', overflowY: 'scroll' }} />
     <ChatInputBar onMessage={sendMessage} style={{ marginTop: 'auto' }} />
   </ChatWrapper>
@@ -85,6 +117,7 @@ let Chat = ({ messages, sendMessage, ...props }) => (
 
 const mapStateToProps = state => ({
   messages: state.room.messages,
+  members: state.room.members,
 })
 
 const mapDispatchToProps = ({ room: { sendMessage } }) => ({
