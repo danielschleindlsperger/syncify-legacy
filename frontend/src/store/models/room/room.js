@@ -12,22 +12,14 @@ export const room = {
     messages: [],
   },
   reducers: {
-    setRoomName(state, roomName) {
-      return { ...state, roomName }
-    },
-    setPusher(state, pusher) {
-      return { ...state, pusher }
-    },
-    setPusherChannel(state, pusherChannel) {
-      return { ...state, pusherChannel }
-    },
+    setRoomName: (state, roomName) => ({ ...state, roomName }),
+    setPusher: (state, pusher) => ({ ...state, pusher }),
+    setPusherChannel: (state, pusherChannel) => ({ ...state, pusherChannel }),
     addMessage(state, message) {
       const messages = [...state.messages, message]
       return { ...state, messages }
     },
-    clearMessages(state) {
-      return { ...state, messages: [] }
-    },
+    clearMessages: state => ({ ...state, messages: [] }),
   },
   effects: dispatch => ({
     initPusher(mockPusher) {
@@ -41,14 +33,13 @@ export const room = {
       dispatch.room.setPusher(pusher)
     },
     joinRoom(roomId, rootState) {
-      dispatch.room.setRoomName(`room-${roomId}`)
-      const channel = rootState.room.pusher.subscribe(`room-${roomId}`)
+      const roomName = `presence-room-${roomId}`
+      dispatch.room.setRoomName(roomName)
+      const channel = rootState.room.pusher.subscribe(roomName)
 
       dispatch.room.setPusherChannel(channel)
 
-      // TODO: move somewhere else
       channel.bind('chat-message', data => {
-        console.log(JSON.stringify(data))
         dispatch.room.addMessage(data)
       })
     },
