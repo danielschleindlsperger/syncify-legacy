@@ -1,4 +1,5 @@
 import Pusher from 'pusher-js'
+import { omit } from 'ramda'
 
 Pusher.logToConsole = process.env.NODE_ENV === 'development'
 
@@ -31,6 +32,10 @@ export const room = {
     setMembers: (state, membersById) => ({ ...state, membersById }),
     addMember: (state, member) => {
       const membersById = { ...state.membersById, [member.id]: member }
+      return { ...state, membersById }
+    },
+    removeMember: (state, member) => {
+      const membersById = omit([member.id], state.membersById)
       return { ...state, membersById }
     },
   },
@@ -79,6 +84,11 @@ export const room = {
       // add new user to users list
       channel.bind('pusher:member_added', member => {
         dispatch.room.addMember(member)
+      })
+
+      // remove user from users list
+      channel.bind('pusher:member_removed', member => {
+        dispatch.room.removeMember(member)
       })
     },
     leaveRoom(payload, rootState) {
