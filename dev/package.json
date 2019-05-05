@@ -1,0 +1,16 @@
+{
+  "name": "dev",
+  "version": "0.1.4",
+  "description": "Proxy server for combining front- and backend during development and localtunnel to expose app for webhooks.",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "http-proxy": "^1.17.0",
+    "http-proxy-rules": "^1.1.3",
+    "localtunnel": "^1.9.1"
+  }
+}
