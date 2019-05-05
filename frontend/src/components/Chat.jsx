@@ -2,23 +2,19 @@ import React from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
+import { store } from '../store'
 import { DROP_SHADOWS, FONT_SIZES } from './style-constants'
-
-const message = T.shape({
-  content: T.string.isRequired,
-  from: T.shape({
-    name: T.string,
-    id: T.string,
-  }),
-  time: T.string,
-})
 
 const member = T.shape({
   id: T.string.isRequired,
-  info: T.shape({
-    name: T.string.isRequired,
-    avatar: T.string,
-  }).isRequired,
+  name: T.string.isRequired,
+  avatar: T.string,
+})
+
+const message = T.shape({
+  content: T.string.isRequired,
+  from: member,
+  time: T.string,
 })
 
 const ChatMembers = ({ members, ...props }) => (
@@ -26,12 +22,12 @@ const ChatMembers = ({ members, ...props }) => (
     {members.map(member => (
       <div
         key={member.id}
-        title={member.info.name}
+        title={member.name}
         style={{
           width: 50,
           height: 50,
           backgroundColor: 'grey',
-          backgroundImage: `url(${member.info.avatar})`,
+          backgroundImage: `url(${member.avatar})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           borderRadius: '50%',
@@ -115,17 +111,19 @@ let Chat = ({ members, messages, sendMessage, ...props }) => (
   </ChatWrapper>
 )
 
-const mapStateToProps = state => ({
-  messages: state.room.messages,
-  members: state.room.members,
-})
+const selection = store.select(models => ({
+  members: models.room.members,
+  messages: models.room.messages,
+}))
+
+// const mapStateToProps = state => ({ messages: state.room.messages, members: state.room.members })
 
 const mapDispatchToProps = ({ room: { sendMessage } }) => ({
   sendMessage,
 })
 
 Chat = connect(
-  mapStateToProps,
+  selection,
   mapDispatchToProps,
 )(Chat)
 

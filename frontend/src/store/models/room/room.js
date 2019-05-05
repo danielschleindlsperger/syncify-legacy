@@ -8,22 +8,30 @@ export const room = {
     roomName: null,
     pusher: null,
     pusherChannel: null,
-    members: [],
-    messages: [],
+    membersById: {},
+    rawMessages: [],
+  },
+  selectors: {
+    members: () => rootState => Object.values(rootState.room.membersById),
+    messages: () => rootState =>
+      rootState.room.rawMessages.map(({ fromId, ...message }) => ({
+        ...message,
+        from: rootState.room.membersById[fromId],
+      })),
   },
   reducers: {
     setRoomName: (state, roomName) => ({ ...state, roomName }),
     setPusher: (state, pusher) => ({ ...state, pusher }),
     setPusherChannel: (state, pusherChannel) => ({ ...state, pusherChannel }),
     addMessage(state, message) {
-      const messages = [...state.messages, message]
-      return { ...state, messages }
+      const rawMessages = [...state.rawMessages, message]
+      return { ...state, rawMessages }
     },
     clearMessages: state => ({ ...state, messages: [] }),
-    setMembers: (state, members) => ({ ...state, members }),
+    setMembers: (state, membersById) => ({ ...state, membersById }),
     addMember: (state, member) => {
-      const members = [...state.members, member]
-      return { ...state, members }
+      const membersById = { ...state.membersById, [member.id]: member }
+      return { ...state, membersById }
     },
   },
   effects: dispatch => ({
@@ -58,9 +66,12 @@ export const room = {
 
       // build a list of current users once we're successfully connected
       channel.bind('pusher:subscription_succeeded', members => {
-        const mems = []
+        const mems = {}
         members.each(function(member) {
-          mems.push(member)
+          mems[member.id] = {
+            id: member.id,
+            ...member.info,
+          }
         })
         dispatch.room.setMembers(mems)
       })
@@ -77,15 +88,12 @@ export const room = {
     },
     sendMessage(message, rootState) {
       const { pusherChannel } = rootState.room
-      const { id, name } = rootState.auth.user
+      const { id } = rootState.auth.user
 
       pusherChannel.emit('chat-message', {
         content: message,
         time: new Date().toISOString(),
-        from: {
-          id,
-          name,
-        },
+        fromId: id,
       })
     },
   }),
