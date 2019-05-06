@@ -9,7 +9,7 @@ WORKDIR /app
 # DEPENDENCIES ##
 #################
 COPY package.json package-lock.json /app/
-RUN npm install
+RUN npm ci
 
 #################
 # RELEASE #######
