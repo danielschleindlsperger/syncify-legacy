@@ -19,10 +19,10 @@ ID = "54429d32-9a40-44ce-ac02-d0e915aaa3fd"
   # Default build command.
   command = "cd frontend && npm ci && npm run build"
 
-# A redirect rule with all the supported properties
+# Proxy api requests to heroku app
 [[redirects]]
   from = "/api/*"
-  to = "https://google.com/api/:splat"
+  to = "https://syncify-api.herokuapp.com/api/:splat"
   status = 200
   force = true
 
