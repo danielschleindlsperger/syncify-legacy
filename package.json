@@ -9,7 +9,7 @@
     "bootstrap": "lerna bootstrap",
     "start": "npm run docker && lerna run start:dev --parallel",
     "test": "lerna run test --parallel",
-    "docker:build": "lerna run docker:build --parallel"
+    "deploy": "(cd frontend && npm run build) && netlify deploy && git push heroku master && netlify deploy --prod"
   },
   "husky": {
     "hooks": {
