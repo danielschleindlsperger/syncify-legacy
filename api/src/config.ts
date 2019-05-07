@@ -46,24 +46,8 @@ export class GeneralConfig {
   @EnvValue('API_URL')
   apiUrl: string = 'http://localhost:8080/api'
 
-  @EnvValue('REAL_TIME_URL')
-  realTimeUrl: string = 'http://localhost:8080/real-time'
-}
-
-@LoadConfig
-export class RabbitConfig {
-  @EnvValue('RABBIT_USER')
-  user: string = 'root'
-
-  @EnvValue('RABBIT_SECRET')
-  secret: string = 'root'
-
-  @EnvValue('RABBIT_HOST')
-  host: string = 'localhost'
-
-  get connectionString() {
-    return `amqp://${this.user}:${this.secret}@${this.host}`
-  }
+  @EnvValue('REDIS_URL')
+  redisUrl: string = 'redis://localhost:6379'
 }
 
 @LoadConfig
@@ -90,7 +74,6 @@ export const Config = {
   ...generalConfig,
   database: new DatabaseConfig(),
   spotify: new SpotifyConfig(),
-  rabbit: new RabbitConfig(),
   pusher: new PusherConfig(),
   isDev: environment === 'development',
   isProd: environment === 'production',

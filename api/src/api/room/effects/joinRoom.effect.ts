@@ -1,11 +1,10 @@
 import { HttpEffect, use } from '@marblejs/core'
-import { flatMap, map, zip, tap } from 'rxjs/operators'
+import { flatMap, map, zip } from 'rxjs/operators'
 import { roomIdValidator$ } from './helpers/validate-room'
 import { UserDAO, User } from '../../user'
 import { RoomDAO } from '../model'
-import { Queue } from '../../../connection/queue'
-import { Scheduler } from '../../../scheduler'
 import { from, of } from 'rxjs'
+import { playTrack } from '../../common/spotify'
 
 // This endpoint should be deleted and instead handled with a real time connection
 
@@ -22,7 +21,6 @@ export const joinRoomEffect$: HttpEffect = req$ =>
       return UserDAO.save(updatedUser).pipe(zip(RoomDAO.findOne(params.id)))
     }),
     map(async ([user, room]) => {
-      const queue = await Queue.get()
       const currentSong = room.playlist.find(song => song.isActive)
       if (currentSong) {
         let offset = 0
@@ -30,11 +28,7 @@ export const joinRoomEffect$: HttpEffect = req$ =>
           offset = Date.now() - currentSong.playbackStartedAt
         }
         return from(
-          Scheduler.dispatchUserSongChange(queue, {
-            accessToken: user.accessToken,
-            songId: currentSong.id,
-            playbackOffset: offset,
-          }),
+          playTrack(user.accessToken, `spotify:track:${currentSong.id}`, offset, user.deviceId),
         )
       }
       return of(null)

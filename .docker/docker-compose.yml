@@ -10,14 +10,11 @@ services:
       - syncify_volume:/var/lib/mysql:rw
     ports:
       - '4000:3306'
-  rabbitmq:
-    image: 'rabbitmq:3-management-alpine'
-    environment:
-      RABBITMQ_DEFAULT_USER: 'root'
-      RABBITMQ_DEFAULT_PASS: 'root'
+  redis:
+    image: redis
+    container_name: redis
+    command: redis-server
     ports:
-      - 15672:15672
-      - 15671:15671
-      - 5672:5672
+      - 6379:6379
 volumes:
   syncify_volume:

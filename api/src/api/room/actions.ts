@@ -1,7 +1,5 @@
 import { findIndex } from 'ramda'
-
 import { Room } from './model'
-import { Queue } from '../../connection/queue'
 import { Scheduler } from '../../scheduler'
 
 export const queueNextSongChange = async (room: Room) => {
@@ -11,8 +9,7 @@ export const queueNextSongChange = async (room: Room) => {
   if (currentSong && nextSong) {
     const { id: songId } = nextSong
     const { durationMs: delay } = currentSong
-    const queue = await Queue.get()
-    Scheduler.dispatchRoomSongChange(queue, delay, { roomId, songId })
+    Scheduler.dispatchRoomSongChange({ roomId, songId }, delay)
   }
 }
 
