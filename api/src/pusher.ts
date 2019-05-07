@@ -1,5 +1,5 @@
 import { createContextToken, reader } from '@marblejs/core'
-import * as Pusher from 'pusher'
+import Pusher from 'pusher'
 import { Config } from './config'
 
 export const pusherToken = createContextToken<Pusher>()

@@ -13,9 +13,10 @@
     "strict": true,
     "target": "es2017",
     "resolveJsonModule": true,
+    "esModuleInterop": true,
     "lib": ["dom", "es2017"],
     "typeRoots": ["**/node_modules/@types"],
-    "outDir": "dist"
+    "outDir": "./dist"
   },
   "include": ["node_modules/@types", "**/src/**/*.ts"]
 }

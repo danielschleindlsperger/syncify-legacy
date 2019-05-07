@@ -1,7 +1,7 @@
 import { HttpRequest, HttpResponse } from '@marblejs/core'
 import { of } from 'rxjs'
 import { redirectEffect$ } from './redirect.effect'
-import * as MockReq from 'mock-req'
+import MockReq from 'mock-req'
 
 const metaMock = {
   ask: jest.fn(),

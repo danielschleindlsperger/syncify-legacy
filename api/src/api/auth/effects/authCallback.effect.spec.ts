@@ -1,4 +1,4 @@
-import * as request from 'supertest'
+import request from 'supertest'
 import { of } from 'rxjs'
 import { UserDAO } from '../../user/model'
 import { app } from '../../../app'

@@ -1,4 +1,4 @@
-import * as SpotifyWebApi from 'spotify-web-api-node'
+import SpotifyWebApi from 'spotify-web-api-node'
 import { Config } from '../../../config'
 
 export type SpotifyOAuthResponse = {
