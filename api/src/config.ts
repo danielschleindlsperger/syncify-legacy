@@ -1,23 +1,26 @@
 import { resolve } from 'path'
 import { config } from 'dotenv'
 import { Config as LoadConfig, EnvValue } from 'type-env'
+import Url from 'url-parse'
 
 @LoadConfig
 export class DatabaseConfig {
+  private parsed = new Url(process.env.JAWSDB_URL || '')
+
   @EnvValue('DB_HOST')
-  host: string = 'localhost'
+  host: string = this.parsed.hostname || 'localhost'
 
   @EnvValue('DB_USER')
-  user: string = 'root'
+  user: string = this.parsed.username || 'root'
 
   @EnvValue('DB_SECRET')
-  secret: string = 'root'
+  secret: string = this.parsed.password || 'root'
 
   @EnvValue('DB_NAME')
-  name: string = 'syncify'
+  name: string = this.parsed.pathname.slice(1) || 'syncify'
 
   @EnvValue('DB_PORT')
-  port: number = 3306
+  port: number = Number(this.parsed.port || 3306)
 }
 
 @LoadConfig

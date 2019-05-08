@@ -25,7 +25,7 @@ export const app = httpListener({
 
 export const server = createServer({
   port,
-  hostname: 'localhost',
+  hostname: '0.0.0.0',
   httpListener: app,
   dependencies: [bindTo(pusherToken)(pusher)],
 })

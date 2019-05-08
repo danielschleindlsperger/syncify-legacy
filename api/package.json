@@ -34,7 +34,8 @@
     "spotify-web-api-node": "^4.0.0",
     "type-env": "^1.1.0",
     "typeorm": "^0.2.17",
-    "typescript": "^3.4.5"
+    "typescript": "^3.4.5",
+    "url-parse": "^1.4.7"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
@@ -45,6 +46,7 @@
     "@types/ramda": "^0.26.8",
     "@types/socket.io": "^2.1.2",
     "@types/supertest": "^2.0.7",
+    "@types/url-parse": "^1.4.3",
     "backpack-core": "^0.8.3",
     "faker": "^4.1.0",
     "jest": "^23.6.0",

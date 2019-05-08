@@ -15,11 +15,12 @@ const defaultConnectionOptions: ConnectionOptions = {
   password: database.secret,
   database: database.name,
   entities: [UserEntity, RoomEntity],
-  synchronize: !Config.isProd,
+  // synchronize: !Config.isProd,
+  synchronize: true,
   logging: ['error'],
-  migrationsTableName: 'migrations',
-  migrations: Object.values(migrations),
-  migrationsRun: Config.isProd,
+  // migrationsTableName: 'migrations',
+  // migrations: Object.values(migrations),
+  // migrationsRun: Config.isProd,
 }
 
 const testingConnectionOptions: ConnectionOptions = {
