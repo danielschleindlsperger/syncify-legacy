@@ -34,8 +34,9 @@ export const room = {
       const membersById = { ...state.membersById, [member.id]: member }
       return { ...state, membersById }
     },
-    removeMember: (state, member) => {
-      const membersById = omit([member.id], state.membersById)
+    setMemberOffline: (state, member) => {
+      const offlineMember = { ...member, isOnline: false }
+      const membersById = { ...state.membersById, [member.id]: offlineMember }
       return { ...state, membersById }
     },
   },
@@ -76,6 +77,7 @@ export const room = {
           mems[member.id] = {
             id: member.id,
             ...member.info,
+            isOnline: true,
           }
         })
         dispatch.room.setMembers(mems)
@@ -86,13 +88,13 @@ export const room = {
         dispatch.room.addMember({
           id: member.id,
           ...member.info,
+          isOnline: true,
         })
       })
 
       // remove user from users list
       channel.bind('pusher:member_removed', member => {
-        // TODO: only set offline, since it crashes the mapping as messages are still available
-        // dispatch.room.removeMember(member)
+        dispatch.room.setMemberOffline(member)
       })
     },
     leaveRoom(payload, rootState) {

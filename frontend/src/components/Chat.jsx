@@ -9,6 +9,7 @@ const member = T.shape({
   id: T.string.isRequired,
   name: T.string.isRequired,
   avatar: T.string,
+  isOnline: T.bool.isRequired,
 })
 
 const message = T.shape({
@@ -19,22 +20,25 @@ const message = T.shape({
 
 const ChatMembers = ({ members, ...props }) => (
   <div style={{ display: 'flex', justifyContent: 'flex-end' }} {...props}>
-    {members.map(member => (
-      <div
-        key={member.id}
-        title={member.name}
-        style={{
-          width: 50,
-          height: 50,
-          backgroundColor: 'grey',
-          backgroundImage: `url(${member.avatar})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          borderRadius: '50%',
-          marginLeft: 10,
-        }}
-      />
-    ))}
+    {members.map(
+      member =>
+        member.isOnline && (
+          <div
+            key={member.id}
+            title={member.name}
+            style={{
+              width: 50,
+              height: 50,
+              backgroundColor: 'grey',
+              backgroundImage: `url(${member.avatar})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              borderRadius: '50%',
+              marginLeft: 10,
+            }}
+          />
+        ),
+    )}
   </div>
 )
 
