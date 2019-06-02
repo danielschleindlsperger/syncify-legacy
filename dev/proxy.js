@@ -13,7 +13,7 @@ const proxyRules = new HttpProxyRules({
 const proxy = httpProxy.createProxy()
 
 const handleProxyError = err => {
-  console.error('Could not proxy request \n', err)
+  console.error('Could not proxy request \n')
 }
 
 const createProxy = (port = 8080) => {
@@ -30,8 +30,6 @@ const createProxy = (port = 8080) => {
           handleProxyError,
         )
       }
-
-      console.log(res)
 
       res.writeHead(500, {
         'Content-Type': 'text/plain',
