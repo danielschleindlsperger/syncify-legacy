@@ -65,7 +65,7 @@ export const room = {
 
       dispatch.room.setPusherChannel(channel)
 
-      channel.bind('chat-message', msg => {
+      channel.bind('client-chat-message', msg => {
         dispatch.room.addMessage(msg)
       })
 
@@ -83,12 +83,16 @@ export const room = {
 
       // add new user to users list
       channel.bind('pusher:member_added', member => {
-        dispatch.room.addMember(member)
+        dispatch.room.addMember({
+          id: member.id,
+          ...member.info,
+        })
       })
 
       // remove user from users list
       channel.bind('pusher:member_removed', member => {
-        dispatch.room.removeMember(member)
+        // TODO: only set offline, since it crashes the mapping as messages are still available
+        // dispatch.room.removeMember(member)
       })
     },
     leaveRoom(payload, rootState) {
@@ -100,11 +104,17 @@ export const room = {
       const { pusherChannel } = rootState.room
       const { id } = rootState.auth.user
 
-      pusherChannel.emit('chat-message', {
+      const msg = {
         content: message,
         time: new Date().toISOString(),
         fromId: id,
-      })
+      }
+
+      const triggered = pusherChannel.trigger('client-chat-message', msg)
+
+      if (triggered) {
+        dispatch.room.addMessage(msg)
+      }
     },
   }),
 }
