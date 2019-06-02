@@ -9,7 +9,7 @@
     "bootstrap": "lerna bootstrap",
     "start": "npm run docker && lerna run start:dev --parallel",
     "test": "lerna run test --parallel",
-    "cy:open": "cypress open",
+    "cy": "cypress open",
     "e2e": "cypress run",
     "e2e:ci": "start-server-and-test start \":8080|:3000/api/health\" e2e",
     "deploy": "(cd frontend && npm run build) && netlify deploy && git push heroku master && netlify deploy --prod"
