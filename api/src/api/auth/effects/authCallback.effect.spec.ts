@@ -3,6 +3,7 @@ import { of } from 'rxjs'
 import { UserDAO } from '../../user/model'
 import { app } from '../../../app'
 import * as spotify from '../../common/spotify'
+import { createContext } from '@marblejs/core'
 
 const spotifyCodeResponse = {
   access_token: 'access_token',
@@ -44,7 +45,7 @@ jest.spyOn(spotify, 'getMe').mockImplementation(() => of(spotifyGetMeResponse))
 afterEach(jest.restoreAllMocks)
 
 test('authCallback effect gets users data from spotify, saves user in database and redirects to frontend', async () => {
-  await request(app)
+  await request(app.run(createContext()))
     // called by spotify
     .get('/api/auth/callback?code=1234&state=https://syncify.co')
     .expect(302)

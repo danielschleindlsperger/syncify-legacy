@@ -1,9 +1,10 @@
 import request from 'supertest'
 import { app } from '../../../app'
 import { mockUser, authenticatedRequest } from '../../../tests/mocks'
+import { createContext } from '@marblejs/core'
 
 test('returns 401 for unauthenticated request', async () => {
-  await request(app)
+  await request(app.run(createContext()))
     .get('/api/user/me')
     .expect(401)
 })
@@ -11,7 +12,7 @@ test('returns 401 for unauthenticated request', async () => {
 test('returns the logged in user', async () => {
   const user = await mockUser()
 
-  await request(app)
+  await request(app.run(createContext()))
     .get('/api/user/me')
     .use(authenticatedRequest(user))
     .expect(200)
