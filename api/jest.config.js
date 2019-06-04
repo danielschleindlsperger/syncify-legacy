@@ -14,7 +14,7 @@ module.exports = {
   ],
   collectCoverageFrom: ['src/**/*.ts'],
   moduleFileExtensions: ['ts', 'js', 'json'],
-  setupTestFrameworkScriptFile: './src/tests/setup.ts',
+  setupTestFrameworkScriptFile: './tests/setup.ts',
   globals: {
     'ts-jest': {
       tsConfig: './tsconfig.json',

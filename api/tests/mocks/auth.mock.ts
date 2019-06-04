@@ -1,7 +1,7 @@
 import { generateToken } from '@marblejs/middleware-jwt'
-import { Config } from '../../config'
-import { generateTokenPayload } from '../../api/auth/helpers'
-import { User } from '../../api/user'
+import { Config } from '../../src/config'
+import { generateTokenPayload } from '../../src/api/auth/helpers'
+import { User } from '../../src/api/user'
 import { Plugin, SuperAgentRequest } from 'superagent'
 
 export const authenticatedRequest = (user: User): Plugin => async (req: SuperAgentRequest) => {

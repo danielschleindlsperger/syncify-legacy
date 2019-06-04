@@ -9,6 +9,7 @@ type RoomSongChangePayload = {
   roomId: string
 }
 
+// TODO: clean up (for test mainly, need to extract to marble context anyway)
 const roomSongChangeQueue = new Bull<RoomSongChangePayload>('room-song-change', Config.redisUrl)
 
 roomSongChangeQueue.process(({ data: { songId, roomId } }) => {

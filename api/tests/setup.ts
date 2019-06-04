@@ -1,4 +1,4 @@
-import { Database } from '../connection/database'
+import { Database } from '../src/connection/database'
 
 let connection
 
@@ -6,7 +6,7 @@ beforeAll(async () => {
   connection = await Database.connectTest()
 })
 
-afterEach(async () => {
+beforeEach(async () => {
   await Database.clear(connection)
 })
 

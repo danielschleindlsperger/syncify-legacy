@@ -1,6 +1,6 @@
 import request from 'supertest'
 import { app } from '../../../app'
-import { mockUser, authenticatedRequest } from '../../../tests/mocks'
+import { mockUser, authenticatedRequest } from '../../../../tests/mocks'
 import { createContext } from '@marblejs/core'
 
 test('returns 401 for unauthenticated request', async () => {

@@ -3,7 +3,7 @@ import { getRepository } from 'typeorm'
 import { of } from 'rxjs'
 import { app } from '../../../app'
 import * as spotify from '../../common/spotify'
-import { mockUser, mockRoom, authenticatedRequest } from '../../../tests/mocks'
+import { mockUser, mockRoom, authenticatedRequest } from '../../../../tests/mocks'
 import { User } from '../../user'
 import { createContext } from '@marblejs/core'
 

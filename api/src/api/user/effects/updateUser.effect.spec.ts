@@ -1,7 +1,7 @@
 import request from 'supertest'
 import * as faker from 'faker'
 import { app } from '../../../app'
-import { mockUser, authenticatedRequest } from '../../../tests/mocks'
+import { mockUser, authenticatedRequest } from '../../../../tests/mocks'
 import { createContext } from '@marblejs/core'
 
 test('returns 401 for unauthenticated request', async () => {
@@ -12,8 +12,7 @@ test('returns 401 for unauthenticated request', async () => {
     .expect(401)
 })
 
-// TODO: check why this fails sometimes
-xtest('returns 403 for unauthorized requests', async () => {
+test('returns 403 for unauthorized requests', async () => {
   const firstUser = await mockUser()
   const secondUser = await mockUser()
 
