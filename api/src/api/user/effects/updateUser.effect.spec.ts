@@ -2,10 +2,11 @@ import request from 'supertest'
 import * as faker from 'faker'
 import { app } from '../../../app'
 import { mockUser, authenticatedRequest } from '../../../tests/mocks'
+import { createContext } from '@marblejs/core'
 
 test('returns 401 for unauthenticated request', async () => {
   const user = await mockUser()
-  await request(app)
+  await request(app.run(createContext()))
     .patch(`/api/user/${user.id}`)
     .send({ deviceId: faker.random.alphaNumeric(40) })
     .expect(401)
@@ -16,7 +17,7 @@ xtest('returns 403 for unauthorized requests', async () => {
   const firstUser = await mockUser()
   const secondUser = await mockUser()
 
-  await request(app)
+  await request(app.run(createContext()))
     .patch(`/api/user/${secondUser.id}`)
     .send({ deviceId: faker.random.alphaNumeric(40) })
     .use(authenticatedRequest(firstUser))
@@ -27,7 +28,7 @@ test('updates a user', async () => {
   const user = await mockUser()
   const deviceId = faker.random.alphaNumeric(40)
 
-  await request(app)
+  await request(app.run(createContext()))
     .patch(`/api/user/${user.id}`)
     .use(authenticatedRequest(user))
     .send({ deviceId })
@@ -41,12 +42,9 @@ test('updates a user', async () => {
 test('validates correctly', async () => {
   const user = await mockUser()
 
-  await request(app)
+  await request(app.run(createContext()))
     .patch(`/api/user/${user.id}`)
     .use(authenticatedRequest(user))
     .send({ deviceId: '1234' })
     .expect(400)
-    .expect(({ body: res }) => {
-      expect(res.error.message).toContain('"deviceId" length must be 40 characters long')
-    })
 })

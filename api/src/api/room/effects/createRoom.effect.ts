@@ -1,36 +1,32 @@
-import { HttpEffect, use, HttpMiddlewareEffect } from '@marblejs/core'
-import { validator$, Joi } from '@marblejs/middleware-joi'
+import { HttpEffect, use } from '@marblejs/core'
 import { flatMap, map, tap } from 'rxjs/operators'
 import { Room, RoomDAO } from '../model'
-import { logAndRethrow } from '../../../util'
 import { queueNextSongChange } from '../actions'
+import { requestValidator$, t } from '@marblejs/middleware-io'
+import { stringOfLength } from '../../../validation/string-of-length'
+import { User } from '../../user'
 
-const roomValidator$: HttpMiddlewareEffect = validator$({
-  body: Joi.object({
-    name: Joi.string()
-      .min(3)
-      .required(),
-    playlist: Joi.array().items(
-      Joi.object({
-        id: Joi.string().required(),
-        durationMs: Joi.number(),
-      }),
-    ),
-    settings: Joi.object({ loop: Joi.boolean().required() }).required(),
-  }),
+const RequestSchema = t.type({
+  name: stringOfLength(3),
+  playlist: t.array(t.type({ id: t.string, durationMs: t.number })),
+  settings: t.type({ loop: t.boolean }),
 })
 
 export const createRoomEffect$: HttpEffect = req$ =>
   req$.pipe(
-    use(roomValidator$),
-    map(req => ({ ...req.body, admins: [req.user] } as Room)),
-    map(
-      // TODO: remove typecast
-      (room: Room) => ({
-        ...room,
-        playlist: room.playlist.map(song => ({ ...song, isActive: false })),
-      }),
-    ),
+    use(requestValidator$({ body: RequestSchema })),
+    // Typecast is only necessary because auth middleware is badly typed
+    map(req => req as typeof req & { user: User }),
+    map(req => ({
+      ...req.body,
+      admins: [req.user],
+      listeners: [],
+      playlist: req.body.playlist.map(song => ({ ...song, isActive: false })),
+    })),
+    map((room: Room) => ({
+      ...room,
+      playlist: room.playlist.map(song => ({ ...song, isActive: false })),
+    })),
     map((room: Room) => {
       // Maybe make this immutable idk
       room.playlist[0].isActive = true
@@ -42,5 +38,4 @@ export const createRoomEffect$: HttpEffect = req$ =>
       queueNextSongChange(room)
     }),
     map(body => ({ body })),
-    logAndRethrow(''),
   )

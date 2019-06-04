@@ -1,9 +1,10 @@
 import request from 'supertest'
 import { app } from '../../../app'
 import { mockUser, authenticatedRequest } from '../../../tests/mocks'
+import { createContext } from '@marblejs/core'
 
 test('returns 401 for unauthenticated request', async () => {
-  await request(app)
+  await request(app.run(createContext()))
     .post('/api/room')
     .expect(401)
 })
@@ -23,7 +24,7 @@ test('creates and returns a room', async () => {
     },
   }
 
-  await request(app)
+  await request(app.run(createContext()))
     .post('/api/room')
     .send(requestData)
     .use(authenticatedRequest(user))
@@ -38,4 +39,14 @@ test('creates and returns a room', async () => {
         },
       ])
     })
+})
+
+test('rejects invalid input', async () => {
+  const user = await mockUser()
+
+  await request(app.run(createContext()))
+    .post('/api/room')
+    .send({})
+    .use(authenticatedRequest(user))
+    .expect(400)
 })

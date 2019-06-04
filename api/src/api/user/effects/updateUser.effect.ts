@@ -1,9 +1,14 @@
 import { use, HttpEffect, HttpRequest, HttpError, HttpStatus } from '@marblejs/core'
+import { requestValidator$, t } from '@marblejs/middleware-io'
 import { flatMap, map, tap } from 'rxjs/operators'
 import { UserDAO } from '../model/user.dao'
-import { userValidator$ } from './validate-user'
 import { neverNullable } from '../../../util'
 import { User } from '../model'
+import { stringOfLength } from '../../../validation/string-of-length'
+
+export const userSchema = t.type({
+  deviceId: stringOfLength(40, 40),
+})
 
 const mustBeSameUser = (req: HttpRequest) => {
   const params = req.params as { id: string }
@@ -15,7 +20,7 @@ const mustBeSameUser = (req: HttpRequest) => {
 export const updateUserEffect$: HttpEffect = req$ =>
   req$.pipe(
     tap(mustBeSameUser),
-    use(userValidator$),
+    use(requestValidator$({ body: userSchema })),
     flatMap(req => {
       const params = req.params as { id: string }
       const body = req.body as User

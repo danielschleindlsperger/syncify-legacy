@@ -1,10 +1,11 @@
 import request from 'supertest'
 import { app } from '../../../app'
 import { mockUser, mockRoom, authenticatedRequest } from '../../../tests/mocks'
+import { createContext } from '@marblejs/core'
 
 test('returns 401 for unauthenticated request', async () => {
   const { id } = await mockRoom()
-  await request(app)
+  await request(app.run(createContext()))
     .get(`/api/room/${id}`)
     .expect(401)
 })
@@ -13,7 +14,7 @@ test('returns a room', async () => {
   const user = await mockUser()
   const room = await mockRoom()
 
-  await request(app)
+  await request(app.run(createContext()))
     .get(`/api/room/${room.id}`)
     .use(authenticatedRequest(user))
     .expect(200)
@@ -29,7 +30,7 @@ test('returns a room', async () => {
 test('returns 404 if no matching id is found', async () => {
   const user = await mockUser()
 
-  await request(app)
+  await request(app.run(createContext()))
     .get(`/api/room/non-existing-id`)
     .use(authenticatedRequest(user))
     .expect(404)
