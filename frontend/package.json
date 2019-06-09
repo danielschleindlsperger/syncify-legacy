@@ -42,6 +42,7 @@
   "dependencies": {
     "@reach/router": "^1.2.1",
     "@rematch/core": "^1.1.0",
+    "@rematch/persist": "^1.1.6",
     "@rematch/select": "^2.0.4",
     "axios": "^0.18.0",
     "formik": "^1.5.4",

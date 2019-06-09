@@ -63,7 +63,6 @@ export const auth = {
         },
         // refresh tokens every 25 minutes
         1000 * 60 * 25,
-        // 1000 * 10,
       )
       return dispatch.auth.setUser(user)
     },
@@ -71,7 +70,7 @@ export const auth = {
       const currentToken = viewToken(rootState)
       const { user, token } = await refreshAuth(currentToken)
       dispatch.auth.setUser(user)
-      dispatch.auth.setToken(token)
+      dispatch.auth.setAuth({ token, validUntil: Math.round(Date.now() + ONE_HOUR_IN_MILLIS) })
     },
   }),
 }

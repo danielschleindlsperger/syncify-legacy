@@ -6,6 +6,9 @@ const ONE_HOUR_IN_MILLIS = 3600000
 
 jest.mock('../../../api', () => ({
   getMe: jest.fn(() => Promise.resolve({ name: 'Foo' })),
+  refreshAuth: jest.fn(() =>
+    Promise.resolve({ user: { name: 'hulle' }, token: 'refreshed token' }),
+  ),
 }))
 
 let store
