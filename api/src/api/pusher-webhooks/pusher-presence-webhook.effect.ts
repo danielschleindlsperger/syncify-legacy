@@ -3,8 +3,9 @@ import { mapTo, tap, map, flatMap } from 'rxjs/operators'
 import { t, requestValidator$ } from '@marblejs/middleware-io'
 import { UserDAO, UserEntity } from '../user'
 import { UnreachableCaseError } from '../../util'
-import { of, pipe, from } from 'rxjs'
-import { Repository, getRepository } from 'typeorm'
+import { of, pipe, from, iif, throwError } from 'rxjs'
+import { Repository, getRepository, AdvancedConsoleLogger } from 'typeorm'
+import { Config } from '../../config'
 
 const MemberAddedEvent = t.type({
   name: t.literal('member_added'),
@@ -38,6 +39,12 @@ export const pusherPresenceWebhook$ = r.pipe(
   r.matchType('POST'),
   r.useEffect(req$ =>
     req$.pipe(
+      flatMap(req => {
+        const isValidPusherRequest = req.headers['x-pusher-key'] === Config.pusher.key
+        return isValidPusherRequest
+          ? of(req)
+          : throwError(new Error('Illegal request. Pusher key did not match.'))
+      }),
       use(requestValidator$({ body: PusherEvent })),
       map(req => req.body.events[0]),
       flatMap(event => {
