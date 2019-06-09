@@ -42,9 +42,11 @@ export const room = {
   effects: dispatch => ({
     initPusher(mockPusher, rootState) {
       const { token } = rootState.auth
+      const pusherAppKey =
+        process.env.NODE_ENV === 'production' ? 'd83ba4568466d1420548' : '4aa723b4451c6dbf124f'
       const pusher =
         mockPusher ||
-        new Pusher('4aa723b4451c6dbf124f', {
+        new Pusher(pusherAppKey, {
           cluster: 'eu',
           forceTLS: true,
           authEndpoint: '/api/auth/pusher/presence',
