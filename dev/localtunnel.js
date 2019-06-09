@@ -5,7 +5,10 @@ const createTunnel = (port = 8080) => {
 
   const tunnel = localtunnel(port, opts, (err, tunnel) => {
     if (err) {
-      console.error('Could not create localtunnel. ', err)
+      console.error(
+        'Could not create localtunnel. Maybe somebody else is using the unique domain already?',
+        err,
+      )
     }
 
     // the assigned public url for your tunnel
