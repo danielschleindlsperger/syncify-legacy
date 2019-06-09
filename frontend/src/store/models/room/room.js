@@ -1,5 +1,4 @@
 import Pusher from 'pusher-js'
-import { omit } from 'ramda'
 
 Pusher.logToConsole = process.env.NODE_ENV === 'development'
 
@@ -59,7 +58,7 @@ export const room = {
 
       dispatch.room.setPusher(pusher)
     },
-    joinRoom(roomId, rootState) {
+    joinChannel(roomId, rootState) {
       const roomName = `presence-room-${roomId}`
       dispatch.room.setRoomName(roomName)
       const channel = rootState.room.pusher.subscribe(roomName)
@@ -97,7 +96,7 @@ export const room = {
         dispatch.room.setMemberOffline(member)
       })
     },
-    leaveRoom(payload, rootState) {
+    leaveChannel(payload, rootState) {
       const { roomName } = rootState.room
       rootState.room.pusher.unsubscribe(roomName)
       dispatch.room.clearMessages()

@@ -7,7 +7,8 @@ import WithAuth from '../components/WithAuth'
 import { ConnectedContainer } from '../components/connection-status/ConnectedContainer'
 import { Player } from '../components/player'
 import { Playlist } from '../components/playlist'
-import * as Api from '../api'
+import { joinRoom, getRoom } from '../api/rooms'
+import { getSongs } from '../api/spotify'
 import { Chat } from '../components/Chat'
 
 const extractTrackData = track => ({
@@ -18,7 +19,15 @@ const extractTrackData = track => ({
   imageUrl: track.album.images[1].url,
 })
 
-const Room = ({ roomId, token, accessToken, connected, currentTrack, joinRoom, leaveRoom }) => {
+const Room = ({
+  roomId,
+  token,
+  accessToken,
+  connected,
+  currentTrack,
+  joinChannel,
+  leaveChannel,
+}) => {
   const [playlist, setPlaylist] = React.useState([])
 
   React.useEffect(
@@ -26,7 +35,7 @@ const Room = ({ roomId, token, accessToken, connected, currentTrack, joinRoom, l
       // only join room when connected so that the backend does not change the song when we're not ready yet<
       if (connected) {
         setTimeout(() => {
-          Api.joinRoom(token)(roomId)
+          joinRoom(token)(roomId)
         }, 500)
       }
     },
@@ -37,15 +46,15 @@ const Room = ({ roomId, token, accessToken, connected, currentTrack, joinRoom, l
   // leave room on unmount
   React.useEffect(
     () => {
-      joinRoom(roomId)
+      joinChannel(roomId)
 
-      Api.getRoom(token)(roomId)
+      getRoom(token)(roomId)
         .then(room => room.playlist.map(song => song.id))
-        .then(ids => Api.getSongs(accessToken, ids))
+        .then(ids => getSongs(accessToken, ids))
         .then(tracks => tracks.map(extractTrackData))
         .then(playlist => setPlaylist(playlist))
 
-      return () => leaveRoom()
+      return () => leaveChannel()
     },
     [roomId],
   )
@@ -82,9 +91,9 @@ const mapProps = state => ({
   currentTrack: viewCurrentTrack(state),
 })
 
-const mapDispatch = ({ room: { joinRoom, leaveRoom } }) => ({
-  joinRoom,
-  leaveRoom,
+const mapDispatch = ({ room: { joinChannel, leaveChannel } }) => ({
+  joinChannel,
+  leaveChannel,
 })
 
 export default connect(

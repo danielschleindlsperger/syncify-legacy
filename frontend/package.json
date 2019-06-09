@@ -35,6 +35,7 @@
     "jest-environment-jsdom-global": "^1.2.0",
     "parcel-bundler": "^1.12.3",
     "parcel-plugin-bundle-visualiser": "^1.2.0",
+    "pusher-js-mock": "^0.2.0",
     "react-testing-library": "^7.0.0",
     "regenerator-runtime": "^0.13.2"
   },
