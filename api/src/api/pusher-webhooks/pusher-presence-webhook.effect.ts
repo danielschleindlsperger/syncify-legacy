@@ -1,10 +1,10 @@
 import { r, use } from '@marblejs/core'
-import { mapTo, tap, map, flatMap } from 'rxjs/operators'
+import { mapTo, map, flatMap } from 'rxjs/operators'
 import { t, requestValidator$ } from '@marblejs/middleware-io'
 import { UserDAO, UserEntity } from '../user'
 import { UnreachableCaseError } from '../../util'
-import { of, pipe, from, iif, throwError } from 'rxjs'
-import { Repository, getRepository, AdvancedConsoleLogger } from 'typeorm'
+import { of, from, throwError } from 'rxjs'
+import { getRepository } from 'typeorm'
 import { Config } from '../../config'
 
 const MemberAddedEvent = t.type({
