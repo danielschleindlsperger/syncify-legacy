@@ -1,12 +1,11 @@
 import React from 'react'
 import { render } from 'react-dom'
 import App from './components/App'
-import { store } from './store'
+import { store, waitForHydration } from './store'
 
 // wait one microtask for the rematch persist plugin to rehydrate auth state
-Promise.resolve()
+waitForHydration(store)
   .then(() => store.dispatch.auth.initialToken())
-
   .then(async () => {
     // we init pusher and fetch user in parallel i hope
     store.dispatch.room.initPusher()

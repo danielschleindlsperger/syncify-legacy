@@ -4,10 +4,10 @@ import createRematchPersist from '@rematch/persist'
 import { models } from './models'
 
 const persistPlugin = createRematchPersist({
+  key: 'syncify',
   whitelist: ['auth'],
-  // throttle: 5000,
+  throttle: 5000,
   version: 1,
-  debug: true,
 })
 
 export const createStore = () => init({ models, plugins: [selectPlugin(), persistPlugin] })
