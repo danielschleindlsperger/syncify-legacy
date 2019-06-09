@@ -1,6 +1,6 @@
 import * as faker from 'faker'
 import { getRepository } from 'typeorm'
-import { Room } from '../../api/room'
+import { Room } from '../../src/api/room'
 import { mockUser } from './user.mock'
 
 const albumCovers = [

@@ -1,7 +1,7 @@
 import * as faker from 'faker'
 import * as uuid from 'uuid'
 import { getRepository } from 'typeorm'
-import { User } from '../../api/user'
+import { User } from '../../src/api/user'
 
 const fakeData = (data: Partial<User>): User => ({
   id: uuid.v4(),
