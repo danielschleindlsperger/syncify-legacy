@@ -1,6 +1,6 @@
 import React from 'react'
 import { Provider } from 'react-redux'
-import { render, waitForElement } from 'react-testing-library'
+import { render, waitForElement } from '@testing-library/react'
 import { getAllRooms } from '../../api'
 import { RoomListContainer } from './RoomListContainer'
 import mockRooms from './mock-rooms'

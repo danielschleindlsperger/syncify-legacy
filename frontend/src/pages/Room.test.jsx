@@ -1,6 +1,6 @@
 import React from 'react'
 import { Provider } from 'react-redux'
-import { render } from 'react-testing-library'
+import { render } from '@testing-library/react'
 import Room from './Room'
 import { createStore } from '../store'
 import { joinRoom } from '../api/rooms'

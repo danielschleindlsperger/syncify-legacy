@@ -25,6 +25,7 @@
     "@storybook/addon-links": "^4.1.18",
     "@storybook/addons": "^4.1.18",
     "@storybook/react": "^4.1.18",
+    "@testing-library/react": "^8.0.1",
     "@types/ramda": "^0.26.9",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^24.8.0",
@@ -36,7 +37,6 @@
     "parcel-bundler": "^1.12.3",
     "parcel-plugin-bundle-visualiser": "^1.2.0",
     "pusher-js-mock": "^0.2.0",
-    "react-testing-library": "^7.0.1",
     "regenerator-runtime": "^0.13.2"
   },
   "dependencies": {
