@@ -15,16 +15,26 @@ const PlayerWrapper = styled(FlexWrap)`
 
 export const PlayerPlaceholder = () => <div>No Song playing right now.</div>
 
-export const StyledPlayer = ({ songName, artistName, coverArt, duration = 1, position = 0 }) => (
-  <PlayerWrapper>
-    <PlayerImage src={coverArt} alt={songName} />
-    <StackFlexCenter>
-      <PlayerText>{songName}</PlayerText>
-      <PlayerText>{artistName}</PlayerText>
-    </StackFlexCenter>
-    <ProgressBar duration={duration} position={position} />
-  </PlayerWrapper>
-)
+export const StyledPlayer = ({ songName, artistName, coverArt, duration = 1, position = 0 }) => {
+  React.useEffect(
+    () => {
+      document.title = `${songName} - ${artistName} - Syncify`
+      return () => (document.title = 'Syncify')
+    },
+    [songName, artistName],
+  )
+
+  return (
+    <PlayerWrapper>
+      <PlayerImage src={coverArt} alt={songName} />
+      <StackFlexCenter>
+        <PlayerText>{songName}</PlayerText>
+        <PlayerText>{artistName}</PlayerText>
+      </StackFlexCenter>
+      <ProgressBar duration={duration} position={position} />
+    </PlayerWrapper>
+  )
+}
 
 // TODO: fix router props dripping down
 
