@@ -1,6 +1,13 @@
 import React from 'react'
-import { configure, addDecorator } from '@storybook/react'
+import { configure, addDecorator, addParameters } from '@storybook/react'
 import { GlobalStyle } from '../src/components/GlobalStyle'
+
+addParameters({
+  options: {
+    // hide addons panel by default
+    showPanel: false,
+  },
+})
 
 addDecorator(story => (
   <React.Fragment>
