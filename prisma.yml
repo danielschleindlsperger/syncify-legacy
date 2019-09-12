@@ -1,0 +1,9 @@
+datamodel:
+  - src/api/rooms/room.prisma
+  - src/api/users/user.prisma
+endpoint: ${env:PRISMA_ENDPOINT}
+secret: ${env:PRISMA_SECRET}
+
+generate:
+  - generator: typescript-client
+    output: ./src/generated/prisma-client/
