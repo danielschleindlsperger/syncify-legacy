@@ -1,9 +1,0 @@
-setup:
-  addons:
-    - plan: heroku-redis
-    - plan: jawsdb
-build:
-  docker:
-    web: api/Dockerfile
-  config:
-    NODE_ENV: production

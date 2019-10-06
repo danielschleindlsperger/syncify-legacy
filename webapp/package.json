@@ -1,0 +1,32 @@
+{
+  "name": "webapp",
+  "version": "0.0.1",
+  "description": "Syncify web frontend",
+  "main": "src/index.tsx",
+  "scripts": {
+    "test": "jest",
+    "codegen": "apollo client:codegen --target=typescript --useReadOnlyTypes --tsFileExtension=d.ts",
+    "codegen:watch": "npm run codegen -- --watch",
+    "build": "parcel build src/index.html",
+    "start": "parcel src/index.html",
+    "deploy": "echo 'deploying webpapp'"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.6.2",
+    "@types/react": "^16.8.0",
+    "@types/react-dom": "^16.9.1",
+    "apollo": "^2.19.0",
+    "lerna": "^3.16.4",
+    "parcel-bundler": "^1.12.3",
+    "parcel-proxy-server": "^1.1.0"
+  },
+  "dependencies": {
+    "@apollo/react-hooks": "^3.1.2",
+    "apollo-boost": "^0.4.4",
+    "apollo-client": "^2.6.4",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
+  }
+}

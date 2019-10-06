@@ -10,3 +10,4 @@ build
 lerna-debug.log
 .netlify
 src/generated
+__generated__
