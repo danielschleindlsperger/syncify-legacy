@@ -1,6 +1,4 @@
-import { Room } from '../model'
 import { playlist } from './mock-playlist'
-import uuidv4 from 'uuid/v4'
 
 const playlistSeed = [
   { name: 'Omnia', description: 'all of my playlists, CDs and whatever, in one playlist' },

@@ -6,7 +6,7 @@
     "module": "commonjs",
     "lib": ["dom", "es2019"] /* Specify library files to be included in the compilation. */,
     "allowJs": true,
-    "checkJs": true,
+    "checkJs": false,
     "jsx": "react" /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */,
     // "declaration": true,                   /* Generates corresponding '.d.ts' file. */
     // "declarationMap": true,                /* Generates a sourcemap for each corresponding '.d.ts' file. */
@@ -51,6 +51,6 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": ["src/**/*"],
+  "include": ["webapp/**/*", "api/**/*", "mock-data/**/*"],
   "exclude": ["node_modules"]
 }
