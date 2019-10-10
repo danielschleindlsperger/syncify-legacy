@@ -5,7 +5,7 @@
   "author": "Daniel Schleindlsperger <daniel@schleindlsperger.de>",
   "main": "",
   "scripts": {
-    "codegen": "graphql-codegen --config codegen.yml && lerna run codegen",
+    "codegen": "graphql-codegen --config codegen.yml",
     "build": "lerna run build --parallel",
     "start": "node ./start.js",
     "test": "lerna run test --parallel",
@@ -26,6 +26,10 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.6.0",
     "@graphql-codegen/cli": "^1.8.1",
+    "@graphql-codegen/typescript": "1.8.1",
+    "@graphql-codegen/typescript-operations": "^1.8.1",
+    "@graphql-codegen/typescript-react-apollo": "^1.8.1",
+    "@graphql-codegen/typescript-resolvers": "1.8.1",
     "@types/dotenv": "^6.1.1",
     "@types/jest": "^24.0.18",
     "@types/node": "^12.6.8",
@@ -40,11 +44,7 @@
     "pretty-quick": "^1.8.0",
     "typescript": "^3.5.3",
     "webpack": "^4.36.1",
-    "webpack-dotenv-plugin": "^2.1.0",
-    "@graphql-codegen/typescript": "1.8.1",
-    "@graphql-codegen/typescript-operations": "1.8.1",
-    "@graphql-codegen/typescript-resolvers": "1.8.1",
-    "@graphql-codegen/typescript-react-apollo": "1.8.1"
+    "webpack-dotenv-plugin": "^2.1.0"
   },
   "dependencies": {
     "concurrently": "^4.1.2",

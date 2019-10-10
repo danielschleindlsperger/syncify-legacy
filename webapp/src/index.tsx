@@ -1,36 +1,25 @@
 import React from 'react'
 import { render } from 'react-dom'
-import ApolloClient, { gql } from 'apollo-boost'
-import { ApolloProvider, useQuery } from '@apollo/react-hooks'
-import { getRoomQuery } from './__generated__/getRoomQuery'
+import ApolloClient from 'apollo-boost'
+import { ApolloProvider } from '@apollo/react-hooks'
+import { room } from './mock-data'
+import { App } from './components/app'
 
-const GET_ROOM = gql`
-  query getRoom($id: ID!) {
-    getRoom(id: $id) {
-      id
-      name
-    }
-  }
-`
-
-function App() {
-  const { loading, error, data } = useQuery<getRoomQuery>(GET_ROOM, {
-    variables: { id: '18f5609c-53df-4b87-86d2-c6d0b660c2df' },
-  })
-
-  if (loading) return <div>Loading...</div>
-  if (error) return <div>Error! {error}</div>
-
-  return (
-    <div>
-      <h1>Hello</h1>
-      <div>{data.getRoom.id}</div>
-      <div>{data.getRoom.name}</div>
-    </div>
-  )
-}
-
-const client = new ApolloClient()
+const client = new ApolloClient({
+  // resolvers: {
+  //   Query: {
+  //     getRoom: () => room,
+  //   },
+  //   Room: {
+  //     id: () => room.id,
+  //     name: () => room.name,
+  //     description: () => room.description,
+  //     playlist: () => room.playlist,
+  //     createdAt: () => room.createdAt,
+  //     updatedAt: () => room.updatedAt,
+  //   },
+  // },
+})
 
 render(
   <ApolloProvider client={client}>

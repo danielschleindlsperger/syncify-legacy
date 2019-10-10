@@ -2,8 +2,7 @@ const concurrently = require('concurrently')
 
 concurrently(
   [
-    { command: 'npx graphql-codegen --config codegen.yml --watch', name: 'graphql-codegen' },
-    { command: 'cd ./webapp && npm run codegen:watch', name: 'apollo-codegen' },
+    { command: 'npx graphql-codegen --config codegen.yml --watch', name: 'codegen' },
     { command: 'cd ./webapp && npm run start', name: 'webapp' },
     { command: 'cd ./api && npm run start', name: 'api' },
     { command: 'cd ./dev && npm run start', name: 'dev' },
@@ -11,6 +10,6 @@ concurrently(
   {
     prefix: 'name',
     killOthers: ['failure', 'success'],
-    restartTries: 3,
+    restartTries: 0,
   },
 )

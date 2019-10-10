@@ -1,4 +1,4 @@
-import { Song } from '../model'
+import { Song } from '../__generated__/graphql'
 
 export const songs: Song[] = [
   {
