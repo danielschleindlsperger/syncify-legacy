@@ -4,6 +4,7 @@ concurrently(
   [
     { command: 'npx graphql-codegen --config codegen.yml --watch', name: 'codegen' },
     { command: 'cd ./webapp && npm run start', name: 'webapp' },
+    { command: 'cd ./webapp && npm run storybook', name: 'storybook' },
     { command: 'cd ./api && npm run start', name: 'api' },
     { command: 'cd ./dev && npm run start', name: 'dev' },
   ],

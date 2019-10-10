@@ -7,24 +7,39 @@
     "test": "jest",
     "build": "parcel build src/index.html",
     "start": "parcel src/index.html",
-    "deploy": "echo 'deploying webpapp'"
+    "deploy": "echo 'deploying webpapp'",
+    "storybook": "start-storybook --quiet --ci",
+    "build-storybook": "build-storybook --quiet"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.6.4",
+    "@emotion/babel-preset-css-prop": "^10.0.17",
+    "@storybook/addon-actions": "^5.2.3",
+    "@storybook/addon-links": "^5.2.3",
+    "@storybook/addons": "^5.2.3",
+    "@storybook/react": "^5.2.3",
     "@types/react": "^16.8.0",
     "@types/react-dom": "^16.9.1",
     "@types/react-router-dom": "^5.1.0",
+    "@types/rebass": "^4.0.1",
+    "apollo-storybook-react": "^0.2.2",
+    "babel-loader": "^8.0.6",
     "lerna": "^3.17.0",
     "parcel-bundler": "^1.12.3"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.2",
+    "@emotion/core": "^10.0.21",
+    "@rebass/preset": "^4.0.5",
     "apollo-boost": "^0.4.4",
     "apollo-client": "^2.6.4",
+    "emotion-theming": "^10.0.19",
     "react": "^16.8.0",
+    "react-apollo": "^3.1.2",
     "react-dom": "^16.8.0",
-    "react-router-dom": "^5.1.2"
+    "react-router-dom": "^5.1.2",
+    "rebass": "^4.0.6"
   }
 }
