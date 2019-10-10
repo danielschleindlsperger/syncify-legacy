@@ -12,11 +12,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.6.2",
+    "@babel/core": "^7.6.4",
     "@types/react": "^16.8.0",
     "@types/react-dom": "^16.9.1",
     "@types/react-router-dom": "^5.1.0",
-    "lerna": "^3.16.4",
+    "lerna": "^3.17.0",
     "parcel-bundler": "^1.12.3"
   },
   "dependencies": {
