@@ -1,5 +1,9 @@
 import { ApolloServer, IResolvers } from 'apollo-server'
-import typeDefs from '../../schema/schema.graphql'
+import * as Auth from './modules/auth'
+import * as Rooms from './modules/rooms'
+import * as Users from './modules/users'
+
+import baseTypeDefs from './modules/base-schema.graphql'
 
 const cors =
   process.env.NODE_ENV === 'development'
@@ -8,20 +12,9 @@ const cors =
       }
     : {}
 
-const rooms = []
-
-const resolvers: IResolvers = {
-  Query: {
-    getRoom: (_, { id }) => {
-      console.log({ id })
-      return rooms.find(room => room.id === id) || null
-    },
-  },
-}
-
 export const server = new ApolloServer({
   cors,
-  typeDefs,
-  resolvers,
-  mocks: true,
+  typeDefs: [baseTypeDefs, Auth.typeDefs, Rooms.typeDefs, Users.typeDefs],
+  resolvers: [Rooms.resolvers, Auth.resolvers] as IResolvers[],
+  // mocks: true,
 })

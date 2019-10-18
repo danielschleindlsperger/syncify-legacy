@@ -5,7 +5,7 @@ module.exports = {
     config.entry.main = ['./src/index.ts']
 
     config.resolve = {
-      extensions: ['.ts', '.js', '.json'],
+      extensions: ['.ts', '.mjs', '.js', '.json'],
     }
 
     // remove old babel loader
@@ -13,7 +13,7 @@ module.exports = {
 
     // babel loader with custom config (typescript support, etc)
     config.module.rules.push({
-      test: /\.(js|ts)$/,
+      test: /\.(mjs|js|ts)$/,
       exclude: /node_modules/,
       loader: 'babel-loader',
     })

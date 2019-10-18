@@ -1,8 +1,8 @@
-type Query {
+extend type Query {
   getRoom(id: ID!): Room
 }
 
-type Mutation {
+extend type Mutation {
   joinRoom(id: ID!): Room
   # leaveRoom
   # addSongToRoomPlaylist
@@ -14,7 +14,7 @@ type PlaybackChangedResponse {
   song: Song
 }
 
-type Subscription {
+extend type Subscription {
   playBackChangedToNewSong(id: ID!): PlaybackChangedResponse
   # songAddedToRoomPlaylist
   # songRemovedFromRoomPlaylist
