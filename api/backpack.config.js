@@ -18,18 +18,6 @@ module.exports = {
       loader: 'babel-loader',
     })
 
-    // enable graphql typedef imports
-    // config.module.rules.push({
-    //   exclude: /node_modules/,
-    //   test: /\.(graphql|gql)$/,
-    //   use: {
-    //     loader: 'webpack-graphql-loader',
-    //     options: {
-    //       removeUnusedFragments: true,
-    //       output: 'document',
-    //     },
-    //   },
-    // })
     config.module.rules.push({
       test: /\.(graphql)$/,
       exclude: /node_modules/,

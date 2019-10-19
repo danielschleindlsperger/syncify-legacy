@@ -1,11 +1,14 @@
 import { Request } from 'express'
 import { User } from './__generated__/graphql'
-import {} from 'apollo-server'
+import { config, Config } from './config'
 
 export type Context = {
   user?: User
+  config: Config
 }
 
 export const createContext = async (req: Request): Promise<Context> => {
-  return {}
+  return {
+    config,
+  }
 }
