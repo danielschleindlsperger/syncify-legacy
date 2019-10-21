@@ -1,5 +1,5 @@
 import { playlist } from './mock-playlist'
-import { Room } from '../__generated__/graphql'
+import { Room } from '../src/__generated__/graphql'
 
 const playlistSeed = [
   { name: 'Omnia', description: 'all of my playlists, CDs and whatever, in one playlist' },

@@ -6,8 +6,8 @@ import { useParams } from 'react-router'
 import { Box } from 'rebass'
 
 const GET_ROOM = gql`
-  query GetRoom($id: ID!) {
-    getRoom(id: $id) {
+  query getRoom($id: ID!) {
+    room(id: $id) {
       id
       name
       description
@@ -22,7 +22,6 @@ const RoomDoesNotExist = () => <div>Room does not exist :(</div>
 
 export const Room = () => {
   const { id } = useParams()
-  console.log({ id })
   const { loading, error, data } = useQuery<GetRoomQuery>(GET_ROOM, {
     variables: { id },
   })
@@ -30,9 +29,9 @@ export const Room = () => {
   if (loading) return <div>Loading...</div>
   if (error) return <div>Error! {error}</div>
 
-  if (!data || !data.getRoom) return <RoomDoesNotExist />
+  if (!data || !data.room) return <RoomDoesNotExist />
 
-  const room = data.getRoom
+  const room = data.room
 
   return (
     <Box bg="green">
