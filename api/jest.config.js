@@ -1,6 +1,6 @@
 module.exports = {
-  // TODO: test env 'node'
+  testEnvironment: 'node',
   testMatch: ['<rootDir>/src/**/*.test.ts'],
-  moduleFileExtensions: ['ts', '', 'js', 'json'],
+  moduleFileExtensions: ['ts', 'js', 'json'],
   transformIgnorePatterns: ['<rootDir>/node_modules/'],
 }

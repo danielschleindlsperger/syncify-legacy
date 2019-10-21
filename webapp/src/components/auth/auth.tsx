@@ -24,6 +24,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   // trade code for token once initially and "redirect" to old path encoded in oauth state
   React.useEffect(() => {
+    // TODO: might use token in oauth state to avoid bad actors
     if (query.code) {
       authorize({
         variables: { code: query.code },

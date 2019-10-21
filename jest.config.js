@@ -1,3 +1,3 @@
 module.exports = {
-  // TODO: projects
+  projects: ['<rootDir>/api', '<rootDir>/webapp'],
 }
