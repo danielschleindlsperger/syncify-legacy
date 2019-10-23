@@ -12,9 +12,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "apollo-server": "^2.9.7"
+    "apollo-server": "^2.9.7",
+    "spotify-web-api-node": "^4.0.0"
   },
   "devDependencies": {
+    "@types/spotify-web-api-node": "^4.0.1",
     "backpack-core": "^0.8.4",
     "graphql-tag": "^2.10.1"
   }

@@ -7,6 +7,6 @@ export const config = {
   spotify: {
     clientId: process.env.SPOTIFY_CLIENT_ID,
     clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-    redirectUrl: process.env.SPOTIFY_REDIRECT_URL,
+    redirectUri: process.env.SPOTIFY_REDIRECT_URL,
   },
 }
