@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom'
 
 const client_id = 'b7fbf01f209d452b89428414609933f3'
 const redirect_uri = 'http://localhost:8080/auth/callback'
-const scopes = 'user-read-private'
+const scope = 'user-read-private streaming user-read-email'
 
 export const Login = () => {
   const { pathname } = useLocation()
@@ -15,7 +15,7 @@ export const Login = () => {
     qs.stringify({
       response_type: 'code',
       client_id,
-      scopes,
+      scope,
       redirect_uri,
       state: pathname,
     })
