@@ -3,9 +3,11 @@ import { useQuery } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
 import { GetRoomQuery } from '../__generated__/graphql'
 import { useParams } from 'react-router'
-import { Box, Button, Heading, Text } from 'rebass'
+import { Flex, Heading, Text } from 'rebass'
 import { useSpotifyPlayer } from '../components/spotify-player/spotify-player'
 import { Player } from '../components/spotify-player'
+
+type Room = import('../__generated__/graphql').Room
 
 const GET_ROOM = gql`
   query getRoom($id: ID!) {
@@ -75,15 +77,32 @@ export const Room = () => {
         coverArt={coverArt}
         duration={duration}
         position={position}
+        css={{ margin: '20px' }}
       />
     )
   }
 
   return (
-    <Box maxWidth="600px" mx="auto">
-      <Heading fontSize={6}>{room.name}</Heading>
-      <Text fontSize={4}>{room.description}</Text>
-      {player}
-    </Box>
+    <Flex minHeight="100vh" flexDirection="column">
+      <RoomHeader
+        css={{ maxWidth: '600px', margin: '60px auto' }}
+        name={room.name}
+        description={room.description}
+      />
+      <Flex mt="auto" justifyContent="center">
+        {player}
+      </Flex>
+    </Flex>
   )
 }
+
+type RoomHeaderProps = React.HTMLProps<HTMLElement> & Pick<Room, 'name' | 'description'>
+
+const RoomHeader = ({ name, description, ...props }: RoomHeaderProps) => (
+  <header {...props}>
+    <Heading fontSize={6} mt={4}>
+      {name}
+    </Heading>
+    {description && <Text fontSize={4}>{description}</Text>}
+  </header>
+)

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Image, Text, Card, Flex } from 'rebass'
+import { Box, Image, Text, Flex, Card, BaseProps } from 'rebass'
 import { useSpring, animated } from 'react-spring'
 import { pipe, clamp } from 'ramda'
 
@@ -7,36 +7,47 @@ type PlayerProps = {
   songName: string
   artists: string[]
   coverArt: string
-} & TimeProps
+} & TimeProps &
+  BaseProps
 
 type TimeProps = {
   duration: number
   position: number
 }
 
+// TODO: empty, skeleton state
 export const Player = (props: PlayerProps) => {
-  const { songName, artists, coverArt, duration, position } = props
+  const { songName, artists, coverArt, duration, position, ...rest } = props
 
   return (
-    <Box width="400px" maxWidth="100%">
+    <Card width="1000px" maxWidth="100%" p={3} display="flex" justifyContent="flex-start" {...rest}>
       <Image
         src={coverArt}
+        height="150px"
+        mr={3}
         alt={`album cover: ${songName} by ${artists.join(', ')}`}
-        width="100%"
         display="block"
       />
-      <ProgressLine duration={duration} position={position} />
-      <Text fontSize={4} fontWeight="bold" mt={3}>
-        {songName}
-      </Text>
-      <Text fontSize={2} mt={2} color="darkgrey">
-        {artists.join(', ')}
-      </Text>
-    </Box>
+      <Flex flexGrow="1" flexDirection="column" justifyContent="flex-end">
+        <Text fontSize={4} fontWeight="bold" mt={3}>
+          {songName}
+        </Text>
+        <Text fontSize={2} mt={2} color="darkgrey">
+          {artists.join(', ')}
+        </Text>
+        <ProgressLine
+          css={{ width: '100%', marginTop: '8px' }}
+          duration={duration}
+          position={position}
+        />
+      </Flex>
+    </Card>
   )
 }
 
-const ProgressLine = ({ duration, position }: TimeProps) => {
+type ProgressLineProps = React.HTMLProps<HTMLElement> & TimeProps
+
+const ProgressLine = ({ duration, position, ...props }: ProgressLineProps) => {
   const { scaleX } = useSpring({
     from: {
       scaleX: position / duration,
@@ -50,7 +61,7 @@ const ProgressLine = ({ duration, position }: TimeProps) => {
   const timings = useTimings({ duration, position })
 
   return (
-    <Box>
+    <Box {...props}>
       <Box height="4px" bg="muted">
         <animated.div
           style={{
