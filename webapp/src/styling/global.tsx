@@ -1,5 +1,6 @@
 import React from 'react'
 import { Global, css } from '@emotion/core'
+import { reset } from './reset'
 
 const fonts = css`
   html,
@@ -9,4 +10,4 @@ const fonts = css`
   }
 `
 
-export const GlobalStyles = () => <Global styles={[fonts]} />
+export const GlobalStyles = () => <Global styles={[fonts, reset]} />

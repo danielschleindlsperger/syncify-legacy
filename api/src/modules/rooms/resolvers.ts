@@ -122,16 +122,6 @@ export const songs: Song[] = [
     },
   },
   {
-    id: '7u9ZYnwIYRJAS587tSlM4j',
-    durationMs: 191213,
-    artists: [{ id: '41LLNWUptvfbQ9Q7oCefmg', name: 'Genetikk' }],
-    album: {
-      id: '1NkapYSXDsKis6xRBeWMtl',
-      name: 'Voodoozirkus',
-      coverArt: 'https://i.scdn.co/image/468ebaba02f2bc9ae5f9725b06a3b455803bccde',
-    },
-  },
-  {
     id: '5CcoKpmfXNy55SHC7oaDrX',
     durationMs: 196680,
     artists: [{ id: '7EJwrZYRepsc1zHNkDcITg', name: 'Die Orsons' }],

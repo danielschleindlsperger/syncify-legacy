@@ -8,7 +8,7 @@
     "build": "parcel build src/index.html",
     "start": "parcel src/index.html",
     "deploy": "echo 'deploying webpapp'",
-    "storybook": "start-storybook --quiet --ci",
+    "storybook": "start-storybook --quiet --ci -p 6006",
     "build-storybook": "build-storybook --quiet"
   },
   "author": "",
@@ -23,6 +23,7 @@
     "@testing-library/jest-dom": "^4.1.2",
     "@testing-library/react": "^9.3.0",
     "@types/qs": "^6.5.3",
+    "@types/ramda": "^0.26.33",
     "@types/react": "^16.9.9",
     "@types/react-dom": "^16.9.2",
     "@types/react-router-dom": "^5.1.0",
@@ -42,11 +43,13 @@
     "apollo-client": "^2.6.4",
     "emotion-theming": "^10.0.19",
     "qs": "^6.9.0",
+    "ramda": "^0.26.1",
     "react": "^16.8.0",
     "react-apollo": "^3.1.3",
     "react-dom": "^16.8.0",
     "react-hot-loader": "^4.12.15",
     "react-router-dom": "^5.1.2",
+    "react-spring": "^8.0.27",
     "rebass": "^4.0.6",
     "spotify-web-api-js": "^1.2.0"
   }

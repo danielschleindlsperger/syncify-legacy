@@ -3,8 +3,9 @@ import { useQuery } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
 import { GetRoomQuery } from '../__generated__/graphql'
 import { useParams } from 'react-router'
-import { Box, Button } from 'rebass'
+import { Box, Button, Heading, Text } from 'rebass'
 import { useSpotifyPlayer } from '../components/spotify-player/spotify-player'
+import { Player } from '../components/spotify-player'
 
 const GET_ROOM = gql`
   query getRoom($id: ID!) {
@@ -54,15 +55,35 @@ export const Room = () => {
 
   const room = data.room
 
+  console.log({ playbackState })
+
+  let player: JSX.Element | null = null
+
+  if (playbackState) {
+    const {
+      duration,
+      position,
+      track_window: { current_track },
+    } = playbackState
+    const artists = current_track.artists.map(a => a.name)
+    const coverArt = current_track.album.images[0].url
+    const songName = current_track.name
+    player = (
+      <Player
+        artists={artists}
+        songName={songName}
+        coverArt={coverArt}
+        duration={duration}
+        position={position}
+      />
+    )
+  }
+
   return (
-    <Box>
-      <h1>Hello</h1>
-      <div>Player {ready ? 'ready' : 'not ready'}!</div>
-      {playbackState && <img src={playbackState.track_window.current_track.album.images[0].url} />}
-      <div>{room.id}</div>
-      <div>{room.name}</div>
-      <div>{room.description}</div>
-      <div>{room.playlist.playbackStatus}</div>
+    <Box maxWidth="600px" mx="auto">
+      <Heading fontSize={6}>{room.name}</Heading>
+      <Text fontSize={4}>{room.description}</Text>
+      {player}
     </Box>
   )
 }
