@@ -1,0 +1,53 @@
+version: 0.2
+
+run-as: Linux-user-name
+
+env:
+  variables:
+    NODE_ENV: 'production'
+
+proxy:
+  upload-artifacts: yes
+  logs: yes
+
+phases:
+  install:
+    commands:
+      - npm install
+  build:
+    commands:
+      - npm run build
+  # post_build:
+  #   run-as: Linux-user-name
+  #   commands:
+  #     - command
+  #     - command
+  #   finally:
+  #     - command
+  #     - command
+artifacts:
+  files:
+    - ./webapp/dist
+    - ./api/build
+  name: artifact-name
+  # discard-paths: yes
+  base-directory: ./
+  # secondary-artifacts:
+  #   artifactIdentifier:
+  #     files:
+  #       - location
+  #       - location
+  #     name: secondary-artifact-name
+  #     discard-paths: yes
+  #     base-directory: location
+  #   artifactIdentifier:
+  #     files:
+  #       - location
+  #       - location
+  #     discard-paths: yes
+  #     base-directory: location
+cache:
+  paths:
+    - node_modules
+    - ./api/node_modules
+    - ./webapp/node_modules
