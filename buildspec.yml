@@ -4,18 +4,27 @@ env:
   variables:
     NODE_ENV: 'production'
 
-proxy:
-  upload-artifacts: yes
-  logs: yes
+# proxy:
+#   upload-artifacts: yes
+#   logs: yes
 
 phases:
   install:
     runtime-versions:
       nodejs: 10
     commands:
-      - npm install
+      - apt-get update
+      - npm ci
+      - npx lerna bootstrap --ci
+  # pre_build:
+  #   commands:
+  #     - npm install
+  #     - npx lerna bootstrap
   build:
     commands:
+      - ls node_modules/.bin
+      - npm rebuild
+      - ls node_modules/.bin
       - npm run build
   # post_build:
   #   run-as: Linux-user-name
@@ -27,9 +36,9 @@ phases:
   #     - command
 artifacts:
   files:
-    - ./webapp/dist
-    - ./api/build
-  name: artifact-name
+    - ./webapp/dist/**/*
+    - ./api/build/**/*
+  name: syncify-artifact
   # discard-paths: yes
   base-directory: ./
   # secondary-artifacts:
@@ -46,8 +55,8 @@ artifacts:
   #       - location
   #     discard-paths: yes
   #     base-directory: location
-cache:
-  paths:
-    - node_modules
-    - ./api/node_modules
-    - ./webapp/node_modules
+# cache:
+#   paths:
+#     - node_modules
+#     - ./api/node_modules
+#     - ./webapp/node_modules

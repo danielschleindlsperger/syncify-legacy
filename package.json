@@ -5,7 +5,7 @@
   "author": "Daniel Schleindlsperger <daniel@schleindlsperger.de>",
   "main": "",
   "scripts": {
-    "codegen": "graphql-codegen --config codegen.yml",
+    "codegen": "./node_modules/.bin/graphql-codegen --config codegen.yml",
     "prebuild": "npm run codegen",
     "build": "lerna run build --parallel",
     "start": "node ./start.js",
