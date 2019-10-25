@@ -4,13 +4,13 @@ import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { App } from './components/app'
 import { ThemeProvider } from 'emotion-theming'
-import preset from '@rebass/preset'
+import { theme } from './styling/theme'
 
 const client = new ApolloClient()
 
 render(
   <ApolloProvider client={client}>
-    <ThemeProvider theme={preset}>
+    <ThemeProvider theme={theme}>
       <App />
     </ThemeProvider>
   </ApolloProvider>,

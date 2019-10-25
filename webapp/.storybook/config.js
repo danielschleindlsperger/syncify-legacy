@@ -1,10 +1,8 @@
 import React from 'react'
 import { configure, addDecorator } from '@storybook/react'
 import { ThemeProvider } from 'emotion-theming'
-import preset from '@rebass/preset'
 import { GlobalStyles } from '../src/styling/global'
-
-console.log(preset)
+import { theme } from '../src/styling/theme'
 
 const GlobalStylesDecorator = storyFn => (
   <>
@@ -12,7 +10,7 @@ const GlobalStylesDecorator = storyFn => (
     {storyFn()}
   </>
 )
-const ThemeDecorator = storyFn => <ThemeProvider theme={preset}>{storyFn()}</ThemeProvider>
+const ThemeDecorator = storyFn => <ThemeProvider theme={theme}>{storyFn()}</ThemeProvider>
 
 addDecorator(GlobalStylesDecorator)
 addDecorator(ThemeDecorator)

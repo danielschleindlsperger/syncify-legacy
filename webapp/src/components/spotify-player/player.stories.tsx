@@ -52,4 +52,4 @@ storiesOf('Player', module)
       position={311242}
     />
   ))
-  .add('song change TODO: FIX', () => <SongChanger />)
+  .add('song change', () => <SongChanger />)
