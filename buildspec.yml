@@ -1,7 +1,5 @@
 version: 0.2
 
-run-as: Linux-user-name
-
 env:
   variables:
     NODE_ENV: 'production'
@@ -12,6 +10,8 @@ proxy:
 
 phases:
   install:
+    runtime-versions:
+      nodejs: 10
     commands:
       - npm install
   build:
