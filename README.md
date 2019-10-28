@@ -1,5 +1,7 @@
 # Syncify
 
+![Build Artifacts Status](https://github.com/danielschleindlsperger/syncify/workflows/Build%20Artifacts/badge.svg)
+
 Syncify is a synchronized listening room experience for Spotify. Think community radio. [syncify.co](https://syncify.co)
 
 ## Table of Contents
