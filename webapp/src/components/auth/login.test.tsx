@@ -26,7 +26,7 @@ describe('<Login />', () => {
 
     expect(link).toHaveAttribute(
       'href',
-      'https://accounts.spotify.com/authorize?response_type=code&client_id=b7fbf01f209d452b89428414609933f3&scopes=user-read-private&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fauth%2Fcallback&state=%2Fhulle%2Fbulle',
+      'https://accounts.spotify.com/authorize?response_type=code&client_id=b7fbf01f209d452b89428414609933f3&scope=user-read-private%20streaming%20user-read-email&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fauth%2Fcallback&state=%2Fhulle%2Fbulle',
     )
   })
 })

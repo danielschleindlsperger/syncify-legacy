@@ -9,7 +9,7 @@
     "prebuild": "npm run codegen",
     "build": "lerna run build --parallel",
     "start": "node ./dev/start.js",
-    "test": "lerna run test --parallel",
+    "test": "jest",
     "typecheck": "lerna run tsc --parallel",
     "lint": "lerna run lint --parallel",
     "deploy": "echo 'deploying'"
@@ -28,6 +28,7 @@
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
     "@babel/preset-typescript": "^7.6.0",
+    "@emotion/babel-preset-css-prop": "^10.0.22",
     "@graphql-codegen/cli": "^1.8.1",
     "@graphql-codegen/typescript": "1.8.1",
     "@graphql-codegen/typescript-operations": "^1.8.1",
