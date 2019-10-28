@@ -17,6 +17,8 @@ jobs:
           node-version: 12.x
       - name: Install dependencies
         run: npm ci --prefer-offline && npx lerna bootstrap --ci
+      - name: Code generation
+        run: npm run codegen
       - name: Test
         run: npm run test
       - name: Typecheck

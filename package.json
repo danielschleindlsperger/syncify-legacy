@@ -6,7 +6,6 @@
   "main": "",
   "scripts": {
     "codegen": "./node_modules/.bin/graphql-codegen --config codegen.yml",
-    "prebuild": "npm run codegen",
     "build": "lerna run build --parallel",
     "start": "node ./dev/start.js",
     "test": "jest",
