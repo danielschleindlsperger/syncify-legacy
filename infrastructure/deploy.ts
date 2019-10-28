@@ -37,7 +37,7 @@ function uploadFrontendAssets() {
       Body: fs.readFileSync(filePath),
       ACL: 'public-read',
       ContentType,
-      CacheControl: assetKey === 'index.html' ? 'no-cache' : 'max-age=31536000',
+      CacheControl: assetKey === 'index.html' ? 'max-age=2' : 'max-age=31536000',
     }
     await s3.putObject(params).promise()
     console.log(`Successfully uploaded ${assetKey}.`)
