@@ -14,8 +14,7 @@ Syncify is a synchronized listening room experience for Spotify. Think community
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/en/) >= 8 (with npm >= 5)
-- [Docker](https://www.docker.com/get-docker)
+- [Node.js 12](https://nodejs.org/en/)
 
 ## Environment
 
@@ -28,7 +27,7 @@ mv .env.example .env
 mv .env.example .env.test
 ```
 
-Afterwards fill in the unprovided credentials (Spotify, etc..).
+Afterwards fill in the unprovided credentials.
 
 ## Up and running
 
@@ -36,22 +35,16 @@ Afterwards fill in the unprovided credentials (Spotify, etc..).
 
 ```bash
 # install all dependencies
-npm run bootstrap
+npm i && npx lerna bootstrap
 
-# start containers and apps
+# start all apps locally
 npm start
 
 # run tests for all apps
 npm t
 
-# start all containers
-npm run docker
-
 # tag a release version
 npx lerna version
-
-# builds all containers, pushes them to registry and deploys to kubernetes
-npm run release
 ```
 
 Now you can access the whole app on [localhost:8080](http://localhost:8080)
