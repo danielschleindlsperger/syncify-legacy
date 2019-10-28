@@ -13,9 +13,13 @@
     "storybook": "start-storybook --quiet --ci -p 6006",
     "build-storybook": "build-storybook --quiet"
   },
+  "alias": {
+    "react-dom": "@hot-loader/react-dom"
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@hot-loader/react-dom": "^16.10.2",
     "@storybook/addon-actions": "^5.2.4",
     "@storybook/addon-links": "^5.2.4",
     "@storybook/addons": "^5.2.4",
