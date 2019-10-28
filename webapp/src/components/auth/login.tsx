@@ -2,9 +2,11 @@ import React from 'react'
 import { Heading, Text, Button, Card } from 'rebass'
 import qs from 'qs'
 import { useLocation } from 'react-router-dom'
+import { config } from '../../config'
 
 const client_id = 'b7fbf01f209d452b89428414609933f3'
-const redirect_uri = 'http://localhost:8080/auth/callback'
+const redirect_uri = `${config.baseUrl}/auth/callback`
+
 const scope = 'user-read-private streaming user-read-email'
 
 export const Login = () => {

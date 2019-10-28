@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
   setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
@@ -5,5 +7,8 @@ module.exports = {
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
       '<rootDir>/tests/file-mock.ts',
+  },
+  transform: {
+    '\\.tsx?$': ['babel-jest', { cwd: path.resolve(__dirname, '../') }],
   },
 }
