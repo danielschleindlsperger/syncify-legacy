@@ -15,5 +15,7 @@ module.exports = {
     '@typescript-eslint/camelcase': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'error',
+    'react/no-unescaped-entities': 'off',
+    'react/prop-types': 'off',
   },
 }

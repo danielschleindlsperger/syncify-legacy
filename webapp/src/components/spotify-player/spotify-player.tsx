@@ -73,7 +73,7 @@ export const SpotifyPlayerProvider: React.FC = ({ children }) => {
         })
       })
     }
-  }, [])
+  }, [accessToken, player])
 
   return (
     <SpotifyPlayerContext.Provider

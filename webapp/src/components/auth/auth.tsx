@@ -32,7 +32,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
       history.replace(query.state)
     }
-  }, [query.code])
+  }, [authorize, query, history])
 
   // re-authorize in interval
   React.useEffect(() => {
@@ -44,7 +44,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       return () => window.clearInterval(intervalId)
     }
     return
-  }, [data])
+  }, [authorize, data])
 
   return (
     <AuthContext.Provider
