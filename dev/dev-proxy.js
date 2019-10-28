@@ -1,3 +1,5 @@
+// Proxy server to connect services for local development
+
 const http = require('http')
 const url = require('url')
 const httpProxy = require('http-proxy')

@@ -2,7 +2,11 @@
 
 Utils for local development.
 
-## Proxy Path Mapping
+## Start Script
+
+Starts all local services in a single terminal process.
+
+## Dev-Proxy: Proxy Path Mapping
 
 | Path      | Target App          |
 | --------- | ------------------- |

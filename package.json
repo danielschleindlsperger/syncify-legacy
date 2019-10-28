@@ -8,7 +8,7 @@
     "codegen": "./node_modules/.bin/graphql-codegen --config codegen.yml",
     "prebuild": "npm run codegen",
     "build": "lerna run build --parallel",
-    "start": "node ./start.js",
+    "start": "node ./dev/start.js",
     "test": "lerna run test --parallel",
     "deploy": "echo 'deploying'"
   },
@@ -38,7 +38,6 @@
     "@types/uuid": "^3.4.5",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
-    "concurrently": "^5.0.0",
     "dotenv": "^8.2.0",
     "husky": "^3.0.9",
     "jest": "^24.9.0",
