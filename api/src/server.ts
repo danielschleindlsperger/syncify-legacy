@@ -18,5 +18,9 @@ export const server = new ApolloServer({
   typeDefs: [baseTypeDefs, Auth.typeDefs, Rooms.typeDefs, Users.typeDefs],
   resolvers: [Rooms.resolvers, Auth.resolvers] as IResolvers[],
   context: ({ req }) => createContext(req),
+  formatError: error => {
+    console.log(error)
+    return error
+  },
   // mocks: true,
 })
