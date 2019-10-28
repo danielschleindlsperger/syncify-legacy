@@ -5,6 +5,7 @@
   "main": "src/index.tsx",
   "scripts": {
     "test": "jest",
+    "tsc": "tsc",
     "build": "parcel build src/index.html",
     "start": "parcel src/index.html",
     "deploy": "echo 'deploying webpapp'",

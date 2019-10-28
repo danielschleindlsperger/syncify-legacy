@@ -21,6 +21,8 @@ jobs:
         run: npm ci --prefer-offline && npx lerna bootstrap --ci
       - name: Build
         run: npm run build
-      - name: Test
-        run: npm run test
+      - name: Typecheck
+        run: npm run typecheck
+      # - name: Test
+      #   run: npm run test
 # TODO: split into test/build/lint/typechecking jobs

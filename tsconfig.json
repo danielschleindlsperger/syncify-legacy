@@ -11,9 +11,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "skipLibCheck": true
+    "experimentalDecorators": true
   },
-  "exclude": ["**/node_modules/**"]
+  "include": ["**/node_modules/@types"]
 }

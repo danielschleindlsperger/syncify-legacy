@@ -10,6 +10,7 @@
     "build": "lerna run build --parallel",
     "start": "node ./dev/start.js",
     "test": "lerna run test --parallel",
+    "typecheck": "lerna run tsc --parallel",
     "deploy": "echo 'deploying'"
   },
   "husky": {

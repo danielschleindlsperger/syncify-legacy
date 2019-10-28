@@ -7,7 +7,8 @@
     "test": "jest",
     "build": "backpack build",
     "start": "NODE_ENV=development backpack",
-    "deploy": "echo 'deploying graphql api'"
+    "deploy": "echo 'deploying graphql api'",
+    "tsc": "tsc"
   },
   "author": "",
   "license": "ISC",

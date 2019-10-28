@@ -1,0 +1,11 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "incremental": true,
+    "target": "esnext",
+    "module": "commonjs",
+    "skipLibCheck": true
+  },
+  "include": ["./src/**/*", "./node_modules/@types", "./typings", "../typings", "./tests"]
+}
