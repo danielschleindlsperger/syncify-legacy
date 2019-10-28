@@ -2,7 +2,8 @@ const DotenvPlugin = require('webpack-dotenv-plugin')
 
 module.exports = {
   webpack: (config, { env }, webpack) => {
-    config.entry.main = ['./src/index.ts']
+    delete config.entry.main
+    config.entry.app = ['./src/index.ts']
 
     config.resolve = {
       extensions: ['.ts', '.mjs', '.js', '.json'],
