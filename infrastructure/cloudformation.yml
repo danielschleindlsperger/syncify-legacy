@@ -1,0 +1,18 @@
+---
+Description: Syncify Infrastructure
+
+Resources:
+  # Cloudfront:
+  #   Type: AWS::CloudFront::Distribution
+  #   Properties:
+  #     DistributionConfig:
+  #       Enabled: true
+  #       PriceClass: PriceClass_100
+  # AssetsBucket:
+  #   Type: AWS::S3::Bucket
+  #   Properties:
+  #     BucketName: String
+  # BeanstalkArtifactsBucket:
+  #   Type: AWS::S3::Bucket
+  #   Properties:
+  #     BucketName: String

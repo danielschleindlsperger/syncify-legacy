@@ -17,11 +17,16 @@ jobs:
           node-version: 12.x
       - name: Install dependencies
         run: npm ci --prefer-offline && npx lerna bootstrap --ci
-      - name: Build
-        run: npm run build
       - name: Test
         run: npm run test
       - name: Typecheck
         run: npm run typecheck
       - name: Lint
         run: npm run lint
+      - name: Build Artifacts
+        run: npm run build && npm run package-artifacts
+      - name: Upload and Deploy artifacts
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: npm run package-artifact && npm run deploy
