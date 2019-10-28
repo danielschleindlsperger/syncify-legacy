@@ -11,6 +11,7 @@
     "start": "node ./dev/start.js",
     "test": "lerna run test --parallel",
     "typecheck": "lerna run tsc --parallel",
+    "lint": "lerna run lint --parallel",
     "deploy": "echo 'deploying'"
   },
   "husky": {

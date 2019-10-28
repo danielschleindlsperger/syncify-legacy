@@ -25,4 +25,5 @@ jobs:
         run: npm run typecheck
       # - name: Test
       #   run: npm run test
-# TODO: split into test/build/lint/typechecking jobs
+      - name: Lint
+        run: npm run lint

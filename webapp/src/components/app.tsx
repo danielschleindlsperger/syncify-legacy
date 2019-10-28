@@ -6,7 +6,6 @@ import { GlobalStyles } from '../styling/global'
 import { Home } from '../views/home'
 import { AuthProvider, Authenticated } from './auth/auth'
 import { SpotifyPlayerProvider } from './spotify-player'
-import { Box } from 'rebass'
 
 let App = () => (
   <>

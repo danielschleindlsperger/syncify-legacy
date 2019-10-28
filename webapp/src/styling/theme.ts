@@ -1,5 +1,3 @@
-export type Theme = typeof theme
-
 export const theme = {
   colors: {
     text: '#000',
@@ -108,3 +106,5 @@ export const theme = {
     },
   },
 } as const
+
+export type Theme = typeof theme
