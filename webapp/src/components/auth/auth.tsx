@@ -6,6 +6,7 @@ import { ApolloError } from 'apollo-boost'
 import { useLocation, useHistory } from 'react-router-dom'
 import qs from 'qs'
 import { Login } from './login'
+import createPersistedState from '@plq/use-persisted-state'
 
 type AuthContext = {
   authData?: AuthorizationResponse
@@ -17,10 +18,17 @@ const REFRESH_INTERVAL_MS = 1000 * 60 * 20 // 20 mins
 
 const AuthContext = React.createContext<AuthContext>({ loading: false })
 
+const [usePersistedState, clear] = createPersistedState('example')
+
 export const AuthProvider: React.FC = ({ children }) => {
   const [authorize, { data, loading, error }] = useMutation<AuthorizeMutation>(AUTHORIZE)
+  const [authData, setAuthData] = usePersistedState('authData', data && data.authorize)
   const query = qs.parse(useLocation().search, { ignoreQueryPrefix: true })
   const history = useHistory()
+
+  React.useEffect(() => {
+    if (data) setAuthData(data.authorize)
+  }, [data])
 
   // trade code for token once initially and "redirect" to old path encoded in oauth state
   React.useEffect(() => {
@@ -49,7 +57,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        authData: data && data.authorize,
+        authData,
         loading,
         error,
       }}
@@ -61,9 +69,11 @@ export const AuthProvider: React.FC = ({ children }) => {
 
 export const Authenticated: React.FC = ({ children }) => {
   const { loading, error, authData } = React.useContext(AuthContext)
+  const isAuthenticated = authData && Date.now() < new Date(authData.expires).getTime()
+  // TODO: set timeout to when auth expires and rerender
   if (error) return <>Error... WHoopie </>
   if (loading) return <>loading...</>
-  if (!authData) return <Login />
+  if (!isAuthenticated) return <Login />
   return <>{children}</>
 }
 
