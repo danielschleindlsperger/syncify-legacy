@@ -39,14 +39,15 @@ type Artist {
 type Album {
   id: ID!
   name: String!
-  coverArt: String
+  coverArt: String!
 }
 
 type Song {
   id: ID!
-  durationMs: Int!
+  name: String!
   artists: [Artist!]!
   album: Album!
+  durationMs: Int!
 }
 
 enum PlaybackStatus {

@@ -3,9 +3,10 @@ import { useQuery } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
 import { GetRoomQuery } from '../__generated__/graphql'
 import { useParams } from 'react-router'
-import { Flex, Heading, Text } from 'rebass'
+import { Flex, Heading, Text, Box, BaseProps, BoxProps } from 'rebass'
 import { useSpotifyPlayer } from '../components/spotify-player/spotify-player'
 import { Player } from '../components/spotify-player'
+import { Playlist } from '../components/playlist'
 
 type Room = import('../__generated__/graphql').Room
 
@@ -22,6 +23,14 @@ const GET_ROOM = gql`
         playbackStatus
         songs {
           id
+          name
+          artists {
+            id
+            name
+          }
+          album {
+            coverArt
+          }
         }
       }
     }
@@ -57,8 +66,6 @@ export const Room = () => {
 
   const room = data.room
 
-  console.log({ playbackState })
-
   let player: JSX.Element | null = null
 
   if (playbackState) {
@@ -85,9 +92,16 @@ export const Room = () => {
   return (
     <Flex minHeight="100vh" flexDirection="column">
       <RoomHeader
+        maxWidth="600px"
+        m="60px auto"
         css={{ maxWidth: '600px', margin: '60px auto' }}
         name={room.name}
         description={room.description}
+      />
+      <Playlist
+        mx="auto"
+        playlist={room.playlist}
+        activeSongId={playbackState ? playbackState.track_window.current_track.id : null}
       />
       <Flex mt="auto" justifyContent="center">
         {player}
@@ -96,13 +110,13 @@ export const Room = () => {
   )
 }
 
-type RoomHeaderProps = React.HTMLProps<HTMLElement> & Pick<Room, 'name' | 'description'>
+type RoomHeaderProps = React.HTMLProps<HTMLElement> & BoxProps & Pick<Room, 'name' | 'description'>
 
 const RoomHeader = ({ name, description, ...props }: RoomHeaderProps) => (
-  <header {...props}>
+  <Box as="header" p={3} {...props}>
     <Heading fontSize={6} mt={4}>
       {name}
     </Heading>
     {description && <Text fontSize={4}>{description}</Text>}
-  </header>
+  </Box>
 )
