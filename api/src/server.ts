@@ -5,7 +5,6 @@ import * as Users from './modules/users'
 
 import baseTypeDefs from './modules/base-schema.graphql'
 import { createContext } from './context'
-import { IResolvers } from './__generated__/graphql'
 import { GraphQLError } from 'graphql'
 
 const cors =
@@ -18,7 +17,7 @@ const cors =
 export const server = new ApolloServer({
   cors,
   typeDefs: [baseTypeDefs, Auth.typeDefs, Rooms.typeDefs, Users.typeDefs],
-  resolvers: [Rooms.resolvers, Auth.resolvers] as IResolvers[],
+  resolvers: [Rooms.resolvers, Auth.resolvers] as any,
   context: ({ req }) => createContext(req),
   formatError: (error: GraphQLError) => {
     console.log(error)
