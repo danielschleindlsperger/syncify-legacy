@@ -18,7 +18,7 @@ const REFRESH_INTERVAL_MS = 1000 * 60 * 20 // 20 mins
 
 const AuthContext = React.createContext<AuthContext>({ loading: false })
 
-const [usePersistedState, clear] = createPersistedState('example')
+const [usePersistedState] = createPersistedState('syncify')
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [authorize, { data, loading, error }] = useMutation<AuthorizeMutation>(AUTHORIZE)
@@ -28,7 +28,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   React.useEffect(() => {
     if (data) setAuthData(data.authorize)
-  }, [data])
+  }, [data, setAuthData])
 
   // trade code for token once initially and "redirect" to old path encoded in oauth state
   React.useEffect(() => {
