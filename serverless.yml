@@ -1,0 +1,29 @@
+service: syncify
+provider:
+  name: aws
+  runtime: nodejs10.x
+  region: eu-central-1
+  stage: dev
+
+custom:
+  # 'dev' locally, 'prod' when deployed with serverless --stage prod
+  stage: ${opt:stage, self:provider.stage}
+
+resources:
+  Resources:
+    # S3 Bucket assets
+    # S3 Bucket API artifacts
+    # Cloudfront
+    # Beanstalk
+    # DynamoDB Table: Rooms
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.stage}-users
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST

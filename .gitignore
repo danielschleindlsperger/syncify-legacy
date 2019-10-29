@@ -11,3 +11,6 @@ lerna-debug.log
 .netlify
 src/generated
 __generated__
+node_modules
+jspm_packages
+.serverless

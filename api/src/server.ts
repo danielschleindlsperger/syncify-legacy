@@ -18,7 +18,7 @@ export const server = new ApolloServer({
   cors,
   typeDefs: [baseTypeDefs, Auth.typeDefs, Rooms.typeDefs, Users.typeDefs],
   resolvers: [Rooms.resolvers, Auth.resolvers] as any,
-  context: ({ req }) => createContext(req),
+  context: ({ req, res }) => createContext(req, res),
   formatError: (error: GraphQLError) => {
     console.log(error)
     return error
