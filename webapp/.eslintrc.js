@@ -17,5 +17,6 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'error',
     'react/no-unescaped-entities': 'off',
     'react/prop-types': 'off',
+    'react/display-name': 'off',
   },
 }
