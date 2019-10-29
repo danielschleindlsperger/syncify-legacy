@@ -100,6 +100,8 @@ export const Room = () => {
       />
       <Playlist
         mx="auto"
+        maxHeight="50vh"
+        overflow="auto"
         playlist={room.playlist}
         activeSongId={playbackState ? playbackState.track_window.current_track.id : null}
       />

@@ -35,11 +35,21 @@ type PlaylistItemProps = React.HTMLProps<HTMLElement> &
   }
 
 export const PlaylistItem = React.memo(({ song, isActive, ...props }: PlaylistItemProps) => {
+  const ref = React.useRef<HTMLElement>(null)
+
+  React.useEffect(() => {
+    if (ref.current && isActive) {
+      ref.current.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [isActive])
+
   return (
     <Flex
+      ref={ref}
       as="li"
       p={2}
       alignItems="baseline"
+      // TODO: check why these items all have different classes with the same css
       css={[
         coverStyle,
         {
