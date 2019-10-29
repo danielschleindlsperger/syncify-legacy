@@ -46,7 +46,13 @@ export const Room = () => {
   const { loading, error, data } = useQuery<GetRoomQuery>(GET_ROOM, {
     variables: { id },
   })
-  const { ready, playbackState, play } = useSpotifyPlayer()
+  const { ready, playbackState, play, error: spotifyError } = useSpotifyPlayer()
+
+  React.useEffect(() => {
+    if (spotifyError) {
+      window.alert(spotifyError)
+    }
+  }, [spotifyError])
 
   React.useEffect(() => {
     if (ready === true && data !== undefined) {
