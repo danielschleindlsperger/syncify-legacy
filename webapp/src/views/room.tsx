@@ -107,7 +107,7 @@ export const Room = () => {
             songName={currentSong.name}
             coverArt={currentSong.album.images[0].url}
             duration={currentSong.duration}
-            position={currentSong.duration}
+            position={currentSong.position}
             css={{ margin: '20px' }}
           />
         )}
