@@ -55,7 +55,7 @@ async function deployApiArtifact() {
     .replace('Z', '')
     .slice(0, 19)
   const Key = `${version}.zip`
-  const Bucket = 'syncify-api-artifacts'
+  const Bucket = 'syncify-artifacts'
   let params = {
     Bucket,
     Key,
