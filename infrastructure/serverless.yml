@@ -1,7 +1,6 @@
 service: syncify
 provider:
   name: aws
-  profile: dev # TODO: profile for syncify
   runtime: nodejs10.x
   region: eu-central-1
   stage: dev
