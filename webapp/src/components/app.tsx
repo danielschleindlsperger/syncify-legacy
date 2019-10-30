@@ -23,6 +23,9 @@ let App = () => (
               <Route path="/">
                 <Home />
               </Route>
+              <Route path="*">
+                <h1>Page not found.</h1>
+              </Route>
             </Switch>
           </SpotifyPlayerProvider>
         </AuthProvider>
