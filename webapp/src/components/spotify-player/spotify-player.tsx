@@ -7,6 +7,7 @@ type SpotifyPlayerState = {
   error?: string
   playbackState?: Spotify.PlaybackState
   play: (uris: string[], offsetMs?: number) => Promise<void>
+  player?: Spotify.SpotifyPlayer
 }
 
 export const SpotifyPlayerContext = React.createContext<SpotifyPlayerState>({
@@ -82,6 +83,7 @@ export const SpotifyPlayerProvider: React.FC = ({ children }) => {
         error,
         playbackState,
         play,
+        player,
       }}
     >
       {children}

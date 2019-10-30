@@ -1,6 +1,7 @@
 import React from 'react'
 import { Image, Text, Flex, Card, BaseProps } from 'rebass'
 import { Progress } from './progress'
+import { VolumeSlider } from './volume'
 
 type PlayerProps = BaseProps &
   React.HTMLProps<HTMLElement> &
@@ -41,6 +42,7 @@ export const Player = (props: PlayerProps) => {
           position={position}
         />
       </Flex>
+      <VolumeSlider width="20px" ml={4} />
     </Card>
   )
 }
