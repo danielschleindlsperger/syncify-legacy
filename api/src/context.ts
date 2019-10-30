@@ -14,9 +14,8 @@ export type Context = {
 }
 
 export const createContext = async (req: Request, res: Response): Promise<Context> => {
-  const credentials = process.env.AWS_ACCESS_KEY_ID
-    ? undefined
-    : new SharedIniFileCredentials({ profile: 'dev' })
+  const credentials =
+    process.env.STAGE === 'prod' ? undefined : new SharedIniFileCredentials({ profile: 'dev' })
 
   const dynamoClient = new DocumentClient({ region: 'eu-central-1', credentials })
 
