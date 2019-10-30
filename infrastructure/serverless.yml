@@ -104,6 +104,15 @@ resources:
             Principal:
               Service: ['ec2.amazonaws.com']
             Action: ['sts:AssumeRole']
+        Policies:
+          - PolicyName: DynamoDB-Access
+            PolicyDocument:
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - dynamodb:GetItem
+                    - dynamodb:PutItem
+                  Resource: !GetAtt UsersTable.Arn
         ManagedPolicyArns:
           - 'arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier'
           - 'arn:aws:iam::aws:policy/AWSElasticBeanstalkMulticontainerDocker'
