@@ -20,7 +20,7 @@ type PlaylistProps = React.HTMLProps<HTMLElement> &
 
 export const Playlist = ({ playlist, activeSongId, ...props }: PlaylistProps) => {
   return (
-    <Box as="ul" {...props}>
+    <Box as="ul" {...props} css={{ boxShadow: 'inset 0px 0px 10px -3px rgba(0, 0, 0, 0.2)' }}>
       {playlist.songs.map(song => (
         <PlaylistItem key={song.id} song={song} isActive={song.id === activeSongId} />
       ))}
