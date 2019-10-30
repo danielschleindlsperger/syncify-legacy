@@ -46,7 +46,7 @@ function uploadFrontendAssets() {
 
 async function deployApiArtifact() {
   const applicationName = 'syncify-api'
-  const deployEnvironment = 'SyncifyApi-env'
+  const deployEnvironment = 'prod'
   const artifactPath = path.resolve(__dirname, '../api/build/artifact.zip')
   const version = new Date()
     .toISOString()

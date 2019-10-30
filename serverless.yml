@@ -1,6 +1,7 @@
 service: syncify
 provider:
   name: aws
+  profile: dev # TODO: profile for syncify
   runtime: nodejs10.x
   region: eu-central-1
   stage: dev
@@ -10,11 +11,15 @@ custom:
   stage: ${opt:stage, self:provider.stage}
 
 resources:
+  Conditions:
+    CreateProdResources:
+      Fn::Equals:
+        - ${opt:stage, ''}
+        - prod
   Resources:
     # S3 Bucket assets
     # S3 Bucket API artifacts
     # Cloudfront
-    # Beanstalk
     # DynamoDB Table: Rooms
     UsersTable:
       Type: AWS::DynamoDB::Table
@@ -27,3 +32,87 @@ resources:
           - AttributeName: id
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
+    # https://www.bluestackcloud.com/insights/2018/9/28/using-cloudformation-with-elastic-beanstalk-use-cases-and-benefits
+    BeanstalkApp:
+      Type: AWS::ElasticBeanstalk::Application
+      Condition: CreateProdResources
+      Properties:
+        ApplicationName: syncify-api
+        Description: Backend API service for synify
+        ResourceLifecycleConfig:
+          ServiceRole: !GetAtt BeanstalkAppServiceRole.Arn
+          VersionLifecycleConfig:
+            MaxCountRule:
+              Enabled: true
+              MaxCount: 10
+              DeleteSourceFromS3: true
+    BeanstalkEnvironmentProd:
+      Type: AWS::ElasticBeanstalk::Environment
+      Condition: CreateProdResources
+      Properties:
+        ApplicationName: !Ref BeanstalkApp
+        Description: Production environment for syncify backend API
+        EnvironmentName: prod
+        OptionSettings:
+          - Namespace: aws:autoscaling:launchconfiguration
+            OptionName: IamInstanceProfile
+            Value: !Ref BeanstalkAppEC2InstanceProfile
+          - Namespace: aws:autoscaling:launchconfiguration
+            OptionName: InstanceType
+            Value: t2.nano
+          - Namespace: aws:elasticbeanstalk:application:environment
+            OptionName: NODE_ENV
+            Value: production
+          - Namespace: aws:elasticbeanstalk:application:environment
+            OptionName: STAGE
+            Value: prod
+          - Namespace: aws:elasticbeanstalk:application:environment
+            OptionName: SPOTIFY_CLIENT_ID
+            Value: ${env:SPOTIFY_CLIENT_ID}
+          - Namespace: aws:elasticbeanstalk:application:environment
+            OptionName: SPOTIFY_CLIENT_SECRET
+            Value: ${env:SPOTIFY_CLIENT_SECRET}
+          - Namespace: aws:elasticbeanstalk:application:environment
+            OptionName: SPOTIFY_REDIRECT_URL
+            Value: https://syncify.co
+        SolutionStackName: '64bit Amazon Linux 2018.03 v4.11.0 running Node.js'
+        Tier:
+          Name: WebServer
+          Type: Standard
+
+    BeanstalkAppServiceRole:
+      Type: AWS::IAM::Role
+      Condition: CreateProdResources
+      Properties:
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            Effect: Allow
+            Principal:
+              Service: ['ec2.amazonaws.com']
+            Action: ['sts:AssumeRole']
+        ManagedPolicyArns:
+          - 'arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkEnhancedHealth'
+          - 'arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkService'
+    BeanstalkAppEC2InstanceRole:
+      Type: AWS::IAM::Role
+      Condition: CreateProdResources
+      Properties:
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            Effect: Allow
+            Principal:
+              Service: ['ec2.amazonaws.com']
+            Action: ['sts:AssumeRole']
+        ManagedPolicyArns:
+          - 'arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier'
+          - 'arn:aws:iam::aws:policy/AWSElasticBeanstalkMulticontainerDocker'
+          - 'arn:aws:iam::aws:policy/AWSElasticBeanstalkWorkerTier'
+    BeanstalkAppEC2InstanceProfile:
+      Type: AWS::IAM::InstanceProfile
+      Condition: CreateProdResources
+      Properties:
+        InstanceProfileName: BeanstalkAppEC2InstanceProfile
+        Roles:
+          - !Ref BeanstalkAppEC2InstanceRole
