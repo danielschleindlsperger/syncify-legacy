@@ -20,7 +20,7 @@ type PlaylistProps = React.HTMLProps<HTMLElement> &
 
 export const Playlist = ({ playlist, activeSongId, ...props }: PlaylistProps) => {
   return (
-    <Box as="ul" {...props} css={{ boxShadow: 'inset 0px 0px 10px -3px rgba(0, 0, 0, 0.2)' }}>
+    <Box as="ul" {...props} p={4} css={{ boxShadow: 'inset 0px 0px 10px -3px rgba(0, 0, 0, 0.2)' }}>
       {playlist.songs.map(song => (
         <PlaylistItem key={song.id} song={song} isActive={song.id === activeSongId} />
       ))}
@@ -88,7 +88,8 @@ const coverStyle = css`
     transition: 'opacity 300ms ease-in';
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     &:before {
       opacity: 1;
     }
