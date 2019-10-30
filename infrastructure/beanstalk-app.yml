@@ -42,6 +42,9 @@ Resources:
         - Namespace: aws:elasticbeanstalk:application:environment
           OptionName: SPOTIFY_REDIRECT_URL
           Value: https://syncify.co
+        - Namespace: aws:elasticbeanstalk:application:environment
+          OptionName: JWT_SECRET
+          Value: ${env:JWT_SECRET}
       SolutionStackName: '64bit Amazon Linux 2018.03 v4.11.0 running Node.js'
       Tier:
         Name: WebServer
