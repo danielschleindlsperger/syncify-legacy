@@ -1,4 +1,4 @@
-name: Build Artifacts
+name: Build and deploy
 
 on:
   push:
@@ -16,7 +16,10 @@ jobs:
         with:
           node-version: 12.x
       - name: Install dependencies
-        run: npm ci --prefer-offline && npx lerna bootstrap --ci && npm i -g serverless
+        run: |
+          npm ci --prefer-offline
+          npx lerna bootstrap --ci
+          npm i -g serverless
       - name: Code generation
         run: npm run codegen
       - name: Test
