@@ -60,7 +60,7 @@ export const Room = () => {
     const title = [
       'Syncify',
       currentSong && `- ${currentSong.name}`,
-      roomName && `- ${room.name}`,
+      roomName && `- ${roomName}`,
     ].join(' ')
 
     document.title = title
