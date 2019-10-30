@@ -4,7 +4,6 @@ provider:
   runtime: nodejs10.x
   region: eu-central-1
   stage: dev
-  profile: dev
 
 custom:
   # 'dev' locally, 'prod' when deployed with serverless --stage prod
