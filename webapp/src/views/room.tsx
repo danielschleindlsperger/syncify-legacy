@@ -4,8 +4,7 @@ import { gql } from 'apollo-boost'
 import { GetRoomQuery } from '../__generated__/graphql'
 import { useParams } from 'react-router'
 import { Flex, Heading, Text, Box, BaseProps, BoxProps } from 'rebass'
-import { useSpotifyPlayer } from '../components/spotify-player/spotify-player'
-import { Player } from '../components/spotify-player'
+import { Player, useSpotifyPlayer, useCurrentSong } from '../components/spotify-player'
 import { Playlist } from '../components/playlist'
 
 type Room = import('../__generated__/graphql').Room
@@ -47,12 +46,25 @@ export const Room = () => {
     variables: { id },
   })
   const { ready, playbackState, play, error: spotifyError } = useSpotifyPlayer()
+  const { currentSong } = useCurrentSong()
 
   React.useEffect(() => {
     if (spotifyError) {
       window.alert(spotifyError)
     }
   }, [spotifyError])
+
+  // sync song title and room name to document title
+  React.useEffect(() => {
+    const roomName = data && data.room && data.room.name
+    const title = [
+      'Syncify',
+      currentSong && `- ${currentSong.name}`,
+      roomName && `- ${room.name}`,
+    ].join(' ')
+
+    document.title = title
+  }, [data, currentSong])
 
   React.useEffect(() => {
     if (ready === true && data !== undefined) {
@@ -72,29 +84,6 @@ export const Room = () => {
 
   const room = data.room
 
-  let player: JSX.Element | null = null
-
-  if (playbackState) {
-    const {
-      duration,
-      position,
-      track_window: { current_track },
-    } = playbackState
-    const artists = current_track.artists.map(a => a.name)
-    const coverArt = current_track.album.images[0].url
-    const songName = current_track.name
-    player = (
-      <Player
-        artists={artists}
-        songName={songName}
-        coverArt={coverArt}
-        duration={duration}
-        position={position}
-        css={{ margin: '20px' }}
-      />
-    )
-  }
-
   return (
     <Flex minHeight="100vh" flexDirection="column">
       <RoomHeader
@@ -112,7 +101,16 @@ export const Room = () => {
         activeSongId={playbackState ? playbackState.track_window.current_track.id : null}
       />
       <Flex mt="auto" justifyContent="center">
-        {player}
+        {currentSong && (
+          <Player
+            artists={currentSong.artists.map(a => a.name)}
+            songName={currentSong.name}
+            coverArt={currentSong.album.images[0].url}
+            duration={currentSong.duration}
+            position={currentSong.duration}
+            css={{ margin: '20px' }}
+          />
+        )}
       </Flex>
     </Flex>
   )

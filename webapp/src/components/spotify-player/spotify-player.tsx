@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSpotifyAccessToken } from '../auth'
 import SpotifyWebApi from 'spotify-web-api-js'
+import { Song } from '../../__generated__/graphql'
 
 type SpotifyPlayerState = {
   ready: boolean
@@ -93,6 +94,20 @@ export const SpotifyPlayerProvider: React.FC = ({ children }) => {
 
 export const useSpotifyPlayer = (): SpotifyPlayerState => {
   return React.useContext(SpotifyPlayerContext)
+}
+
+type CurrentSong = Spotify.Track & Pick<Spotify.PlaybackState, 'duration' | 'position'>
+
+export const useCurrentSong = (): { currentSong: CurrentSong | undefined } => {
+  const { playbackState } = useSpotifyPlayer()
+
+  return {
+    currentSong: playbackState && {
+      ...playbackState.track_window.current_track,
+      duration: playbackState.duration,
+      position: playbackState.position,
+    },
+  }
 }
 
 const errorEventTypes = [
