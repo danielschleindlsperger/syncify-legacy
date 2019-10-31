@@ -2,6 +2,7 @@ import AWS from 'aws-sdk'
 import fs from 'fs'
 import path from 'path'
 import mime from 'mime-types'
+import shell from 'shelljs'
 
 const credentials = process.env.AWS_ACCESS_KEY_ID
   ? undefined
@@ -27,7 +28,7 @@ function walkSync(currentDirPath: string, callback: (filePath: string, stat: fs.
 }
 
 function uploadFrontendAssets() {
-  const assetsPath = path.resolve(__dirname, '../webapp/dist')
+  const assetsPath = path.resolve(__dirname, '../dist/apps/webapp')
   walkSync(assetsPath, async (filePath, stats) => {
     const assetKey = path.relative(assetsPath, filePath)
     const ContentType = mime.lookup(path.extname(assetKey)) || 'application/octet-stream'
@@ -47,7 +48,7 @@ function uploadFrontendAssets() {
 async function deployApiArtifact() {
   const applicationName = 'syncify-api'
   const deployEnvironment = 'prod'
-  const artifactPath = path.resolve(__dirname, '../api/build/artifact.zip')
+  const artifactPath = path.resolve(__dirname, '../dist/apps/api/artifact.zip')
   const version = new Date()
     .toISOString()
     .replace('T', '-')
@@ -89,5 +90,24 @@ async function deployApiArtifact() {
   console.log(`Succesfully deployed Beanstalk app.`)
 }
 
+const prepareArtifact = () => {
+  const artifactFolder = path.join(__dirname, '../dist/apps/api')
+
+  // remove dev deps, since they will be included in the bundle
+  shell.exec('npm prune --production')
+
+  // copy node_modules
+  shell.cp('-R', 'node_modules', path.join(artifactFolder, 'node_modules'))
+
+  // rename files to match beanstalk convention
+  shell.mv(path.join(artifactFolder, 'main.js'), path.join(artifactFolder, 'app.js'))
+  shell.mv(path.join(artifactFolder, 'main.js.map'), path.join(artifactFolder, 'app.js.map'))
+
+  // package
+  shell.cd(artifactFolder)
+  shell.exec('zip -r artifact.zip node_modules app.js app.js.map')
+}
+
+prepareArtifact()
 deployApiArtifact()
 uploadFrontendAssets()
