@@ -1,4 +1,4 @@
-# empty type because `extend type` does not work on empty or non-existing types
+# empty Query and Mutation type because `extend type` does not work on empty or non-existing types
 
 type Query {
   """
