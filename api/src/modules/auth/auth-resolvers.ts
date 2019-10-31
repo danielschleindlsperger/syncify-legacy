@@ -1,8 +1,7 @@
 import { Resolvers } from '../../__generated__/graphql'
 import { Context } from '../../context'
-import Spotify from 'spotify-web-api-node'
 import { DatabaseUser } from '../users/database-user'
-import { signToken, verifyToken } from './jwt'
+import { signToken } from './jwt'
 import cookie from 'cookie'
 import { User } from '../users'
 import { AuthenticationError } from 'apollo-server'
@@ -10,16 +9,14 @@ import { AuthenticationError } from 'apollo-server'
 export const resolvers: Resolvers<Context> = {
   Mutation: {
     authorize: async (_, { code }, context) => {
-      const spotify = new Spotify(context.config.spotify)
-
       if (code) {
         // Retrieve an access token and a refresh token
-        const { body } = await spotify.authorizationCodeGrant(code)
+        const { body } = await context.spotify.authorizationCodeGrant(code)
         const { expires_in, access_token, refresh_token } = body
 
-        spotify.setAccessToken(access_token)
+        context.spotify.setAccessToken(access_token)
 
-        const { body: spotifyUser } = await spotify.getMe()
+        const { body: spotifyUser } = await context.spotify.getMe()
 
         const avatar = spotifyUser.images && spotifyUser.images[0] && spotifyUser.images[0].url
 
@@ -53,9 +50,11 @@ export const resolvers: Resolvers<Context> = {
         throw new AuthenticationError('Need to be logged in to refresh tokens.')
       }
 
-      spotify.setRefreshToken(context.user.refreshToken)
+      context.spotify.setRefreshToken(context.user.refreshToken)
 
-      const { access_token, expires_in } = await spotify.refreshAccessToken().then(res => res.body)
+      const { access_token, expires_in } = await context.spotify
+        .refreshAccessToken()
+        .then(res => res.body)
 
       await User.save(context.dynamoClient, {
         ...context.user,
