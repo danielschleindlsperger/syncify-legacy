@@ -1,23 +1,16 @@
 // script that starts all local services in one terminal process
 
 const concurrently = require('concurrently')
-const path = require('path')
-
-const rootDir = path.resolve(__dirname, '..')
-const webAppDir = path.resolve(__dirname, '../webapp')
-const apiDir = path.resolve(__dirname, '../api')
-const devDir = __dirname
 
 concurrently(
   [
     {
-      command: `cd ${rootDir} && npx graphql-codegen --config codegen.yml --watch`,
+      command: `npx graphql-codegen --config codegen.yml --watch`,
       name: 'codegen',
     },
-    { command: `cd ${webAppDir} && npm run start`, name: 'webapp' },
-    { command: `cd ${webAppDir} && npm run storybook`, name: 'storybook' },
-    { command: `cd ${apiDir} && npm run start`, name: 'api' },
-    { command: `cd ${devDir} && node ./dev-proxy.js`, name: 'dev-proxy' },
+    { command: `npm run start:webapp`, name: 'webapp' },
+    { command: `npm run start:api`, name: 'api' },
+    { command: `cd dev && node ./dev-proxy.js`, name: 'dev-proxy' },
   ],
   {
     prefix: 'name',

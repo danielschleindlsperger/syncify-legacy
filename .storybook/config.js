@@ -1,8 +1,8 @@
 import React from 'react'
 import { configure, addDecorator } from '@storybook/react'
 import { ThemeProvider } from 'emotion-theming'
-import { GlobalStyles } from '../src/styling/global'
-import { theme } from '../src/styling/theme'
+import { GlobalStyles } from '../src/webapp/styling/global'
+import { theme } from '../src/webapp/styling/theme'
 
 const GlobalStylesDecorator = storyFn => (
   <>

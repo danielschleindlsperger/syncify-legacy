@@ -35,16 +35,13 @@ Afterwards fill in the unprovided credentials.
 
 ```bash
 # install all dependencies
-npm i && npx lerna bootstrap
+npm install
 
 # start all apps locally
 npm start
 
 # run tests for all apps
 npm t
-
-# tag a release version
-npx lerna version
 ```
 
 Now you can access the whole app on [localhost:8080](http://localhost:8080)

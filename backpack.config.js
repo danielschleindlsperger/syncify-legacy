@@ -3,7 +3,7 @@ const DotenvPlugin = require('webpack-dotenv-plugin')
 module.exports = {
   webpack: (config, { env }, webpack) => {
     delete config.entry.main
-    config.entry.app = ['./src/index.ts']
+    config.entry.app = ['./src/api/index.ts']
 
     config.resolve = {
       extensions: ['.ts', '.mjs', '.js', '.json'],
@@ -17,6 +17,21 @@ module.exports = {
       test: /\.(mjs|js|ts)$/,
       exclude: /node_modules/,
       loader: 'babel-loader',
+      options: {
+        presets: [
+          [
+            '@babel/preset-env',
+            {
+              targets: { node: '10.15' },
+              useBuiltIns: 'usage',
+              loose: true,
+              corejs: '3',
+            },
+          ],
+          '@babel/preset-typescript',
+        ],
+        plugins: [],
+      },
     })
 
     config.module.rules.push({
@@ -27,7 +42,7 @@ module.exports = {
 
     if (env === 'development') {
       config.plugins.push(
-        new DotenvPlugin({ path: '../.env', sample: '../.env.example', allowEmptyValues: true }),
+        new DotenvPlugin({ path: '.env', sample: '.env.example', allowEmptyValues: true }),
       )
     }
 

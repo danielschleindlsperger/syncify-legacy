@@ -1,11 +1,7 @@
 module.exports = ({ config, mode }) => {
   config.module.rules.push({
     test: /\.(ts|tsx)$/,
-    // loader: require.resolve('babel-loader'),
-    loader: 'babel-loader',
-    options: {
-      rootMode: 'upward',
-    },
+    loader: require.resolve('babel-loader'),
   })
   config.resolve.extensions.push('.ts', '.tsx')
   config.stats = 'errors-only'

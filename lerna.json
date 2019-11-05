@@ -1,5 +1,0 @@
-{
-  "packages": ["api", "webapp", "dev"],
-  "version": "0.0.1",
-  "npmClient": "npm"
-}

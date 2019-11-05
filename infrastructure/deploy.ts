@@ -27,7 +27,7 @@ function walkSync(currentDirPath: string, callback: (filePath: string, stat: fs.
 }
 
 function uploadFrontendAssets() {
-  const assetsPath = path.resolve(__dirname, '../webapp/dist')
+  const assetsPath = path.resolve(__dirname, '../dist')
   walkSync(assetsPath, async (filePath, stats) => {
     const assetKey = path.relative(assetsPath, filePath)
     const ContentType = mime.lookup(path.extname(assetKey)) || 'application/octet-stream'
@@ -47,7 +47,7 @@ function uploadFrontendAssets() {
 async function deployApiArtifact() {
   const applicationName = 'syncify-api'
   const deployEnvironment = 'prod'
-  const artifactPath = path.resolve(__dirname, '../api/build/artifact.zip')
+  const artifactPath = path.resolve(__dirname, '../build/artifact.zip')
   const version = new Date()
     .toISOString()
     .replace('T', '-')
