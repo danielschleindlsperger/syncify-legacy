@@ -1,14 +1,22 @@
-const slsw = require('serverless-webpack')
+const path = require('path')
 
 module.exports = {
-  mode: slsw.lib.webpack.isLocal ? 'development' : 'production',
-  entry: slsw.lib.entries,
+  name: 'deploy',
+  mode: 'production',
+  entry: path.resolve(__dirname, '../infrastructure/deploy.ts'),
+  output: {
+    filename: 'deploy.js',
+    path: path.resolve(__dirname, '../build'),
+  },
   target: 'node',
   node: {
     __dirname: false,
   },
   resolve: {
     extensions: ['.ts', '.mjs', '.js', '.json'],
+  },
+  optimization: {
+    minimize: false,
   },
   module: {
     rules: [
@@ -34,5 +42,4 @@ module.exports = {
       },
     ],
   },
-  stats: 'minimal',
 }

@@ -5,9 +5,46 @@ provider:
   region: eu-central-1
   stage: dev
 
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-webpack
+  - serverless-offline
+
+package:
+  individually: true
+
 custom:
   # 'dev' locally, 'prod' when deployed with serverless --stage prod
   stage: ${opt:stage, self:provider.stage}
+
+functions:
+  room:
+    handler: ./src/api/handlers/room.handler
+    name: ${self:provider.stage}-room
+    events:
+      - http:
+          path: api/rooms/{id}
+          method: get
+          request:
+            parameters:
+              paths:
+                id: true
+  authorize:
+    handler: ./src/api/handlers/authorize.handler
+    name: ${self:provider.stage}-authorize
+    environment:
+      USERS_TABLE_NAME: ${self:custom.stage}-users
+      SPOTIFY_CLIENT_ID: ${env:SPOTIFY_CLIENT_ID}
+      SPOTIFY_CLIENT_SECRET: ${env:SPOTIFY_CLIENT_SECRET}
+      SPOTIFY_REDIRECT_URL: ${env:SPOTIFY_REDIRECT_URL}
+    events:
+      - http:
+          path: api/authorize
+          method: post
+          # request:
+          #   parameters:
+          #     querystrings:
+          # code: true
 
 resources:
   - Conditions:

@@ -1,5 +1,5 @@
 import { songs } from './mock-songs'
-import { Playlist, PlaybackStatus } from '../webapp/__generated__/graphql'
+import { Playlist, PlaybackStatus } from '../types/room'
 
 export const playlist: Playlist = {
   currentIndex: 5,

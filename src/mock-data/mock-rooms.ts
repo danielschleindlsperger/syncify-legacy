@@ -1,5 +1,14 @@
 import { playlist } from './mock-playlist'
-import { Room } from '../webapp/__generated__/graphql'
+import { Room } from '../types/room'
+
+export const room: Room = {
+  id: '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed',
+  name: 'LORE ⚔️',
+  description: 'all of my playlists, CDs and whatever, in one playlist',
+  playlist,
+  createdAt: new Date('2019-01-24T19:40:47.713Z').toISOString(),
+  updatedAt: new Date('2019-02-05T21:17:37.713Z').toISOString(),
+}
 
 const playlistSeed = [
   { name: 'Omnia', description: 'all of my playlists, CDs and whatever, in one playlist' },
@@ -51,12 +60,3 @@ const playlistSeed = [
   { name: 'big pile o’chill', description: 'a long playlist for relaxing' },
   { name: 'Hjul', description: 'my christmas playlist' },
 ]
-
-export const room: Room = {
-  id: '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed',
-  name: 'LORE ⚔️',
-  description: 'all of my playlists, CDs and whatever, in one playlist',
-  playlist,
-  createdAt: new Date('2019-01-24T19:40:47.713Z').toISOString(),
-  updatedAt: new Date('2019-02-05T21:17:37.713Z').toISOString(),
-}

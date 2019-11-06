@@ -89,5 +89,5 @@ async function deployApiArtifact() {
   console.log(`Succesfully deployed Beanstalk app.`)
 }
 
-deployApiArtifact()
+// deployApiArtifact()
 uploadFrontendAssets()
