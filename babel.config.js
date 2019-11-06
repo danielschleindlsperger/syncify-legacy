@@ -12,5 +12,4 @@ module.exports = {
     '@babel/preset-react',
     '@emotion/babel-preset-css-prop',
   ],
-  babelrcRoots: ['api', 'webapp'],
 }

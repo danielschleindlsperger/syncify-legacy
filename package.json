@@ -8,7 +8,8 @@
     "codegen": "./node_modules/.bin/graphql-codegen --config codegen.yml",
     "build:api": "backpack build",
     "build:webapp": "parcel build src/webapp/index.html",
-    "build": "concurrently \"npm run build:api\" \"npm run build:webapp\" ",
+    "build:deploy": "webpack -p",
+    "build": "concurrently \"npm run build:api\" \"npm run build:webapp\" \"npm run build:deploy\" ",
     "start:api": "NODE_ENV=development backpack",
     "start:webapp": "parcel src/webapp/index.html",
     "prestart": "serverless deploy --config infrastructure/serverless.yml --profile dev",
@@ -19,7 +20,7 @@
     "tsc": "tsc",
     "lint": "eslint src/**/*.{ts,tsx}",
     "package-artifact": "mv node_modules build/node_modules && cd build && zip -r artifact.zip node_modules app.js app.map",
-    "deploy": "ts-node infrastructure/deploy.ts"
+    "deploy": "node build/deploy.js"
   },
   "husky": {
     "hooks": {
@@ -86,9 +87,9 @@
     "parcel-bundler": "^1.12.3",
     "prettier": "^1.18.2",
     "pretty-quick": "^2.0.0",
-    "ts-node": "^8.4.1",
     "typescript": "^3.6.4",
     "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
     "webpack-dotenv-plugin": "^2.1.0"
   },
   "dependencies": {
