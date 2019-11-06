@@ -3,7 +3,7 @@ provider:
   name: aws
   runtime: nodejs10.x
   region: eu-central-1
-  stage: dev
+  stage: ${opt:stage, 'dev'}
 
 plugins:
   - serverless-dotenv-plugin
@@ -15,7 +15,7 @@ package:
 
 custom:
   # 'dev' locally, 'prod' when deployed with serverless --stage prod
-  stage: ${opt:stage, self:provider.stage}
+  stage: ${opt:stage, 'dev'}
 
 functions:
   room:
@@ -33,7 +33,7 @@ functions:
     handler: ./src/api/handlers/authorize.handler
     name: ${self:provider.stage}-authorize
     environment:
-      USERS_TABLE_NAME: ${self:custom.stage}-users
+      USERS_TABLE_NAME: ${self:provider.stage}-users
       SPOTIFY_CLIENT_ID: ${env:SPOTIFY_CLIENT_ID}
       SPOTIFY_CLIENT_SECRET: ${env:SPOTIFY_CLIENT_SECRET}
       SPOTIFY_REDIRECT_URL: ${env:SPOTIFY_REDIRECT_URL}
@@ -50,7 +50,7 @@ resources:
   - Conditions:
       CreateProdResources:
         Fn::Equals:
-          - ${opt:stage, ''}
+          - ${self:provider.stage}
           - prod
   - ${file(infrastructure/cloudfront.yml)}
   - ${file(infrastructure/beanstalk-app.yml)}
@@ -70,7 +70,7 @@ resources:
       UsersTable:
         Type: AWS::DynamoDB::Table
         Properties:
-          TableName: ${self:custom.stage}-users
+          TableName: ${self:provider.stage}-users
           AttributeDefinitions:
             - AttributeName: id
               AttributeType: S
