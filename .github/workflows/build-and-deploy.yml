@@ -41,6 +41,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
           SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+          SPOTIFY_REDIRECT_URL: https://syncify.co
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
       - name: Upload and Deploy artifacts
         env:
