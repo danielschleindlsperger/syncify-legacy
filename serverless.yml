@@ -19,7 +19,7 @@ custom:
 
 functions:
   room:
-    handler: ./src/api/handlers/room.handler
+    handler: ./src/api/modules/rooms/handler.showRoom
     name: ${self:provider.stage}-room
     events:
       - http:
@@ -30,7 +30,7 @@ functions:
               paths:
                 id: true
   authorize:
-    handler: ./src/api/handlers/authorize.handler
+    handler: ./src/api/modules/auth/handler.authorize
     name: ${self:provider.stage}-authorize
     environment:
       USERS_TABLE_NAME: ${self:provider.stage}-users
@@ -41,10 +41,6 @@ functions:
       - http:
           path: api/authorize
           method: post
-          # request:
-          #   parameters:
-          #     querystrings:
-          # code: true
 
 resources:
   - Conditions:

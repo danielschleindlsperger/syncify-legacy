@@ -1,9 +1,15 @@
 const slsw = require('serverless-webpack')
+const path = require('path')
+const webpack = require('webpack')
 
 module.exports = {
   mode: slsw.lib.webpack.isLocal ? 'development' : 'production',
   entry: slsw.lib.entries,
   target: 'node',
+  output: {
+    path: path.join(__dirname, '.webpack'),
+    filename: '[name].js',
+  },
   node: {
     __dirname: false,
   },
@@ -34,5 +40,9 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    // https://github.com/visionmedia/superagent/issues/672#issuecomment-153408805
+    new webpack.DefinePlugin({ 'global.GENTLY': false }),
+  ],
   stats: 'minimal',
 }

@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken'
 import { User } from '../../__generated__/graphql'
+import { env } from '../../utils/env'
 
-const secret = process.env.JWT_SECRET as string
+const secret = env('JWT_SECRET')
 
 type JwtUser = Pick<User, 'id'>
 
