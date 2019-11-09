@@ -15,8 +15,21 @@ export function Ok<T extends unknown>(body: T, headers: Headers = {}): APIGatewa
   }
 }
 
-export function NotFound(
-  message: string = 'Not found.',
+export const NotFound = (message: string = 'Not found.', headers: Headers = {}) =>
+  errorResponse(404, message, headers)
+
+export const ServerError = (message: string = 'Server error.', headers: Headers = {}) =>
+  errorResponse(500, message, headers)
+
+export const BadRequest = (message: string = 'Bad request.', headers: Headers = {}) =>
+  errorResponse(400, message, headers)
+
+export const Unauthorized = (message: string = 'Unauthorized.', headers: Headers = {}) =>
+  errorResponse(401, message, headers)
+
+function errorResponse(
+  statusCode: number,
+  message: string,
   headers: Headers = {},
 ): APIGatewayProxyResult {
   const body = {
@@ -25,23 +38,7 @@ export function NotFound(
 
   return {
     headers,
-    statusCode: 404,
+    statusCode,
     body: toJsonString(body),
-  }
-}
-
-export function ServerError(message: string, headers: Headers = {}): APIGatewayProxyResult {
-  return {
-    headers,
-    statusCode: 500,
-    body: message,
-  }
-}
-
-export function BadRequest(message: string, headers: Headers = {}): APIGatewayProxyResult {
-  return {
-    headers,
-    statusCode: 400,
-    body: message,
   }
 }

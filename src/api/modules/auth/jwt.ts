@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
-import { User } from '../../__generated__/graphql'
+import { APIGatewayProxyEvent } from 'aws-lambda'
 import { env } from '../../utils/env'
+import { User } from '../../../types/user'
 
 const secret = env('JWT_SECRET')
 
@@ -16,3 +17,14 @@ export const signToken = (user: JwtUser): string =>
   )
 
 export const verifyToken = (token: string) => (jwt.verify(token, secret) as any).user as JwtUser
+
+export const getRequestUser = (event: APIGatewayProxyEvent): JwtUser | undefined => {
+  const authorizationHeader = event.headers['authorization']
+  if (!authorizationHeader) return undefined
+
+  const tokenMatch = authorizationHeader.match(/Bearer (.+)/)
+
+  if (tokenMatch === null) return undefined
+
+  return verifyToken(tokenMatch[1])
+}

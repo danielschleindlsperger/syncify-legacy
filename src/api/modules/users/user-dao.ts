@@ -1,30 +1,33 @@
-import { DocumentClient } from 'aws-sdk/clients/dynamodb'
-import { DatabaseUser } from './database-user'
+import { env } from '../../utils/env'
+import { ddb } from '../../clients'
+import { User } from '../../../types/user'
 
-const stage = process.env.STAGE
+const TableName = env('USERS_TABLE_NAME')
 
-const usersTableName = `${stage}-users`
+async function save(user: User): Promise<void> {
+  await ddb
+    .put({
+      TableName,
+      Item: user,
+    })
+    .promise()
+}
 
-export const User = {
-  async save(dynamoClient: DocumentClient, user: DatabaseUser) {
-    await dynamoClient
-      .put({
-        TableName: usersTableName,
-        Item: user,
-      })
-      .promise()
-  },
-  async get(
-    dynamoClient: DocumentClient,
-    id: DatabaseUser['id'],
-  ): Promise<DatabaseUser | undefined> {
-    const { Item } = await dynamoClient
-      .get({
-        TableName: usersTableName,
-        Key: { id },
-      })
-      .promise()
+async function get(id: User['id']): Promise<User | undefined> {
+  const { Item } = await ddb
+    .get({
+      TableName,
+      Key: { id },
+    })
+    .promise()
 
-    return Item as DatabaseUser | undefined
-  },
+  return Item as User | undefined
+}
+
+/**
+ * User Data Access Object
+ */
+export const UserDao = {
+  save,
+  get,
 }

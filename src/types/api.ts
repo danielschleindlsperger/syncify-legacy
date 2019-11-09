@@ -1,3 +1,5 @@
+// All of the REST API responses to be used by server and client implementation
+
 export type ApiResponse<T> = {
   data: T
 }

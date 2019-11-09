@@ -1,17 +1,20 @@
 # Authentication
 
+[Spotify authorization code flow](https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow)
+
 ## Login Flow
 
 - Frontend redirects to Spotify OAuth login mask (`window.location = '...'`)
-- Spotify redirects to frontend with `code` (can be a special route with react route that only handles login)
-- Frontend sends `code` to API with `authorize` mutation.
+- Spotify redirects to frontend with `code` query parameter
+- Frontend sends `code` to API `/auth/trade-token` route
   - API exchanges `code` for access and refresh tokens at Spotify API
-  - API returns access token and stores both access and refresh tokens for the user
-  - API appends session cookie (maybe we can use the access token or generate our own JWT?)
-  - User can now use access token to interact with spotify direct
+  - API "upserts" user with access- and refresh token
+  - API returns access token and a jwt for app authentication
+  - User can now use access token to interact with spotify directly
+  - User can now user jwt to interact with API
 
 ## Refresh Flow
 
-- Frontend sends `authorize` mutation without `code`
+- Frontend sends POST request to `/auth/refresh` with HTTP `Authorize` header
 - API refreshes access token at Spotify with refresh token
-- API returns new acess token
+- API returns new tokens

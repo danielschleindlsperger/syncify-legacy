@@ -1,0 +1,69 @@
+/**
+ * @jest-environment node
+ */
+
+import { handler } from './refresh'
+import { signToken } from '../jwt'
+import Spotify from 'spotify-web-api-node'
+import { APIGatewayProxyResult } from 'aws-lambda'
+import { createApiGatewayEvent, mockFn } from '../../../utils/test-utils'
+import { UserDao } from '../../users'
+import { User } from '../../../../types/user'
+
+jest.mock('../../users', () => ({
+  UserDao: {
+    get: jest.fn(),
+    save: jest.fn(),
+  },
+}))
+
+jest.spyOn(Spotify.prototype, 'refreshAccessToken').mockResolvedValue({
+  body: {
+    access_token: 'access_token',
+    expires_in: 3600,
+  },
+} as any)
+
+jest.spyOn(Spotify.prototype, 'setAccessToken')
+
+const context = {} as any
+
+describe('refresh flow', () => {
+  const user = { id: 'id ' }
+  const token = signToken(user)
+
+  it('returns "401 unauthorized" when user tries to refresh non valid token', async () => {
+    const event = createApiGatewayEvent()
+    const response = (await handler(event, context, () => {})) as APIGatewayProxyResult
+    expect(response.statusCode).toBe(401)
+    expect(JSON.parse(response.body).error).toMatch(/unauthorized/i)
+  })
+
+  it('refreshes token for existing user', async () => {
+    mockFn(UserDao.get).mockResolvedValue({
+      id: 'id',
+      accessToken: 'old_access_token',
+      refreshToken: 'refresh_token',
+    } as User)
+
+    const event = createApiGatewayEvent({ headers: { authorization: `Bearer ${token}` } })
+    const response = (await handler(event, context, () => {})) as APIGatewayProxyResult
+
+    expect(response.statusCode).toBe(200)
+    expect(JSON.parse(response.body).data).toStrictEqual({
+      expires: expect.any(String),
+      bearerToken: expect.any(String),
+      spotifyAccessToken: 'access_token',
+    })
+  })
+
+  it('token is valid but user cannot be retrieved', async () => {
+    mockFn(UserDao.get).mockResolvedValue(undefined)
+
+    const event = createApiGatewayEvent({ headers: { authorization: `Bearer ${token}` } })
+    const response = (await handler(event, context, () => {})) as APIGatewayProxyResult
+
+    expect(response.statusCode).toBe(404)
+    expect(JSON.parse(response.body).error).toMatch(/could not find user in database/i)
+  })
+})

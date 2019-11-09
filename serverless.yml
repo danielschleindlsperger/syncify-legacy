@@ -19,7 +19,7 @@ custom:
 
 functions:
   room:
-    handler: ./src/api/modules/rooms/handler.showRoom
+    handler: ./src/api/modules/rooms/handlers/show.handler
     name: ${self:provider.stage}-room
     events:
       - http:
@@ -29,9 +29,9 @@ functions:
             parameters:
               paths:
                 id: true
-  authorize:
-    handler: ./src/api/modules/auth/handler.authorize
-    name: ${self:provider.stage}-authorize
+
+  authorizationTradeToken:
+    handler: ./src/api/modules/auth/handlers/trade-token.handler
     environment:
       USERS_TABLE_NAME: ${self:provider.stage}-users
       SPOTIFY_CLIENT_ID: ${env:SPOTIFY_CLIENT_ID}
@@ -39,7 +39,19 @@ functions:
       SPOTIFY_REDIRECT_URL: ${env:SPOTIFY_REDIRECT_URL}
     events:
       - http:
-          path: api/authorize
+          path: api/auth/trade-token
+          method: post
+
+  authorizationRefresh:
+    handler: ./src/api/modules/auth/handlers/refresh.handler
+    environment:
+      USERS_TABLE_NAME: ${self:provider.stage}-users
+      SPOTIFY_CLIENT_ID: ${env:SPOTIFY_CLIENT_ID}
+      SPOTIFY_CLIENT_SECRET: ${env:SPOTIFY_CLIENT_SECRET}
+      SPOTIFY_REDIRECT_URL: ${env:SPOTIFY_REDIRECT_URL}
+    events:
+      - http:
+          path: api/auth/refresh
           method: post
 
 resources:
