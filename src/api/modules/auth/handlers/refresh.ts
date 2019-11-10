@@ -35,13 +35,13 @@ export const handler: APIGatewayProxyHandler = async (event, context) => {
   await UserDAO.save(updatedUser)
 
   // return new tokens to user
-  const bearerToken = signToken({ id: user.id })
+  const expiresInMs = expires_in * 1000
 
   return Ok<AuthorizeApiResponse>({
     data: {
-      bearerToken,
+      bearerToken: signToken({ id: user.id }),
       spotifyAccessToken: access_token,
-      expires: new Date(Date.now() + expires_in).toISOString(),
+      expires: new Date(Date.now() + expiresInMs).toISOString(),
     },
   })
 }

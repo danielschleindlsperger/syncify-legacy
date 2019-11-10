@@ -46,15 +46,19 @@ describe('refresh flow', () => {
       refreshToken: 'refresh_token',
     } as User)
 
+    jest.spyOn(Date, 'now').mockReturnValue(0)
+
     const event = createApiGatewayEvent({ headers: { authorization: `Bearer ${token}` } })
     const response = (await handler(event, context, () => {})) as APIGatewayProxyResult
+    const data = JSON.parse(response.body).data
 
     expect(response.statusCode).toBe(200)
-    expect(JSON.parse(response.body).data).toStrictEqual({
+    expect(data).toStrictEqual({
       expires: expect.any(String),
       bearerToken: expect.any(String),
       spotifyAccessToken: 'access_token',
     })
+    expect(new Date(data.expires).getTime()).toBe(3600 * 1000)
   })
 
   it('token is valid but user cannot be retrieved', async () => {

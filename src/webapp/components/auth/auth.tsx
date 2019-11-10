@@ -1,17 +1,18 @@
 import React from 'react'
-import { AUTHORIZE } from './authorize-query'
-import { useMutation } from '@apollo/react-hooks'
-import { AuthorizeMutation, AuthorizationResponse } from '../../__generated__/graphql'
-import { ApolloError } from 'apollo-boost'
 import { useLocation, useHistory } from 'react-router-dom'
 import qs from 'qs'
 import { Login } from './login'
 import createPersistedState from '@plq/use-persisted-state'
+import { AuthorizeApiResponse } from '../../../types/api'
+import { useFetch } from 'react-async'
+import { config } from '../../config'
+
+type AuthData = AuthorizeApiResponse['data']
 
 type AuthContext = {
-  authData?: AuthorizationResponse
+  authData?: AuthData
   loading: boolean
-  error?: ApolloError
+  error?: Error
 }
 
 const REFRESH_INTERVAL_MS = 1000 * 60 * 20 // 20 mins
@@ -20,45 +21,62 @@ const AuthContext = React.createContext<AuthContext>({ loading: false })
 
 const [usePersistedState] = createPersistedState('syncify')
 
-export const AuthProvider: React.FC = ({ children }) => {
-  const [authorize, { data, loading, error }] = useMutation<AuthorizeMutation>(AUTHORIZE)
-  const [authData, setAuthData] = usePersistedState('authData', data && data.authorize)
+export const AuthProvider = ({ children }: { children: React.ReactElement }) => {
+  const [authData, setAuthData] = usePersistedState<AuthData | undefined>('authData', undefined)
+
+  fetch
+  const { run, data, isPending, error } = useFetch<AuthorizeApiResponse>(
+    '/api/auth/trade-token',
+    {
+      method: 'POST',
+    },
+    { json: true },
+  )
   const query = qs.parse(useLocation().search, { ignoreQueryPrefix: true })
   const history = useHistory()
 
+  // sync data to state
   React.useEffect(() => {
-    if (data) setAuthData(data.authorize)
-  }, [data, setAuthData])
+    if (data) {
+      setAuthData(data.data)
+    }
+  }, [data])
 
   // trade code for token once initially and "redirect" to old path encoded in oauth state
   React.useEffect(() => {
     // TODO: might use token in oauth state to avoid bad actors
     if (query.code) {
-      authorize({
-        variables: { code: query.code },
+      run({
+        resource: '/api/auth/trade-token',
+        body: JSON.stringify({ code: query.code }),
       })
 
       history.replace(query.state)
     }
-  }, [authorize, query, history])
+  }, [query, history, run])
 
   // re-authorize in interval
   React.useEffect(() => {
-    if (data) {
+    if (authData) {
       const intervalId = window.setInterval(() => {
-        authorize({ variables: {} })
+        run({
+          resource: '/api/auth/refresh',
+          headers: {
+            authorization: `Bearer ${authData.bearerToken}`,
+          },
+        })
       }, REFRESH_INTERVAL_MS)
 
       return () => window.clearInterval(intervalId)
     }
     return
-  }, [authorize, data])
+  }, [authData, run])
 
   return (
     <AuthContext.Provider
       value={{
         authData,
-        loading,
+        loading: isPending,
         error,
       }}
     >
@@ -67,18 +85,30 @@ export const AuthProvider: React.FC = ({ children }) => {
   )
 }
 
+// determines if the tokens `expires` date is reached with a safety margin to account for network, etc
+const isExpired = (expires: AuthData['expires']) => {
+  const safetyMarginMs = 6000
+  return new Date(expires).getTime() < Date.now() + safetyMarginMs
+}
+
+// used to protect routes
 export const Authenticated: React.FC = ({ children }) => {
-  const { loading, error, authData } = React.useContext(AuthContext)
-  const isAuthenticated = authData && Date.now() < new Date(authData.expires).getTime()
-  // TODO: set timeout to when auth expires and rerender
-  if (error) return <>Error... WHoopie </>
-  if (loading) return <>loading...</>
-  if (!isAuthenticated) return <Login />
+  const { error, authData } = React.useContext(AuthContext)
+  const isAuthenticated = authData && !isExpired(authData.expires)
+
+  if (error) {
+    return <div>Authentication error!</div>
+  }
+
+  if (!isAuthenticated) {
+    return <Login />
+  }
+
   return <>{children}</>
 }
 
 export const useSpotifyAccessToken = (): string | undefined => {
   const { authData } = React.useContext(AuthContext)
 
-  return authData && authData.accessToken
+  return authData && authData.spotifyAccessToken
 }

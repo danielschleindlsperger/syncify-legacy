@@ -39,12 +39,14 @@ describe('handler.authorize', () => {
     const event = createApiGatewayEvent({
       body: JSON.stringify({ code: 'SPOTIFY_CODE' }),
     })
+    jest.spyOn(Date, 'now').mockReturnValue(0)
     const response = (await handler(event, context, () => {})) as APIGatewayProxyResult
     const data = JSON.parse(response.body).data
 
     expect(response.statusCode).toBe(200)
     expect(data.spotifyAccessToken).toBe('access_token')
     expect(data.bearerToken).toBe('TOKEN')
+    expect(new Date(data.expires).getTime()).toBe(3600 * 1000)
 
     expect(Spotify.prototype.setAccessToken).toHaveBeenCalledWith('access_token')
     expect(UserDAO.save).toHaveBeenCalledWith({

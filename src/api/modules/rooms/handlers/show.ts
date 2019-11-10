@@ -17,3 +17,5 @@ const getPathParam = (param: string, event: APIGatewayProxyEvent): string | unde
   if (!event.pathParameters) return undefined
   return event.pathParameters[param]
 }
+
+exports.handler = handler

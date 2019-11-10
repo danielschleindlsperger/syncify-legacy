@@ -71,6 +71,8 @@ export const SpotifyPlayerProvider: React.FC = ({ children }) => {
 
         // bread and butter right here
         p.on('player_state_changed', state => {
+          console.log('spotify player state changed:')
+          console.log(state)
           setPlaybackState(state)
         })
       })

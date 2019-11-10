@@ -12,12 +12,12 @@ const BgMagenta = '\x1b[45m'
 const FgYellow = '\x1b[33m'
 
 const WEBAPP = 'http://localhost:1234'
-const GRAPHQL_API = 'http://localhost:4000/graphql'
+const API = 'http://localhost:4000/api'
 const { PORT = 8080 } = process.env
 
 const proxyRules = new HttpProxyRules({
   rules: {
-    '.*/graphql': GRAPHQL_API,
+    '.*/api': API,
   },
   default: WEBAPP,
 })
