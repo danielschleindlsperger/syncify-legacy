@@ -7,11 +7,11 @@ import { signToken } from '../jwt'
 import Spotify from 'spotify-web-api-node'
 import { APIGatewayProxyResult } from 'aws-lambda'
 import { createApiGatewayEvent, mockFn } from '../../../utils/test-utils'
-import { UserDao } from '../../users'
+import { UserDAO } from '../../users'
 import { User } from '../../../../types/user'
 
 jest.mock('../../users', () => ({
-  UserDao: {
+  UserDAO: {
     get: jest.fn(),
     save: jest.fn(),
   },
@@ -40,7 +40,7 @@ describe('refresh flow', () => {
   })
 
   it('refreshes token for existing user', async () => {
-    mockFn(UserDao.get).mockResolvedValue({
+    mockFn(UserDAO.get).mockResolvedValue({
       id: 'id',
       accessToken: 'old_access_token',
       refreshToken: 'refresh_token',
@@ -58,7 +58,7 @@ describe('refresh flow', () => {
   })
 
   it('token is valid but user cannot be retrieved', async () => {
-    mockFn(UserDao.get).mockResolvedValue(undefined)
+    mockFn(UserDAO.get).mockResolvedValue(undefined)
 
     const event = createApiGatewayEvent({ headers: { authorization: `Bearer ${token}` } })
     const response = (await handler(event, context, () => {})) as APIGatewayProxyResult

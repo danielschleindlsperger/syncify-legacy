@@ -6,12 +6,12 @@ import { handler } from './trade-token'
 import Spotify from 'spotify-web-api-node'
 import { APIGatewayProxyResult } from 'aws-lambda'
 import { createApiGatewayEvent } from '../../../utils/test-utils'
-import { UserDao } from '../../users'
+import { UserDAO } from '../../users'
 
 jest.mock('../jwt')
 
 jest.mock('../../users', () => ({
-  UserDao: {
+  UserDAO: {
     save: jest.fn(),
   },
 }))
@@ -47,7 +47,7 @@ describe('handler.authorize', () => {
     expect(data.bearerToken).toBe('TOKEN')
 
     expect(Spotify.prototype.setAccessToken).toHaveBeenCalledWith('access_token')
-    expect(UserDao.save).toHaveBeenCalledWith({
+    expect(UserDAO.save).toHaveBeenCalledWith({
       id: 'id',
       name: 'display_name',
       accessToken: 'access_token',

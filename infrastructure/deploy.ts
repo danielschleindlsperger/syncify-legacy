@@ -12,8 +12,6 @@ const s3 = new AWS.S3({
   credentials,
 })
 
-const eb = new AWS.ElasticBeanstalk({ region: 'eu-central-1', credentials })
-
 function walkSync(currentDirPath: string, callback: (filePath: string, stat: fs.Stats) => void) {
   fs.readdirSync(currentDirPath).forEach(name => {
     const filePath = path.join(currentDirPath, name)
@@ -44,50 +42,4 @@ function uploadFrontendAssets() {
   })
 }
 
-async function deployApiArtifact() {
-  const applicationName = 'syncify-api'
-  const deployEnvironment = 'prod'
-  const artifactPath = path.resolve(__dirname, '../build/artifact.zip')
-  const version = new Date()
-    .toISOString()
-    .replace('T', '-')
-    .replace(/:/g, '-')
-    .replace('Z', '')
-    .slice(0, 19)
-  const Key = `${version}.zip`
-  const Bucket = 'syncify-artifacts'
-  let params = {
-    Bucket,
-    Key,
-    Body: fs.readFileSync(artifactPath),
-  }
-  await s3.putObject(params).promise()
-
-  console.log(`Uploaded artifact ${Key}.`)
-
-  await eb
-    .createApplicationVersion({
-      ApplicationName: applicationName,
-      VersionLabel: version,
-      SourceBundle: {
-        S3Bucket: Bucket,
-        S3Key: Key,
-      },
-    })
-    .promise()
-
-  console.log(`Created Beanstalk application version for artifact ${Key}.`)
-
-  await eb
-    .updateEnvironment({
-      EnvironmentName: deployEnvironment,
-      ApplicationName: applicationName,
-      VersionLabel: version,
-    })
-    .promise()
-
-  console.log(`Succesfully deployed Beanstalk app.`)
-}
-
-// deployApiArtifact()
 uploadFrontendAssets()

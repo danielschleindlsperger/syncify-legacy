@@ -1,2 +1,1 @@
-export { resolvers } from './resolvers'
-export { default as typeDefs } from './schema.graphql'
+export { RoomDAO } from './room-dao'

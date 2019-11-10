@@ -6,11 +6,9 @@ Syncify is a synchronized listening room experience for Spotify. Think community
 
 ## Table of Contents
 
-- [REST-API Documentation](api/README.md)
-- [Frontend Documentation](frontend/README.md)
 - [Prerequisites](#prerequisites)
 - [Up and running](#up-and-running)
-- [Deployment](./documentation/deployment.md)
+- [Routes](#routes)
 
 ## Prerequisites
 
@@ -35,7 +33,6 @@ Afterwards fill in the unprovided credentials.
 ### NPM Commands
 
 ```bash
-# install all dependencies
 npm install
 
 # start all apps locally
@@ -46,3 +43,11 @@ npm t
 ```
 
 Now you can access the whole app on [localhost:8080](http://localhost:8080)
+
+## Routes
+
+| Route                   | Description                                  | Handler                                                 |
+| ----------------------- | -------------------------------------------- | ------------------------------------------------------- |
+| `/api/auth/trade-token` | Trade Spotify `code` for access tokens       | [handler](src/api/modules/auth/handlers/trade-token.ts) |
+| `/api/auth/refresh`     | Call when authorized to get refreshed tokens | [handler](src/api/modules/auth/handlers/refresh.ts)     |
+| `/api/room/{id}`        | Get data for room with id                    | [handler](src/api/modules/rooms/handlers/show.ts)       |

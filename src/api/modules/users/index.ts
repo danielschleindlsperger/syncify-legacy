@@ -1,1 +1,1 @@
-export { UserDao } from './user-dao'
+export { UserDAO } from './user-dao'

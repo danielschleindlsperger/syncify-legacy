@@ -27,7 +27,7 @@ async function get(id: User['id']): Promise<User | undefined> {
 /**
  * User Data Access Object
  */
-export const UserDao = {
+export const UserDAO = {
   save,
   get,
 }

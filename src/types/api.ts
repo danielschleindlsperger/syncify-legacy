@@ -1,3 +1,5 @@
+import { Room } from './room'
+
 // All of the REST API responses to be used by server and client implementation
 
 export type ApiResponse<T> = {
@@ -13,3 +15,5 @@ export type AuthorizeApiResponse = ApiResponse<{
   // ISO-8601 date time string
   expires: string
 }>
+
+export type RoomApiResponse = ApiResponse<Room>

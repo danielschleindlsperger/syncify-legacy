@@ -21,6 +21,8 @@ functions:
   room:
     handler: ./src/api/modules/rooms/handlers/show.handler
     name: ${self:provider.stage}-room
+    environment:
+      ROOMS_TABLE_NAME: ${self:provider.stage}-rooms
     events:
       - http:
           path: api/rooms/{id}
@@ -61,24 +63,28 @@ resources:
           - ${self:provider.stage}
           - prod
   - ${file(infrastructure/cloudfront.yml)}
-  - ${file(infrastructure/beanstalk-app.yml)}
   - Resources:
-      # DynamoDB Table: Rooms
       AssetsBucket:
         Type: AWS::S3::Bucket
         Condition: CreateProdResources
         Properties:
           BucketName: syncify-assets
           AccessControl: PublicRead
-      ArtifactsBucket:
-        Type: AWS::S3::Bucket
-        Condition: CreateProdResources
-        Properties:
-          BucketName: syncify-artifacts
       UsersTable:
         Type: AWS::DynamoDB::Table
         Properties:
           TableName: ${self:provider.stage}-users
+          AttributeDefinitions:
+            - AttributeName: id
+              AttributeType: S
+          KeySchema:
+            - AttributeName: id
+              KeyType: HASH
+          BillingMode: PAY_PER_REQUEST
+      RoomsTable:
+        Type: AWS::DynamoDB::Table
+        Properties:
+          TableName: ${self:provider.stage}-rooms
           AttributeDefinitions:
             - AttributeName: id
               AttributeType: S

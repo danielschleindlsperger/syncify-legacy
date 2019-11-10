@@ -18,6 +18,9 @@ export const signToken = (user: JwtUser): string =>
 
 export const verifyToken = (token: string) => (jwt.verify(token, secret) as any).user as JwtUser
 
+/**
+ * Call this at the start of the handler for  authenticated routes. If it returns `undefined`, the user is not authenticated
+ */
 export const getRequestUser = (event: APIGatewayProxyEvent): JwtUser | undefined => {
   const authorizationHeader = event.headers['authorization']
   if (!authorizationHeader) return undefined

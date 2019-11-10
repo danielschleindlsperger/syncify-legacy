@@ -5,7 +5,7 @@ import { env } from '../../../utils/env'
 import { User } from '../../../../types/user'
 import { AuthorizeApiResponse } from '../../../../types/api'
 import { signToken, getRequestUser } from '../jwt'
-import { UserDao } from '../../users'
+import { UserDAO } from '../../users'
 
 const spotify = new Spotify({
   clientId: env('SPOTIFY_CLIENT_ID'),
@@ -19,7 +19,7 @@ export const handler: APIGatewayProxyHandler = async (event, context) => {
   if (tokenUser === undefined) return Unauthorized()
 
   // fetch user from database
-  const user = await UserDao.get(tokenUser.id)
+  const user = await UserDAO.get(tokenUser.id)
   if (!user) return NotFound('Token was valid but could not find user in database.')
 
   // refresh credentials with spotify
@@ -32,7 +32,7 @@ export const handler: APIGatewayProxyHandler = async (event, context) => {
     accessToken: access_token,
   }
 
-  await UserDao.save(updatedUser)
+  await UserDAO.save(updatedUser)
 
   // return new tokens to user
   const bearerToken = signToken({ id: user.id })

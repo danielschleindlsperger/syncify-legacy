@@ -5,7 +5,7 @@ import { env } from '../../../utils/env'
 import { User } from '../../../../types/user'
 import { AuthorizeApiResponse } from '../../../../types/api'
 import { signToken } from '../jwt'
-import { UserDao } from '../../users'
+import { UserDAO } from '../../users'
 
 const spotify = new Spotify({
   clientId: env('SPOTIFY_CLIENT_ID'),
@@ -36,7 +36,7 @@ export const handler: APIGatewayProxyHandler = async (event, context) => {
       refreshToken: refresh_token,
     }
 
-    await UserDao.save(user)
+    await UserDAO.save(user)
 
     return Ok<AuthorizeApiResponse>({
       data: {
