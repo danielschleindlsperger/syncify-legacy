@@ -2,9 +2,9 @@ import React from 'react'
 import { Box, Text, Flex, BoxProps } from 'rebass'
 import { css } from '@emotion/core'
 
-type Playlist = import('../../__generated__/graphql').Playlist
-type Song = import('../../__generated__/graphql').Song
-type Album = import('../../__generated__/graphql').Album
+type Playlist = import('../../../types/room').Playlist
+type Song = import('../../../types/room').Song
+type Album = import('../../../types/room').Album
 
 type PlaylistSong = Pick<Song, 'id' | 'name' | 'artists'> & {
   album: Pick<Album, 'coverArt'>

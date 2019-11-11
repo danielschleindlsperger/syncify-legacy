@@ -1,7 +1,6 @@
 import React from 'react'
 import { useSpotifyAccessToken } from '../auth'
 import SpotifyWebApi from 'spotify-web-api-js'
-import { Song } from '../../__generated__/graphql'
 
 type SpotifyPlayerState = {
   ready: boolean
