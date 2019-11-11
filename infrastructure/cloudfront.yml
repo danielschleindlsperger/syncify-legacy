@@ -27,7 +27,7 @@ Resources:
               Forward: none
           ViewerProtocolPolicy: redirect-to-https
         CacheBehaviors:
-          - PathPattern: /graphql
+          - PathPattern: /api
             Compress: true
             AllowedMethods: [HEAD, DELETE, POST, GET, OPTIONS, PUT, PATCH]
             DefaultTTL: 60
@@ -35,20 +35,24 @@ Resources:
               Cookies:
                 Forward: all
               QueryString: false
-            TargetOriginId: graphql-api
+            TargetOriginId: api-gateway
             ViewerProtocolPolicy: redirect-to-https
         DefaultRootObject: index.html
         Enabled: true
         Origins:
-          - DomainName: !GetAtt AssetsBucket.DomainName
-            Id: assets-bucket
+          - Id: assets-bucket
+            DomainName: !GetAtt AssetsBucket.DomainName
             S3OriginConfig:
               # TODO: access to bucket only through cloudfront
               OriginAccessIdentity: ''
-          - DomainName: !GetAtt BeanstalkEnvironmentProd.EndpointURL
-            Id: graphql-api
+          - Id: api-gateway
+            DomainName: !Sub '${ApiGatewayRestApi}.execute-api.${AWS::Region}.amazonaws.com'
             CustomOriginConfig:
-              OriginProtocolPolicy: http-only
+              HTTPPort: '80'
+              HTTPSPort: '443'
+              OriginProtocolPolicy: https-only
+              OriginSSLProtocols: ['TLSv1', 'TLSv1.1', 'TLSv1.2']
+            OriginPath: '/dev'
         PriceClass: PriceClass_100
         ViewerCertificate:
           # Hardcoded certificate
