@@ -6,7 +6,7 @@
   "main": "",
   "scripts": {
     "codegen": "echo 'codegen'",
-    "build:api": "backpack build",
+    "build:api": "sls package --package build",
     "build:webapp": "parcel build src/webapp/index.html",
     "build:deploy": "webpack -p --config ./infrastructure/webpack.config.js",
     "build": "concurrently \"npm run build:api\" \"npm run build:webapp\" \"npm run build:deploy\" ",
@@ -19,7 +19,7 @@
     "tsc": "tsc",
     "lint": "./node_modules/.bin/eslint ./src/**/*.{ts,tsx}",
     "package-artifact": "mv node_modules build/node_modules && cd build && zip -r artifact.zip node_modules app.js app.map",
-    "deploy": "node build/deploy.js"
+    "deploy": "node build/deploy.js && sls deploy --package build"
   },
   "husky": {
     "hooks": {
