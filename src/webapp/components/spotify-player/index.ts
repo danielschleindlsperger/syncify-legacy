@@ -1,2 +1,7 @@
-export { SpotifyPlayerProvider, useSpotifyPlayer, useCurrentSong } from './spotify-player'
+export {
+  SpotifyPlayerProvider,
+  useSpotifyPlayer,
+  useCurrentSong,
+  CurrentSong,
+} from './spotify-player'
 export { Player } from './player'

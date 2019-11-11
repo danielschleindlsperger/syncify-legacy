@@ -1,52 +1,29 @@
 import React from 'react'
-import { useQuery } from '@apollo/react-hooks'
-import { gql } from 'apollo-boost'
-import { GetRoomQuery } from '../__generated__/graphql'
 import { useParams } from 'react-router'
-import { Flex, Heading, Text, Box, BaseProps, BoxProps } from 'rebass'
+import { Flex, Heading, Text, Box, BoxProps } from 'rebass'
 import { Player, useSpotifyPlayer, useCurrentSong } from '../components/spotify-player'
 import { Playlist } from '../components/playlist'
+import { useFetch, FetchError } from 'react-async'
+import { RoomApiResponse } from '../../types/api'
+import { useAuthHeader } from '../components/auth'
+import { CurrentSong } from '../components/spotify-player'
 
-type Room = import('../__generated__/graphql').Room
+type Room = import('../../types/room').Room
 
-const GET_ROOM = gql`
-  query getRoom($id: ID!) {
-    room(id: $id) {
-      id
-      name
-      description
-      playlist {
-        playbackStatus
-        currentIndex
-        currentTimeMs
-        playbackStatus
-        songs {
-          id
-          name
-          artists {
-            id
-            name
-          }
-          album {
-            coverArt
-          }
-        }
-      }
-    }
-  }
-`
-
-const RoomDoesNotExist = () => <div>Room does not exist :(</div>
+const RoomNotFound = () => <div>Room does not exist :(</div>
 
 const toUri = (spotifyId: string) => `spotify:track:${spotifyId}`
 
 export const Room = () => {
   const { id } = useParams()
-  const { loading, error, data } = useQuery<GetRoomQuery>(GET_ROOM, {
-    variables: { id },
-  })
   const { ready, playbackState, play, error: spotifyError } = useSpotifyPlayer()
   const { currentSong } = useCurrentSong()
+  const authHeader = useAuthHeader()
+  const { data, isPending, error } = useFetch<RoomApiResponse>(`/api/rooms/${id}`, {
+    headers: { Accept: 'application/json', ...authHeader },
+  })
+
+  useRoomNameAsDocumentTitle(data && data.data, currentSong)
 
   React.useEffect(() => {
     if (spotifyError) {
@@ -54,21 +31,11 @@ export const Room = () => {
     }
   }, [spotifyError])
 
-  // sync song title and room name to document title
-  React.useEffect(() => {
-    const roomName = data && data.room && data.room.name
-    const title = [
-      'Syncify',
-      currentSong && `- ${currentSong.name}`,
-      roomName && `- ${roomName}`,
-    ].join(' ')
-
-    document.title = title
-  }, [data, currentSong])
+  const notFound = error && error instanceof FetchError && error.response.status === 404
 
   React.useEffect(() => {
     if (ready === true && data !== undefined) {
-      const playlist = data.room && data.room.playlist
+      const playlist = data.data.playlist
       if (playlist) {
         const { currentIndex, songs, currentTimeMs } = playlist
         const remainingSongs = songs.slice(currentIndex)
@@ -77,12 +44,12 @@ export const Room = () => {
     }
   }, [ready, data, play])
 
-  if (loading) return <div>Loading...</div>
-  if (error) return <div>Error! {error}</div>
+  if (isPending) return <div>Loading...</div>
+  if (notFound) return <RoomNotFound />
+  if (error) return <div>Something went wrong :/</div>
 
-  if (!data || !data.room) return <RoomDoesNotExist />
-
-  const room = data.room
+  // we already know data is defined
+  const room = data!.data
 
   return (
     <Flex minHeight="100vh" flexDirection="column">
@@ -126,3 +93,20 @@ const RoomHeader = ({ name, description, ...props }: RoomHeaderProps) => (
     {description && <Text fontSize={4}>{description}</Text>}
   </Box>
 )
+
+const useRoomNameAsDocumentTitle = (
+  room: Room | undefined,
+  currentSong: CurrentSong | undefined,
+) => {
+  // sync song title and room name to document title
+  React.useEffect(() => {
+    const roomName = room && room.name
+    const title = [
+      'Syncify',
+      currentSong && `- ${currentSong.name}`,
+      roomName && `- ${roomName}`,
+    ].join(' ')
+
+    document.title = title
+  }, [room, currentSong])
+}

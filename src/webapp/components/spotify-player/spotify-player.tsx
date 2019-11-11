@@ -98,7 +98,7 @@ export const useSpotifyPlayer = (): SpotifyPlayerState => {
   return React.useContext(SpotifyPlayerContext)
 }
 
-type CurrentSong = Spotify.Track & Pick<Spotify.PlaybackState, 'duration' | 'position'>
+export type CurrentSong = Spotify.Track & Pick<Spotify.PlaybackState, 'duration' | 'position'>
 
 export const useCurrentSong = (): { currentSong: CurrentSong | undefined } => {
   const { playbackState } = useSpotifyPlayer()

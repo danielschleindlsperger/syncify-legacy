@@ -1,1 +1,1 @@
-export { AuthProvider, Authenticated, useSpotifyAccessToken } from './auth'
+export { AuthProvider, Authenticated, useSpotifyAccessToken, useAuthHeader } from './auth'

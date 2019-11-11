@@ -112,3 +112,13 @@ export const useSpotifyAccessToken = (): string | undefined => {
 
   return authData && authData.spotifyAccessToken
 }
+
+export const useAuthHeader = (): { authorization: string } | undefined => {
+  const { authData } = React.useContext(AuthContext)
+
+  return (
+    authData && {
+      authorization: `Bearer ${authData.bearerToken}`,
+    }
+  )
+}

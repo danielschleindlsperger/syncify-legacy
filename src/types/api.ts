@@ -2,7 +2,7 @@ import { Room } from './room'
 
 // All of the REST API responses to be used by server and client implementation
 
-export type ApiResponse<T> = {
+export type ApiResponse<T = any> = {
   data: T
 }
 
