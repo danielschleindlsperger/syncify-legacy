@@ -46,7 +46,15 @@ Resources:
               # TODO: access to bucket only through cloudfront
               OriginAccessIdentity: ''
           - Id: api-gateway
-            DomainName: !Sub '${ApiGatewayRestApi}.execute-api.${AWS::Region}.amazonaws.com'
+            DomainName:
+              !Join [
+                '',
+                [
+                  { 'Ref': 'ApiGatewayRestApi' },
+                  '.execute-api.${self:provider.region}.amazonaws.com',
+                ],
+              ]
+            # '.execute-api.${self:provider.region}.amazonaws.com/${self:custom.stage}',
             CustomOriginConfig:
               HTTPPort: '80'
               HTTPSPort: '443'
