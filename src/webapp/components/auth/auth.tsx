@@ -5,7 +5,6 @@ import { Login } from './login'
 import createPersistedState from '@plq/use-persisted-state'
 import { AuthorizeApiResponse } from '../../../types/api'
 import { useFetch } from 'react-async'
-import { config } from '../../config'
 
 type AuthData = AuthorizeApiResponse['data']
 
@@ -40,7 +39,7 @@ export const AuthProvider = ({ children }: { children: React.ReactElement }) => 
     if (data) {
       setAuthData(data.data)
     }
-  }, [data])
+  }, [data, setAuthData])
 
   // trade code for token once initially and "redirect" to old path encoded in oauth state
   React.useEffect(() => {

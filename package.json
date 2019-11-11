@@ -17,7 +17,7 @@
     "build-storybook": "build-storybook --quiet",
     "test": "jest",
     "tsc": "tsc",
-    "lint": "eslint src/**/*.{ts,tsx}",
+    "lint": "./node_modules/.bin/eslint ./src/**/*.{ts,tsx}",
     "package-artifact": "mv node_modules build/node_modules && cd build && zip -r artifact.zip node_modules app.js app.map",
     "deploy": "node build/deploy.js"
   },
