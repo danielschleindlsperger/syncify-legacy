@@ -40,6 +40,7 @@ module.exports = {
       },
     ],
   },
+  externals: slsw.lib.webpack.isLocal ? undefined : /aws-sdk/,
   plugins: [
     // https://github.com/visionmedia/superagent/issues/672#issuecomment-153408805
     new webpack.DefinePlugin({ 'global.GENTLY': false }),
