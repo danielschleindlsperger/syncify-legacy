@@ -27,6 +27,8 @@ jobs:
         run: npm run lint
       - name: Build artifacts
         run: npm run build
+        env:
+          APP_URL: https://syncify.co
       - name: Update infrastructure
         run: serverless deploy --stage prod
         env:

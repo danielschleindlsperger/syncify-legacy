@@ -17,7 +17,7 @@ export const Login = () => {
       response_type: 'code',
       client_id,
       scope,
-      redirect_uri: config.baseUrl,
+      redirect_uri: config.appUrl,
       state: pathname,
     })
 

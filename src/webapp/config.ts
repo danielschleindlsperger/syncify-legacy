@@ -1,3 +1,3 @@
 export const config = {
-  baseUrl: process.env.API_URL,
+  appUrl: process.env.APP_URL,
 }
