@@ -39,6 +39,7 @@ functions:
       SPOTIFY_CLIENT_ID: ${env:SPOTIFY_CLIENT_ID}
       SPOTIFY_CLIENT_SECRET: ${env:SPOTIFY_CLIENT_SECRET}
       SPOTIFY_REDIRECT_URL: ${env:SPOTIFY_REDIRECT_URL}
+      JWT_SECRET: ${env:JWT_SECRET}
     events:
       - http:
           path: api/auth/trade-token
@@ -51,6 +52,7 @@ functions:
       SPOTIFY_CLIENT_ID: ${env:SPOTIFY_CLIENT_ID}
       SPOTIFY_CLIENT_SECRET: ${env:SPOTIFY_CLIENT_SECRET}
       SPOTIFY_REDIRECT_URL: ${env:SPOTIFY_REDIRECT_URL}
+      JWT_SECRET: ${env:JWT_SECRET}
     events:
       - http:
           path: api/auth/refresh
