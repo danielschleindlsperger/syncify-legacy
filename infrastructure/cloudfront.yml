@@ -54,13 +54,12 @@ Resources:
                   '.execute-api.${self:provider.region}.amazonaws.com',
                 ],
               ]
-            # '.execute-api.${self:provider.region}.amazonaws.com/${self:custom.stage}',
+            OriginPath: ${self:provider.stage}
             CustomOriginConfig:
               HTTPPort: '80'
               HTTPSPort: '443'
               OriginProtocolPolicy: https-only
               OriginSSLProtocols: ['TLSv1', 'TLSv1.1', 'TLSv1.2']
-            OriginPath: '/dev'
         PriceClass: PriceClass_100
         ViewerCertificate:
           # Hardcoded certificate
