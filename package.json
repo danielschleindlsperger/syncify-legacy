@@ -8,8 +8,7 @@
     "codegen": "echo 'codegen'",
     "build:api": "sls package --package build",
     "build:webapp": "parcel build src/webapp/index.html",
-    "build:deploy": "webpack -p --config ./infrastructure/webpack.config.js",
-    "build": "concurrently \"npm run build:api\" \"npm run build:webapp\" \"npm run build:deploy\" ",
+    "build": "concurrently \"npm run build:api\" \"npm run build:webapp\" ",
     "start:api": "sls offline --port 4000",
     "start:webapp": "parcel src/webapp/index.html",
     "start": "node ./dev/start.js",
@@ -19,7 +18,7 @@
     "tsc": "tsc",
     "lint": "./node_modules/.bin/eslint ./src/**/*.{ts,tsx}",
     "package-artifact": "mv node_modules build/node_modules && cd build && zip -r artifact.zip node_modules app.js app.map",
-    "deploy": "node build/deploy.js && sls deploy --package build"
+    "deploy": "ts-node ./infrastructure/deploy.ts && sls deploy --package build"
   },
   "husky": {
     "hooks": {
@@ -70,7 +69,6 @@
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
     "babel-types": "^6.26.0",
-    "backpack-core": "^0.8.4",
     "concurrently": "^5.0.0",
     "dotenv": "^8.2.0",
     "eslint": "^6.6.0",
@@ -87,10 +85,7 @@
     "serverless-dotenv-plugin": "^2.1.1",
     "serverless-offline": "^5.12.0",
     "serverless-webpack": "^5.3.1",
-    "typescript": "^3.7.2",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10",
-    "webpack-dotenv-plugin": "^2.1.0"
+    "typescript": "^3.7.2"
   },
   "dependencies": {
     "@emotion/core": "^10.0.21",
