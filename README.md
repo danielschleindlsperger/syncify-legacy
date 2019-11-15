@@ -24,6 +24,7 @@ For a development environment copy the provided `.env.example` file once for you
 mv .env.example .env
 mv .env.example .env.test
 
+
 ```
 
 Afterwards fill in the unprovided credentials.
