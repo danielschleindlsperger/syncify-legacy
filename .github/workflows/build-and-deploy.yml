@@ -30,7 +30,7 @@ jobs:
         env:
           APP_URL: https://syncify.co
       - name: Update infrastructure
-        run: serverless deploy --stage prod
+        run: serverless deploy --force --stage prod
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
