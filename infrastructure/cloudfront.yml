@@ -54,7 +54,7 @@ Resources:
                   '.execute-api.${self:provider.region}.amazonaws.com',
                 ],
               ]
-            OriginPath: ${self:provider.stage}
+            OriginPath: /${self:provider.stage}
             CustomOriginConfig:
               HTTPPort: '80'
               HTTPSPort: '443'
