@@ -52,3 +52,12 @@ Now you can access the whole app on [localhost:8080](http://localhost:8080)
 | `/api/auth/trade-token` | Trade Spotify `code` for access tokens       | [handler](src/api/modules/auth/handlers/trade-token.ts) |
 | `/api/auth/refresh`     | Call when authorized to get refreshed tokens | [handler](src/api/modules/auth/handlers/refresh.ts)     |
 | `/api/room/{id}`        | Get data for room with id                    | [handler](src/api/modules/rooms/handlers/show.ts)       |
+
+## Infrastructure as Code
+
+```bash
+sls create_domain # custom api gateway domain
+
+sls deploy # lambdas, cloudfront, databases
+
+```

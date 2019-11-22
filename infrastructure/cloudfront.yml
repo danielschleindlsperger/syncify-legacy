@@ -4,18 +4,8 @@ Resources:
     Condition: CreateProdResources
     Properties:
       DistributionConfig:
-        Aliases: [syncify.co]
+        Aliases: [syncify.xyz]
         Comment: Syncify CDN and reverse proxy
-        CustomErrorResponses:
-          # redirect 404 and 403 responses from s3 to single page app
-          - ErrorCachingMinTTL: 60
-            ErrorCode: 403
-            ResponseCode: 200
-            ResponsePagePath: /index.html
-          - ErrorCachingMinTTL: 60
-            ErrorCode: 404
-            ResponseCode: 200
-            ResponsePagePath: /index.html
         DefaultCacheBehavior:
           Compress: true
           AllowedMethods: [GET, HEAD]
@@ -26,17 +16,6 @@ Resources:
             Cookies:
               Forward: none
           ViewerProtocolPolicy: redirect-to-https
-        CacheBehaviors:
-          - PathPattern: /api
-            Compress: true
-            AllowedMethods: [HEAD, DELETE, POST, GET, OPTIONS, PUT, PATCH]
-            DefaultTTL: 60
-            ForwardedValues:
-              Cookies:
-                Forward: all
-              QueryString: false
-            TargetOriginId: api-gateway
-            ViewerProtocolPolicy: redirect-to-https
         DefaultRootObject: index.html
         Enabled: true
         Origins:
@@ -45,24 +24,9 @@ Resources:
             S3OriginConfig:
               # TODO: access to bucket only through cloudfront
               OriginAccessIdentity: ''
-          - Id: api-gateway
-            DomainName:
-              !Join [
-                '',
-                [
-                  { 'Ref': 'ApiGatewayRestApi' },
-                  '.execute-api.${self:provider.region}.amazonaws.com',
-                ],
-              ]
-            OriginPath: /${self:provider.stage}
-            CustomOriginConfig:
-              HTTPPort: '80'
-              HTTPSPort: '443'
-              OriginProtocolPolicy: https-only
-              OriginSSLProtocols: ['TLSv1', 'TLSv1.1', 'TLSv1.2']
         PriceClass: PriceClass_100
         ViewerCertificate:
           # Hardcoded certificate
-          AcmCertificateArn: arn:aws:acm:us-east-1:394586955256:certificate/a34d2c76-3c76-448c-9b1c-ee924e509240
+          AcmCertificateArn: arn:aws:acm:us-east-1:394586955256:certificate/59854e5b-0ee7-4867-9024-81e02442f612
           MinimumProtocolVersion: TLSv1.1_2016
           SslSupportMethod: sni-only
