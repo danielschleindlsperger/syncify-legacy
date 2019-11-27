@@ -5,7 +5,6 @@
   "author": "Daniel Schleindlsperger <daniel@schleindlsperger.de>",
   "main": "",
   "scripts": {
-    "codegen": "echo 'codegen'",
     "build:api": "sls package --package build",
     "build:webapp": "parcel build src/webapp/index.html",
     "build": "concurrently \"npm run build:api\" \"npm run build:webapp\" ",
