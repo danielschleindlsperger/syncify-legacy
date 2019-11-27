@@ -5,6 +5,7 @@ import { Login } from './login'
 import createPersistedState from '@plq/use-persisted-state'
 import { AuthorizeApiResponse } from '../../../types/api'
 import { useFetch } from 'react-async'
+import { config } from '../../config'
 
 type AuthData = AuthorizeApiResponse['data']
 
@@ -25,7 +26,7 @@ export const AuthProvider = ({ children }: { children: React.ReactElement }) => 
 
   fetch
   const { run, data, isPending, error } = useFetch<AuthorizeApiResponse>(
-    '/api/auth/trade-token',
+    `${config.apiUrl}/api/auth/trade-token`,
     {
       method: 'POST',
     },
@@ -46,7 +47,7 @@ export const AuthProvider = ({ children }: { children: React.ReactElement }) => 
     // TODO: might use token in oauth state to avoid bad actors
     if (query.code) {
       run({
-        resource: '/api/auth/trade-token',
+        resource: `${config.apiUrl}/api/auth/trade-token`,
         body: JSON.stringify({ code: query.code }),
       })
 
@@ -59,7 +60,7 @@ export const AuthProvider = ({ children }: { children: React.ReactElement }) => 
     if (authData) {
       const intervalId = window.setInterval(() => {
         run({
-          resource: '/api/auth/refresh',
+          resource: `${config.apiUrl}/api/auth/refresh`,
           headers: {
             authorization: `Bearer ${authData.bearerToken}`,
           },

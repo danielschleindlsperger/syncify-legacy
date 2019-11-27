@@ -7,6 +7,7 @@ import { useFetch, FetchError } from 'react-async'
 import { RoomApiResponse } from '../../types/api'
 import { useAuthHeader } from '../components/auth'
 import { CurrentSong } from '../components/spotify-player'
+import { config } from '../config'
 
 type Room = import('../../types/room').Room
 
@@ -19,7 +20,7 @@ export const Room = () => {
   const { ready, playbackState, play, error: spotifyError } = useSpotifyPlayer()
   const { currentSong } = useCurrentSong()
   const authHeader = useAuthHeader()
-  const { data, isPending, error } = useFetch<RoomApiResponse>(`/api/rooms/${id}`, {
+  const { data, isPending, error } = useFetch<RoomApiResponse>(`${config.apiUrl}/api/rooms/${id}`, {
     headers: { Accept: 'application/json', ...authHeader },
   })
 

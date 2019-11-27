@@ -6,12 +6,13 @@ provider:
   stage: ${opt:stage, 'dev'}
   environment:
     JWT_SECRET: ${env:JWT_SECRET}
+    USERS_TABLE_NAME: ${self:provider.stage}-users
     SPOTIFY_CLIENT_ID: ${env:SPOTIFY_CLIENT_ID}
     SPOTIFY_CLIENT_SECRET: ${env:SPOTIFY_CLIENT_SECRET}
     SPOTIFY_REDIRECT_URL: ${env:SPOTIFY_REDIRECT_URL}
 plugins:
   - serverless-domain-manager
-  # - serverless-dotenv-plugin
+  - serverless-dotenv-plugin
   - serverless-webpack
   - serverless-offline
 
@@ -21,6 +22,9 @@ package:
 custom:
   # 'dev' locally, 'prod' when deployed with `serverless --stage prod`
   stage: ${opt:stage, 'dev'}
+  dotenv:
+    include:
+      [JWT_SECRET, APP_URL, API_URL, SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_REDIRECT_URL]
   customDomain:
     domainName: api.syncify.xyz
     stage: prod
@@ -42,15 +46,11 @@ functions:
 
   authorizationTradeToken:
     handler: ./src/api/modules/auth/handlers/trade-token.handler
-    environment:
-      JWT_SECRET: ${env:JWT_SECRET}
     events:
       - http: { path: api/auth/trade-token, method: post }
 
   authorizationRefresh:
     handler: ./src/api/modules/auth/handlers/refresh.handler
-    environment:
-      USERS_TABLE_NAME: ${self:provider.stage}-users
     events:
       - http: { path: api/auth/refresh, method: post }
 

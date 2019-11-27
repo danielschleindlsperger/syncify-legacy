@@ -11,7 +11,7 @@
     "build": "concurrently \"npm run build:api\" \"npm run build:webapp\" ",
     "start:api": "sls offline --port 4000",
     "start:webapp": "parcel src/webapp/index.html",
-    "start": "node ./dev/start.js",
+    "start": "concurrently 'npm run start:api' 'npm run start:webapp'",
     "storybook": "start-storybook --quiet --ci -p 6006",
     "build-storybook": "build-storybook --quiet",
     "test": "jest",
