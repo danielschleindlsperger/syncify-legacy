@@ -35,6 +35,7 @@ custom:
 
 functions:
   room:
+    name: ${self:provider.stage}-room-index
     handler: ./src/api/modules/rooms/handlers/show.handler
     environment:
       ROOMS_TABLE_NAME: ${self:provider.stage}-rooms
@@ -45,11 +46,13 @@ functions:
           request: { parameters: { paths: { id: true } } }
 
   authorizationTradeToken:
+    name: ${self:provider.stage}-auth-trade-token
     handler: ./src/api/modules/auth/handlers/trade-token.handler
     events:
       - http: { path: /auth/trade-token, method: post }
 
   authorizationRefresh:
+    name: ${self:provider.stage}-auth-refresh
     handler: ./src/api/modules/auth/handlers/refresh.handler
     events:
       - http: { path: /auth/refresh, method: post }
