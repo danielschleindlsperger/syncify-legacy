@@ -1,7 +1,7 @@
 service: syncify
 provider:
   name: aws
-  runtime: nodejs10.x
+  runtime: nodejs12.x
   region: eu-central-1
   stage: ${opt:stage, 'dev'}
   environment:
