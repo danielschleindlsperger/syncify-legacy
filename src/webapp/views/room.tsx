@@ -20,7 +20,7 @@ export const Room = () => {
   const { ready, playbackState, play, error: spotifyError } = useSpotifyPlayer()
   const { currentSong } = useCurrentSong()
   const authHeader = useAuthHeader()
-  const { data, isPending, error } = useFetch<RoomApiResponse>(`${config.apiUrl}/api/rooms/${id}`, {
+  const { data, isPending, error } = useFetch<RoomApiResponse>(`${config.apiUrl}/rooms/${id}`, {
     headers: { Accept: 'application/json', ...authHeader },
   })
 

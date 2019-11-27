@@ -40,19 +40,19 @@ functions:
       ROOMS_TABLE_NAME: ${self:provider.stage}-rooms
     events:
       - http:
-          path: api/rooms/{id}
+          path: /rooms/{id}
           method: get
           request: { parameters: { paths: { id: true } } }
 
   authorizationTradeToken:
     handler: ./src/api/modules/auth/handlers/trade-token.handler
     events:
-      - http: { path: api/auth/trade-token, method: post }
+      - http: { path: /auth/trade-token, method: post }
 
   authorizationRefresh:
     handler: ./src/api/modules/auth/handlers/refresh.handler
     events:
-      - http: { path: api/auth/refresh, method: post }
+      - http: { path: /auth/refresh, method: post }
 
 resources:
   - Conditions:

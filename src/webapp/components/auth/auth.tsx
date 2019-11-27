@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }: { children: React.ReactElement }) => 
 
   fetch
   const { run, data, isPending, error } = useFetch<AuthorizeApiResponse>(
-    `${config.apiUrl}/api/auth/trade-token`,
+    `${config.apiUrl}/auth/trade-token`,
     {
       method: 'POST',
     },
@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }: { children: React.ReactElement }) => 
     // TODO: might use token in oauth state to avoid bad actors
     if (query.code) {
       run({
-        resource: `${config.apiUrl}/api/auth/trade-token`,
+        resource: `${config.apiUrl}/auth/trade-token`,
         body: JSON.stringify({ code: query.code }),
       })
 
@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }: { children: React.ReactElement }) => 
     if (authData) {
       const intervalId = window.setInterval(() => {
         run({
-          resource: `${config.apiUrl}/api/auth/refresh`,
+          resource: `${config.apiUrl}/auth/refresh`,
           headers: {
             authorization: `Bearer ${authData.bearerToken}`,
           },
