@@ -27,6 +27,7 @@ jobs:
         run: npm run build
         env:
           APP_URL: https://syncify.xyz
+          API_URL: https://api.syncify.xyz
       - name: Update infrastructure
         run: serverless deploy --force --stage prod
         env:
