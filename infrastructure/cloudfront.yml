@@ -25,6 +25,10 @@ Resources:
               # TODO: access to bucket only through cloudfront
               OriginAccessIdentity: ''
         PriceClass: PriceClass_100
+        CustomErrorResponses:
+          - ErrorCode: 404
+            ResponseCode: 200
+            ResponsePagePath: index.html
         ViewerCertificate:
           # Hardcoded certificate
           AcmCertificateArn: arn:aws:acm:us-east-1:394586955256:certificate/59854e5b-0ee7-4867-9024-81e02442f612
