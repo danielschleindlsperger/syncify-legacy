@@ -4,7 +4,7 @@ Resources:
     Condition: CreateProdResources
     Properties:
       DistributionConfig:
-        Aliases: [syncify.xyz]
+        Aliases: [syncify.co]
         Comment: Syncify CDN and reverse proxy
         DefaultCacheBehavior:
           Compress: true
@@ -31,6 +31,6 @@ Resources:
             ResponsePagePath: index.html
         ViewerCertificate:
           # Hardcoded certificate
-          AcmCertificateArn: arn:aws:acm:us-east-1:394586955256:certificate/59854e5b-0ee7-4867-9024-81e02442f612
+          AcmCertificateArn: arn:aws:acm:us-east-1:394586955256:certificate/a34d2c76-3c76-448c-9b1c-ee924e509240
           MinimumProtocolVersion: TLSv1.1_2016
           SslSupportMethod: sni-only

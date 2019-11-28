@@ -26,9 +26,9 @@ custom:
     include:
       [JWT_SECRET, APP_URL, API_URL, SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_REDIRECT_URL]
   customDomain:
-    domainName: api.syncify.xyz
+    domainName: api.syncify.co
     stage: prod
-    certificateName: api.syncify.xyz
+    certificateName: api.syncify.co
     createRoute53Record: true
     endpointType: edge
     securityPolicy: tls_1_2

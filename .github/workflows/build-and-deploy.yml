@@ -26,8 +26,8 @@ jobs:
       - name: Build artifacts
         run: npm run build
         env:
-          APP_URL: https://syncify.xyz
-          API_URL: https://api.syncify.xyz
+          APP_URL: https://syncify.co
+          API_URL: https://api.syncify.co
       - name: Update infrastructure
         run: serverless deploy --force --stage prod
         env:
@@ -35,7 +35,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
           SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
-          SPOTIFY_REDIRECT_URL: https://syncify.xyz
+          SPOTIFY_REDIRECT_URL: https://syncify.co
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
       - name: Upload and Deploy artifacts
         env:
