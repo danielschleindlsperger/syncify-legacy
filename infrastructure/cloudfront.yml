@@ -28,7 +28,7 @@ Resources:
         CustomErrorResponses:
           - ErrorCode: 404
             ResponseCode: 200
-            ResponsePagePath: index.html
+            ResponsePagePath: /index.html
         ViewerCertificate:
           # Hardcoded certificate
           AcmCertificateArn: arn:aws:acm:us-east-1:394586955256:certificate/a34d2c76-3c76-448c-9b1c-ee924e509240
