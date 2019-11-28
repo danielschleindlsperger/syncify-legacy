@@ -34,3 +34,13 @@ Resources:
           AcmCertificateArn: arn:aws:acm:us-east-1:394586955256:certificate/a34d2c76-3c76-448c-9b1c-ee924e509240
           MinimumProtocolVersion: TLSv1.1_2016
           SslSupportMethod: sni-only
+  WebappDns:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      Type: A
+      Name: syncify.co.
+      HostedZoneName: syncify.co.
+      AliasTarget:
+        DNSName: !GetAtt Cloudfront.DomainName
+        # `Z2FDTNDATAQYW2` is AWS magic constant that is the same for all cloudfront recordsets
+        HostedZoneId: Z2FDTNDATAQYW2
